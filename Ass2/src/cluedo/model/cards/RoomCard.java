@@ -2,7 +2,7 @@ package cluedo.model.cards;
 
 import cluedo.model.Player;
 import cluedo.model.gameObjects.GameObject;
-import cluedo.model.gameObjects.Location;
+import cluedo.model.gameObjects.Room;
 
 /**
  * Class that represents a room card in the game.
@@ -13,9 +13,9 @@ import cluedo.model.gameObjects.Location;
 public class RoomCard implements Card {
 
 	// Room that the card is associated with
-	private Location m_room;
+	private Room m_room;
 
-	public RoomCard(Location room) {
+	public RoomCard(Room room) {
 		this.m_room = room;
 	}
 

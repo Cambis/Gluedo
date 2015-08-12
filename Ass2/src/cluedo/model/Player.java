@@ -1,13 +1,12 @@
 package cluedo.model;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Set;
 
 import cluedo.model.cards.Card;
-import cluedo.model.gameObjects.CluedoCharacter;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
-import cluedo.model.gameObjects.Location.Room;
-import cluedo.model.gameObjects.Weapon;
 
 /**
  * Class that represents the player
@@ -15,7 +14,7 @@ import cluedo.model.gameObjects.Weapon;
  * @author Cameron Bryers, Hannah Craighead.
  *
  */
-public class Player {
+public class Player implements KeyListener{
 
 	// Cards in the players hand
 	private Set<Card> hand;
@@ -89,6 +88,24 @@ public class Player {
 
 	public final Set<Card> getHand() {
 		return hand;
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		// Use for entering name and what not
 	}
 
 }

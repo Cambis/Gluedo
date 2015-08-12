@@ -7,7 +7,7 @@ import cluedo.model.Player;
 import cluedo.model.board.RoomSquare;
 import cluedo.model.board.Square;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 import cluedo.model.gameObjects.Weapon;
 import cluedo.model.gameObjects.Weapon.WeaponType;
 
@@ -22,7 +22,7 @@ public class SuggestCommand implements Command {
 
 	// Things involved in the murder.
 	private Suspect suspect;
-	private Room room;
+	private RoomType room;
 	private WeaponType weapon;
 
 	public SuggestCommand(Game game, Scanner scan) {
@@ -33,7 +33,7 @@ public class SuggestCommand implements Command {
 		assert sq instanceof RoomSquare;
 
 		// Set the room if it is not the swimming pool
-		if (!((RoomSquare) sq).getRoom().equals(Room.SWIMMING_POOL))
+		if (!((RoomSquare) sq).getRoom().equals(RoomType.SWIMMING_POOL))
 			room = ((RoomSquare) sq).getRoom();
 
 		// Ask for suspect
@@ -91,7 +91,7 @@ public class SuggestCommand implements Command {
 		weapon = WeaponType.values()[command];
 	}
 
-	public void setRoom(Room room) {
+	public void setRoom(RoomType room) {
 		this.room = room;
 	}
 
@@ -104,7 +104,7 @@ public class SuggestCommand implements Command {
 		return suspect;
 	}
 
-	public final Room getRoom() {
+	public final RoomType getRoom() {
 		return room;
 	}
 

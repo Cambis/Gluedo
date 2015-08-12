@@ -3,7 +3,7 @@ package cluedo.model.commands;
 import java.util.Scanner;
 
 import cluedo.model.Game;
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 
 /**
  * Represents an accusation, same as the SuggestCommand class but it asks the
@@ -21,7 +21,7 @@ public class AccuseCommand extends SuggestCommand {
 		System.out.println("*** Please enter a room ***");
 
 		for (int i = 0; i < 9; i++) {
-			Room r = Room.values()[i];
+			RoomType r = RoomType.values()[i];
 			System.out.println(r.toString() + " (" + r.getValue() + ") ");
 		}
 
@@ -44,6 +44,6 @@ public class AccuseCommand extends SuggestCommand {
 		}
 		
 		//Sets given room for accuseCommand
-		this.setRoom(Room.values()[command]);
+		this.setRoom(RoomType.values()[command]);
 	}
 }

@@ -15,7 +15,7 @@ import java.util.Set;
 
 import cluedo.model.Game;
 import cluedo.model.Player;
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
 /**
@@ -43,9 +43,9 @@ public class Board {
 
 	private int x_size;
 	private int y_size;
-	private Map<Character, Room> places;
+	private Map<Character, RoomType> places;
 	private int character;
-	private Map<Room, Room> passages;
+	private Map<RoomType, RoomType> passages;
 
 	public Board(String fileName) {
 		try {
@@ -63,25 +63,25 @@ public class Board {
 	}
 
 	private void setUpMap() {
-		places = new HashMap<Character, Room>();
-		places.put('k', Room.KITCHEN);
-		places.put('b', Room.BALL_ROOM);
-		places.put('B', Room.BILLIARD_ROOM);
-		places.put('D', Room.DINING_ROOM);
-		places.put('l', Room.LIBRARY);
-		places.put('H', Room.HALL);
-		places.put('L', Room.LOUNGE);
-		places.put('S', Room.STUDY);
-		places.put('C', Room.CONSERVATORY);
-		places.put('x', Room.SWIMMING_POOL);
+		places = new HashMap<Character, RoomType>();
+		places.put('k', RoomType.KITCHEN);
+		places.put('b', RoomType.BALL_ROOM);
+		places.put('B', RoomType.BILLIARD_ROOM);
+		places.put('D', RoomType.DINING_ROOM);
+		places.put('l', RoomType.LIBRARY);
+		places.put('H', RoomType.HALL);
+		places.put('L', RoomType.LOUNGE);
+		places.put('S', RoomType.STUDY);
+		places.put('C', RoomType.CONSERVATORY);
+		places.put('x', RoomType.SWIMMING_POOL);
 	}
 
 	private void setUpPassage() {
-		passages = new HashMap<Room, Room>();
-		passages.put(Room.STUDY, Room.KITCHEN);
-		passages.put(Room.KITCHEN, Room.STUDY);
-		passages.put(Room.LOUNGE, Room.CONSERVATORY);
-		passages.put(Room.CONSERVATORY, Room.LOUNGE);
+		passages = new HashMap<RoomType, RoomType>();
+		passages.put(RoomType.STUDY, RoomType.KITCHEN);
+		passages.put(RoomType.KITCHEN, RoomType.STUDY);
+		passages.put(RoomType.LOUNGE, RoomType.CONSERVATORY);
+		passages.put(RoomType.CONSERVATORY, RoomType.LOUNGE);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class Board {
 				
 				// Generates new secret passageway	
 				case 'p':
-					Room r = findRoom(i, j, s);
+					RoomType r = findRoom(i, j, s);
 					PassageWaySquare pws = new PassageWaySquare(i, j, r,
 							passages.get(r));
 					r.setPassage(pws);
@@ -148,7 +148,7 @@ public class Board {
 					
 				// Generates new door	
 				case 'd':
-					Room dr = findRoom(i, j, s);
+					RoomType dr = findRoom(i, j, s);
 					DoorSquare d = new DoorSquare(i, j, dr);
 					dr.addDoor(d);
 					board[i][j] = d;
@@ -159,7 +159,7 @@ public class Board {
 					if (DEBUG) {
 						System.out.println("Making room square " + key);
 					}
-					Room room = places.get(key);
+					RoomType room = places.get(key);
 					board[i][j] = new RoomSquare(i, j, room);
 					room.addSquare((RoomSquare) board[i][j]);
 					break;
@@ -202,7 +202,7 @@ public class Board {
 	 * @return Room
 	 */
 
-	private Room findRoom(int i, int j, Scanner s) {
+	private RoomType findRoom(int i, int j, Scanner s) {
 		if (DEBUG)
 			System.out.println("FR");
 		if (i > 0) {
@@ -225,34 +225,34 @@ public class Board {
 		}
 
 		if (s.hasNext("k")) {
-			return Room.KITCHEN;
+			return RoomType.KITCHEN;
 		}
 		if (s.hasNext("b")) {
-			return Room.BALL_ROOM;
+			return RoomType.BALL_ROOM;
 		}
 		if (s.hasNext("B")) {
-			return Room.BILLIARD_ROOM;
+			return RoomType.BILLIARD_ROOM;
 		}
 		if (s.hasNext("D")) {
-			return Room.DINING_ROOM;
+			return RoomType.DINING_ROOM;
 		}
 		if (s.hasNext("l")) {
-			return Room.LIBRARY;
+			return RoomType.LIBRARY;
 		}
 		if (s.hasNext("L")) {
-			return Room.LOUNGE;
+			return RoomType.LOUNGE;
 		}
 		if (s.hasNext("H")) {
-			return Room.HALL;
+			return RoomType.HALL;
 		}
 		if (s.hasNext("S")) {
-			return Room.STUDY;
+			return RoomType.STUDY;
 		}
 		if (s.hasNext("C")) {
-			return Room.CONSERVATORY;
+			return RoomType.CONSERVATORY;
 		}
 		if (s.hasNext("x")) {
-			return Room.SWIMMING_POOL;
+			return RoomType.SWIMMING_POOL;
 		}
 		throw new RuntimeException("Not a valid room");
 	}	
@@ -362,7 +362,7 @@ public class Board {
 			System.out.println("In a room");
 
 			// Gets passageway square if a secret tunnel exists
-			Room room = door.getRoom();
+			RoomType room = door.getRoom();
 			if(passages.containsKey(room)){
 				PassageWaySquare tunnel = passages.get(room).getPassage();
 				squares.add(tunnel);
@@ -543,7 +543,7 @@ public class Board {
 		}
 		else{ // include possible destination tiles from all doors
 			System.out.println("In a room");
-			Room currentRoom = ((RoomSquare)current).getRoom();
+			RoomType currentRoom = ((RoomSquare)current).getRoom();
 			Set<DoorSquare> doors = currentRoom.getDoors();
 			for(DoorSquare door: doors){
 				Set<Square> tilesFromDoor = new HashSet<Square>();
