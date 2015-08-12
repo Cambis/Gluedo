@@ -24,8 +24,8 @@ import cluedo.model.commands.MoveCommand;
 import cluedo.model.commands.SuggestCommand;
 import cluedo.model.gameObjects.CluedoCharacter;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
-import cluedo.model.gameObjects.Location;
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 import cluedo.model.gameObjects.Weapon;
 import cluedo.model.gameObjects.Weapon.WeaponType;
 
@@ -221,7 +221,7 @@ public class Game {
 					RoomSquare room = (RoomSquare) m_board.squareAt(p.getX(), p.getY());
 
 					// Accusation
-					if (room.getRoom().equals(Room.SWIMMING_POOL)) {
+					if (room.getRoom().equals(RoomType.SWIMMING_POOL)) {
 
 						System.out.println("\n*** Accusation ***");
 
@@ -231,7 +231,7 @@ public class Game {
 						if (!checkAccusation(accuse)) {
 							System.out.println("*** Sorry that accusation was wrong ***");
 							playersList.remove(p);
-							Room.SWIMMING_POOL.removePlayer(p);
+							RoomType.SWIMMING_POOL.removePlayer(p);
 
 							// Update board
 							m_board.drawBoard();
@@ -295,8 +295,8 @@ public class Game {
 		for (Suspect s : Suspect.values())
 			suspects.add(new CharacterCard(new CluedoCharacter(s)));
 
-		for (int i = 0; i < Room.values().length - 1; i++)
-			rooms.add(new RoomCard(new Location(Room.values()[i])));
+		for (int i = 0; i < RoomType.values().length - 1; i++)
+			rooms.add(new RoomCard(new Room(RoomType.values()[i])));
 
 		for (WeaponType w : WeaponType.values())
 			weapons.add(new WeaponCard(new Weapon(w)));

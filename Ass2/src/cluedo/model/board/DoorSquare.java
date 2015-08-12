@@ -1,7 +1,7 @@
 package cluedo.model.board;
 
-import cluedo.model.gameObjects.Location;
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 
 /**
  * A DoorSquare is essentially a special type of RoomSquare.
@@ -23,9 +23,9 @@ public class DoorSquare implements Square{
 	private int m_y;
 	
 	// Room that corresponds to this door
-	private Room r;
+	private RoomType r;
 
-	public DoorSquare(int x, int y, Room r){
+	public DoorSquare(int x, int y, RoomType r){
 		m_x = x;
 		m_y = y;
 		this.r = r;
@@ -41,7 +41,7 @@ public class DoorSquare implements Square{
 		return m_y;
 	}
 
-	public Room getRoom() {
+	public RoomType getRoom() {
 		return r;
 	}
 

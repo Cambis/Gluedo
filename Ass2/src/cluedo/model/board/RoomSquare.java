@@ -1,7 +1,7 @@
 package cluedo.model.board;
 import cluedo.model.Player;
-import cluedo.model.gameObjects.Location;
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 
 /**
  * RoomSquares are used to represent tiles of the board that
@@ -18,12 +18,12 @@ public class RoomSquare implements Square, InhabitableSquare{
 	private int m_y;
 	
 	// Room the square is associated with
-	private Room r;
+	private RoomType r;
 	private Player p;
 	private boolean visited;
 
 
-	public RoomSquare(int x, int y, Room room){
+	public RoomSquare(int x, int y, RoomType room){
 		this.m_x = x;
 		this.m_y = y;
 		this.r = room;
@@ -51,7 +51,7 @@ public class RoomSquare implements Square, InhabitableSquare{
 	 */
 
 
-	public Room getRoom(){
+	public RoomType getRoom(){
 		return r;
 	}
 

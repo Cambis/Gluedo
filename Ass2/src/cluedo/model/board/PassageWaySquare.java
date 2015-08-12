@@ -1,6 +1,6 @@
 package cluedo.model.board;
 
-import cluedo.model.gameObjects.Location.Room;
+import cluedo.model.gameObjects.Room.RoomType;
 
 /**
  * A PassageWaySqaure is a special type of door square that exists only in the corner rooms of the board.
@@ -16,10 +16,10 @@ public class PassageWaySquare extends DoorSquare{
 	private int m_y;
 	
 	// Rooms at start and end of passage
-	private Room from;
-	private Room to;
+	private RoomType from;
+	private RoomType to;
 
-	public PassageWaySquare(int x, int y, Room from, Room to){
+	public PassageWaySquare(int x, int y, RoomType from, RoomType to){
 		super(x,y,from);
 		m_x = x;
 		m_y = y;
@@ -27,11 +27,11 @@ public class PassageWaySquare extends DoorSquare{
 		this.to = to;
 	}
 
-	public Room getFrom() {
+	public RoomType getFrom() {
 		return from;
 	}
 
-	public Room getTo() {
+	public RoomType getTo() {
 		return to;
 	}
 

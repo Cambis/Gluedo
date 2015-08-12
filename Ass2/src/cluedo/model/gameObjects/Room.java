@@ -17,7 +17,7 @@ import cluedo.model.board.RoomSquare;
  * @author Cameron Bryers, Hannah Craighead.
  *
  */
-public class Location implements GameObject {
+public class Room implements GameObject {
 
 	/**
 	 * List of possible crime scenes.
@@ -25,7 +25,7 @@ public class Location implements GameObject {
 	 * @author Cameron Bryers, Hannah Craighead.
 	 *
 	 */
-	public enum Room {
+	public enum RoomType {
 		KITCHEN(1), BALL_ROOM(2), CONSERVATORY(3), DINING_ROOM(4), BILLIARD_ROOM(5), LIBRARY(6),
 		LOUNGE(7), HALL(8), STUDY(9), SWIMMING_POOL(10);
 
@@ -43,7 +43,7 @@ public class Location implements GameObject {
 		
 		private final int value;
 
-		private Room(int value) {
+		private RoomType(int value) {
 			this.value = value;
 			squares = new HashSet<RoomSquare>();
 			characters = new HashSet<Player>();
@@ -106,9 +106,9 @@ public class Location implements GameObject {
 
 	}
 
-	private Room m_room;
+	private RoomType m_room;
 
-	public Location(Room room) {
+	public Room(RoomType room) {
 		this.m_room = room;
 	}
 
@@ -128,7 +128,7 @@ public class Location implements GameObject {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Location other = (Location) obj;
+		Room other = (Room) obj;
 		if (m_room != other.m_room)
 			return false;
 		return true;
