@@ -21,7 +21,7 @@ public class CluedoCanvas extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
-		 g.drawImage(board, 0, 0, null);
+		 g.drawImage(board,0 ,0 , null);
 	}
 
 }
