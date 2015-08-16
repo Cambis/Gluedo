@@ -94,6 +94,11 @@ public class RoomSquare implements Square, InhabitableSquare{
 		this.p = p;
 	}
 
+	@Override 
+	public void removePlayer() {
+		this.p = null;
+	}
+	
 	@Override
 	public void setVisited(boolean v) {
 		visited = v;		

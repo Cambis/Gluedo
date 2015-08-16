@@ -62,7 +62,8 @@ public class Room implements GameObject {
 			characters.remove(p);
 			for(RoomSquare rs: squares){
 				if(rs.getPlayer() != null && rs.getPlayer().equals(p)){
-					rs.addPlayer(null);
+					// rs.addPlayer(null);
+					rs.removePlayer();
 					return;
 				}
 			}

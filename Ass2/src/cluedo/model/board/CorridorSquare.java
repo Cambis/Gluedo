@@ -64,6 +64,11 @@ public class CorridorSquare implements Square, InhabitableSquare{
 		this.p = p;
 	}
 	
+	@Override
+	public void removePlayer() {
+		p = null;
+	}
+	
 	public boolean visited(){
 		return visited;
 	}

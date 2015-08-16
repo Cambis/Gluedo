@@ -532,7 +532,8 @@ public class Game {
 		Square s = m_board.squareAt(current.getX(), current.getY());
 
 		// Set the player at that square to null
-		((InhabitableSquare) s).addPlayer(null);
+		// ((InhabitableSquare) s).addPlayer(null);
+		((InhabitableSquare) s).removePlayer();
 
 		// Move the player's position
 		current.move(newX, newY);

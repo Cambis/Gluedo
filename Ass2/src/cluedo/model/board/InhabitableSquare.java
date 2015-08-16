@@ -28,6 +28,8 @@ public interface InhabitableSquare {
 	public Player getPlayer();
 
 	public void addPlayer(Player p);
+	
+	public void removePlayer();
 
 	// Used for the dijkstra's algorithm in the board class
 	public void setVisited(boolean v);

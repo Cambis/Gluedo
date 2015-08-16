@@ -63,6 +63,11 @@ public class StarterSquare implements Square, InhabitableSquare {
 		}
 		this.p = p;
 	}
+	
+	@Override 
+	public void removePlayer() {
+		this.p = null;
+	}
 
 	@Override
 	public void setVisited(boolean v) {
