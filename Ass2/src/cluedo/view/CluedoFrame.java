@@ -13,36 +13,46 @@ import javax.swing.JPanel;
 public class CluedoFrame extends JFrame{
 
 	CluedoCanvas canvas;
+	ControlPanel cp;
 	JMenuBar menuBar;
 	JMenu menu;
 
 	public CluedoFrame(){
+		// Creates frame
 		super("Cluedo");
-		canvas = new CluedoCanvas();
 		setLayout(new BorderLayout()); // use border layour
-		add(canvas, BorderLayout.CENTER); // add canvas
+		this.setSize(800, 800); // sets size
+		setJMenuBar(createMenu()); // creates menu bar
+		
+		// Adds cluedo board
+		canvas = new CluedoCanvas();		
+		add(canvas, BorderLayout.CENTER); // add canvas to frame
+		
+		// Adds player control panel
+		cp = new ControlPanel();		
+		add(cp, BorderLayout.SOUTH); 		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pack(); // pack components tightly together
+
+		//addButtons();
+
+		//this.add(createMenu());
+				
+		//getContentPane().add(menuBar);
+		
+		pack(); // pack components tightly together		
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
-
-		addButtons();
-
-		createMenu();
-		setJMenuBar(menuBar);
-		
-		getContentPane().add(menuBar);
-
 		repaint();
 	}
 
-	private void addButtons() {
-		// section for player controls
-		JPanel playerControls = new JPanel(new BorderLayout());
-		add(playerControls, BorderLayout.SOUTH);
-	}
+//	private void addButtons() {
+//		// section for player controls
+//		JPanel playerControls = new JPanel(new BorderLayout());
+//		add(playerControls, BorderLayout.SOUTH);
+//	}
 
-	private void createMenu() {		
+	private JMenuBar createMenu() {		
 		menuBar = new JMenuBar(); // creates menu bar
 
 		menu = new JMenu("Game"); // creates first menu item
@@ -53,8 +63,9 @@ public class CluedoFrame extends JFrame{
 		menuBar.add(menu); // adds to menu bar
 
 		JMenuItem menuItem = new JMenuItem("New Game");
-		menu.add(menuItem);
+		menu.add(menuItem);		
 		
+		return menuBar;		
 	}
 
 }
