@@ -1,6 +1,7 @@
 package cluedo;
 
 import cluedo.model.Game;
+import cluedo.view.GUI;
 
 /**
  * Main class, runs the entire game
@@ -11,6 +12,7 @@ import cluedo.model.Game;
 public class Main {
 
 	public static void main(String args[]) {
-		Game cluedo = new Game();
+		// Game cluedo = new Game();
+		GUI main = new GUI();
 	}
 }

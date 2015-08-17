@@ -47,7 +47,10 @@ public class CluedoMainFrame extends JFrame {
 
 		pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
-		setVisible(true); // make sure we are visible!
+		// setVisible(true); // make sure we are visible!
+
+		// Wait for the GUI to tell the frame it can be visible
+		setVisible(false);
 		repaint();
 	}
 
