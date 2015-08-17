@@ -27,17 +27,17 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	private JRadioButton players_1, players_2, players_3, players_4, players_5, players_6;
 
 	private JApplet app = new JApplet();
-	
+
 	public GUI() {
 		frame = new CluedoFrame();
 		game = new CluedoGame();
-		
+
 		intialize();
 		setupPlayers();
 	}
-	
+
 	private void intialize() {
-		
+
 		// Set up buttons
 		players_1 = new JRadioButton("1", false);
 		players_2 = new JRadioButton("2", false);
@@ -112,14 +112,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public static void main(String[] args) {
 		GUI main = new GUI();
-		main.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		main.frame.getContentPane().add(main.app);
-		main.app.init();
-		main.app.start();
-		main.frame.setVisible(true);
+//		main.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		main.frame.getContentPane().add(main.app);
+//		main.app.init();
+//		main.app.start();
+//		main.frame.setVisible(true);
 	}
 
 }

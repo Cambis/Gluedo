@@ -16,28 +16,34 @@ import javax.swing.JPanel;
 
 import cluedo.model.board.Board;
 
+/**
+ * I think we should dump this, apparently mixing awt and swing is a bad idea
+ *
+ * @author Cameron Bryers and Hannah Craighead
+ *
+ */
 public class CluedoCanvas extends Canvas {
-	
+
 	BufferedImage board;
 	int width = 600;
 	int height = 600;
-	
+
 	public CluedoCanvas() {
 		this(new Board("cluedo.txt"));
 	}
-	
+
 	public CluedoCanvas(Board b){
-		File img = new File("clue3.png");		
+		File img = new File("clue3.png");
 		board = new BufferedImage(
-			    width, height, BufferedImage.TYPE_INT_ARGB);	
+			    width, height, BufferedImage.TYPE_INT_ARGB);
 		try {
 			board = ImageIO.read(img);
-		} catch (IOException e) {e.printStackTrace();}			
-		
+		} catch (IOException e) {e.printStackTrace();}
+
 		Dimension maxSize = new Dimension(600,600);
 		setPreferredSize(maxSize);
 	}
-	
+
 	@Override
 	public void paint(Graphics g){
 		int x  = 25;

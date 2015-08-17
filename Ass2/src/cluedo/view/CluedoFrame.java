@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 public class CluedoFrame extends JFrame{
 
 	CluedoCanvas canvas;
+	CluedoBoardPanel board;
 	ControlPanel cp;
 	JMenuBar menuBar;
 	JMenu menu;
@@ -25,8 +26,12 @@ public class CluedoFrame extends JFrame{
 		setJMenuBar(createMenu()); // creates menu bar
 
 		// Adds cluedo board
-		canvas = new CluedoCanvas();
-		add(canvas, BorderLayout.CENTER); // add canvas to frame
+		// canvas = new CluedoCanvas();
+		// add(canvas, BorderLayout.CENTER); // add canvas to frame
+
+		// Adds cluedo board (JPanel, use this or the one above)
+		board = new CluedoBoardPanel();
+		add(board, BorderLayout.CENTER);
 
 		// Adds player control panel
 		cp = new ControlPanel();
