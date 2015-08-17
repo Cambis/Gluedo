@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -20,6 +21,10 @@ public class CluedoCanvas extends Canvas {
 	BufferedImage board;
 	int width = 600;
 	int height = 600;
+	
+	public CluedoCanvas() {
+		this(new Board("cluedo.txt"));
+	}
 	
 	public CluedoCanvas(Board b){
 		File img = new File("clue3.png");		
@@ -46,5 +51,4 @@ public class CluedoCanvas extends Canvas {
 			}
 		}
 	}
-
 }

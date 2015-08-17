@@ -67,8 +67,8 @@ public class CluedoGame {
 		state = GameState.SETUP_PLAYERS;
 
 		// Deal cards
-		createDeck();
-		deal();
+		// createDeck();
+		// deal();
 	}
 
 	/**
