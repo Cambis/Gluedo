@@ -10,7 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-public class CluedoFrame extends JFrame{
+public class CluedoMainFrame extends JFrame {
 
 	CluedoCanvas canvas;
 	CluedoBoardPanel board;
@@ -18,7 +18,7 @@ public class CluedoFrame extends JFrame{
 	JMenuBar menuBar;
 	JMenu menu;
 
-	public CluedoFrame(){
+	public CluedoMainFrame() {
 		// Creates frame
 		super("Cluedo");
 		setLayout(new BorderLayout()); // use border layour
@@ -39,11 +39,11 @@ public class CluedoFrame extends JFrame{
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//addButtons();
+		// addButtons();
 
-		//this.add(createMenu());
+		// this.add(createMenu());
 
-		//getContentPane().add(menuBar);
+		// getContentPane().add(menuBar);
 
 		pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
@@ -51,11 +51,11 @@ public class CluedoFrame extends JFrame{
 		repaint();
 	}
 
-//	private void addButtons() {
-//		// section for player controls
-//		JPanel playerControls = new JPanel(new BorderLayout());
-//		add(playerControls, BorderLayout.SOUTH);
-//	}
+	// private void addButtons() {
+	// // section for player controls
+	// JPanel playerControls = new JPanel(new BorderLayout());
+	// add(playerControls, BorderLayout.SOUTH);
+	// }
 
 	private JMenuBar createMenu() {
 		menuBar = new JMenuBar(); // creates menu bar

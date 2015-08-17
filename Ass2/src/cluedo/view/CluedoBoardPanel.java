@@ -47,6 +47,8 @@ public class CluedoBoardPanel extends JPanel {
 	 */
 	private void init() {
 		height = width = 600;
+
+		// Read the image
 		File img = new File("clue3.png");
 		board = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		try {
@@ -55,12 +57,13 @@ public class CluedoBoardPanel extends JPanel {
 			e.printStackTrace();
 		}
 
-		Dimension maxSize = new Dimension(600, 600);
+		Dimension maxSize = new Dimension(height, width);
 		setPreferredSize(maxSize);
 	}
 
 	@Override
 	public void paint(Graphics g) {
+
 		int x = 25;
 		int y = 23;
 

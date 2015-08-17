@@ -19,7 +19,7 @@ import cluedo.control.CluedoGame;
 
 public class GUI implements KeyListener, MouseListener, ActionListener {
 
-	private CluedoFrame frame;
+	private CluedoMainFrame frame;
 	private CluedoGame game;
 
 	// Used to get number of players
@@ -29,7 +29,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	private JApplet app = new JApplet();
 
 	public GUI() {
-		frame = new CluedoFrame();
+		frame = new CluedoMainFrame();
 		game = new CluedoGame();
 
 		intialize();
