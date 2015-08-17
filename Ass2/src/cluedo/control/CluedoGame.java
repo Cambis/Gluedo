@@ -29,6 +29,18 @@ import cluedo.model.gameObjects.Weapon.WeaponType;
  */
 public class CluedoGame {
 
+	/**
+	 * The various states that the game can be in
+	 *
+	 * @author Cameron Bryers and Hannah Craighead
+	 *
+	 */
+	public enum GameState {
+		WELCOME, SETUP_PLAYERS, GENERAL, SUGGESTION, ACCUSATION, GAME_WIN, GAME_LOST, GAME_OVER;
+	}
+
+	private GameState state;
+
 	// Starting positions for the characters
 	public static final Point MRS_WHITE_START = new Point(0, 9);
 	public static final Point MR_GREEN_START = new Point(0, 14);
@@ -48,15 +60,15 @@ public class CluedoGame {
 
 	// All players in the game
 	private List<Player> players;
-	
+
 	public CluedoGame() {
-		
+
 		// TODO create players
-		
+		state = GameState.SETUP_PLAYERS;
+
 		// Deal cards
 		createDeck();
 		deal();
-		
 	}
 
 	/**
