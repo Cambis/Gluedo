@@ -21,6 +21,12 @@ import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 import cluedo.model.gameObjects.Room.RoomType;
 import cluedo.model.gameObjects.Weapon.WeaponType;
 
+/**
+ * Runs
+ *
+ * @author Cameron Bryers and Hannah Craighead
+ *
+ */
 public class CluedoGame {
 
 	// Starting positions for the characters
@@ -31,19 +37,34 @@ public class CluedoGame {
 	public static final Point MISS_SCARLET_START = new Point(24, 7);
 	public static final Point PROFESSOR_PLUM_START = new Point(19, 24);
 
-	public static boolean DEBUG = false;
-	public static int NUM_OF_DICE;
-	
+	public final static boolean DEBUG = false;
+	public final static int NUM_OF_DICE = 2;
+
+	// Solution cards
 	private Set<Card> enevelope;
+
+	// Cards that are in player's hands
 	private Set<Card> deck;
+
+	// All players in the game
 	private List<Player> players;
+	
+	public CluedoGame() {
+		
+		// TODO create players
+		
+		// Deal cards
+		createDeck();
+		deal();
+		
+	}
 
 	/**
 	 * Creates the game deck and envelope
-	 * 
+	 *
 	 * @return
 	 */
-	public static List<List<Card>> createDeck() {
+	private void createDeck() {
 
 		List<Card> suspects = new ArrayList<Card>();
 		List<Card> rooms = new ArrayList<Card>();
@@ -74,13 +95,11 @@ public class CluedoGame {
 
 		Collections.shuffle(deck);
 
-		List<List<Card>> cards = new ArrayList<List<Card>>();
-		cards.add(deck);
-		cards.add(envelope);
-
-		return cards;
+		// List<List<Card>> cards = new ArrayList<List<Card>>();
+		// cards.add(deck);
+		// cards.add(envelope);
 	}
-	
+
 	/**
 	 * Deal cards to players
 	 */
@@ -104,7 +123,7 @@ public class CluedoGame {
 			player.setHand(hand);
 		}
 	}
-	
+
 	/**
 	 * Generate a random number between a given min and max. Used to choose the
 	 * murderer, murder weapon and crime scene. It is also used to get a
