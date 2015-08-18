@@ -10,6 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
@@ -27,6 +28,7 @@ public class CluedoMainFrame extends JFrame {
 
 	// Asks for the number of players
 	NewGameFrame start;
+	JTextField nameAsker;
 
 	private CluedoGame game;
 	
@@ -97,6 +99,11 @@ public class CluedoMainFrame extends JFrame {
 		//Sets up player frame and links to gui
 		start = new NewGameFrame(g);
 		start.setVisible(false);
+		
+		//Sets up TextField for getting a player's name
+		nameAsker = new JTextField();
+		nameAsker.addActionListener(g);
+		
 	}
 
 	// private void addButtons() {
@@ -142,6 +149,14 @@ public class CluedoMainFrame extends JFrame {
 		if(state == GameState.SETUP_PLAYERS){
 			start.setVisible(true);
 			add(start, BorderLayout.SOUTH);
+		}
+		
+		if(state == GameState.SETUP_INDIVIDUAL){
+			start.setVisible(false);
+			nameAsker.setVisible(true);
+			remove(start);
+			add(nameAsker, BorderLayout.SOUTH);
+			
 		}
 		
 		

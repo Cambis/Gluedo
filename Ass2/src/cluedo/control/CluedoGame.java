@@ -36,7 +36,7 @@ public class CluedoGame {
 	 *
 	 */
 	public enum GameState {
-		WELCOME, SETUP_PLAYERS, GENERAL, SUGGESTION, ACCUSATION, GAME_WIN, GAME_LOST, GAME_OVER;
+		WELCOME, SETUP_PLAYERS, SETUP_INDIVIDUAL, GENERAL, SUGGESTION, ACCUSATION, GAME_WIN, GAME_LOST, GAME_OVER;
 	}
 
 	private GameState state = GameState.WELCOME; // Default screen is welcome

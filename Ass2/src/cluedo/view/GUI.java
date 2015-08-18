@@ -100,7 +100,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		else if(game.getState() == GameState.SETUP_PLAYERS){
 			int players = Integer.parseInt(e.getActionCommand());
 			game.setNumOfPlayers(players);
-			System.out.println(game.getNumOfPlayers());
+			game.setState(GameState.SETUP_INDIVIDUAL);
+			frame.updateCanvas(GameState.SETUP_INDIVIDUAL);
+			frame.repaint();
+			//System.out.println(game.getNumOfPlayers());
+			//game.setState(GameState.);
 		}
 
 	}	
