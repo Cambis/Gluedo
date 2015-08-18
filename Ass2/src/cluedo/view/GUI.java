@@ -14,6 +14,7 @@ import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
@@ -31,6 +32,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	// Main frame that holds the boards, actions etc.
 	private CluedoMainFrame frame;
 	CluedoGame game;
+
+	//Used for setting up players
+	String name;
+	Character c; 
 
 	public GUI(CluedoGame game) {		
 		this.game = game;
@@ -74,7 +79,15 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		//Mode is setting up an individual player
+		if(game.getState() == GameState.SETUP_INDIVIDUAL){
+			if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
+				JTextField t = (JTextField)arg0.getSource();
+				name = t.getText();
+				System.out.println(name);
+			}
+		}
 
 	}
 
@@ -87,7 +100,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(game.getState());
-		
+
 		// In the welcome state:
 		// The start new game button has been pressed
 
@@ -105,6 +118,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			frame.repaint();
 			//System.out.println(game.getNumOfPlayers());
 			//game.setState(GameState.);
+		}
+
+		else if(game.getState() == GameState.SETUP_INDIVIDUAL){
+
 		}
 
 	}	

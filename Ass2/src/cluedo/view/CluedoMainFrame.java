@@ -102,7 +102,8 @@ public class CluedoMainFrame extends JFrame {
 		
 		//Sets up TextField for getting a player's name
 		nameAsker = new JTextField();
-		nameAsker.addActionListener(g);
+		nameAsker.addKeyListener(g);
+		//nameAsker.addActionListener(g);
 		
 	}
 
