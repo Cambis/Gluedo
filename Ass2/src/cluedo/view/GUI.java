@@ -87,17 +87,15 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(game.getState());
+		
+		// In the welcome state:
+		// The start new game button has been pressed
 
 		if(game.getState() == GameState.WELCOME){
-			game.setState(GameState.SETUP_PLAYERS);
-			frame.updateCanvas(GameState.SETUP_PLAYERS);			
-			frame.repaint();
+			game.setState(GameState.SETUP_PLAYERS); // changes state to select number of playes
+			frame.updateCanvas(GameState.SETUP_PLAYERS); // lets the frame know of state change			
+			frame.repaint(); // repaints the frame
 		}
-
-
-
-
-
 
 		else if(game.getState() == GameState.SETUP_PLAYERS){
 			int players = Integer.parseInt(e.getActionCommand());

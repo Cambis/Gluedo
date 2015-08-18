@@ -93,6 +93,10 @@ public class CluedoMainFrame extends JFrame {
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
 		repaint();
+		
+		//Sets up player frame and links to gui
+		start = new NewGameFrame(g);
+		start.setVisible(false);
 	}
 
 	// private void addButtons() {
@@ -108,6 +112,8 @@ public class CluedoMainFrame extends JFrame {
 	private void createStartButton(){
 		startButton = new JButton("Start New Game");		
 	}
+	
+
 
 	private JMenuBar createMenu() {
 		menuBar = new JMenuBar(); // creates menu bar
@@ -131,6 +137,16 @@ public class CluedoMainFrame extends JFrame {
 		if(state != GameState.WELCOME){ // turns off the startButton after title screen
 			startButton.setVisible(false);
 		}
+		
+		// If in set up players mode
+		if(state == GameState.SETUP_PLAYERS){
+			start.setVisible(true);
+			add(start, BorderLayout.SOUTH);
+		}
+		
+		
+		
+		
 		//start.repaint();
 		board.repaint();
 	}
