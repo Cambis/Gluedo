@@ -3,7 +3,7 @@ package cluedo.view;
 public class MainFramTest {
 
 	public static void main(String[] args) {
-		new CluedoMainFrame();
+		//new CluedoMainFrame();
 	}
 
 }

@@ -9,9 +9,12 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import cluedo.model.board.Square;
 
 /**
  * Testing drawing the board as a JPanel, I think we should use this instead of
@@ -20,7 +23,7 @@ import javax.swing.JPanel;
  * @author Cameron Bryers and Hannah Craighead
  *
  */
-public class CluedoBoardPanel extends JPanel implements MouseListener{
+public class CluedoBoardPanel extends JPanel {
 
 	private BufferedImage board;
 	private int width, height;
@@ -64,16 +67,15 @@ public class CluedoBoardPanel extends JPanel implements MouseListener{
 		setPreferredSize(maxSize);
 	}
 
-	@Override
-	public void paint(Graphics g) {
-
-		int x = 20;
-		int y = 20;
-
+	public void paintBoard(Graphics g){
 		// Draw the board image
 		g.drawImage(board, 0, 0, width, height, 0, 0, board.getWidth(),
 				board.getHeight(), null);
+	}
 
+	public void paintGrid(Graphics g){
+		int x = 20;
+		int y = 20;
 
 		// Draw the grid
 		g.setColor(Color.red);
@@ -83,35 +85,20 @@ public class CluedoBoardPanel extends JPanel implements MouseListener{
 			}
 		}
 	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		System.out.println("Niggers");
+	
+	public void paintLandingSquares(Set<Square> sq, Graphics g){
+		int x = 20;
+		int y = 20;
+		g.setColor(Color.red);
+		for(Square s : sq){
+			g.drawRect(s.getX()*x, s.getY()*y, x, y);
+		}
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void paint(Graphics g) {
+		paintBoard(g);
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("Niggers");
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
+

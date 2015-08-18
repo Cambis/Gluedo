@@ -35,7 +35,7 @@ public class CluedoCanvas extends Canvas {
 	public CluedoCanvas(Board b){
 		File img = new File("clue3.png");
 		board = new BufferedImage(
-			    width, height, BufferedImage.TYPE_INT_ARGB);
+				width, height, BufferedImage.TYPE_INT_ARGB);
 		try {
 			board = ImageIO.read(img);
 		} catch (IOException e) {e.printStackTrace();}
@@ -44,12 +44,15 @@ public class CluedoCanvas extends Canvas {
 		setPreferredSize(maxSize);
 	}
 
-	@Override
-	public void paint(Graphics g){
+	public void paintBoard(Graphics g){		
+		g.drawImage(board, 0, 0, width, height, 0, 0, board.getWidth(),
+				board.getHeight(), null);
+	}
+
+	public void paintGrid(Graphics g){
 		int x  = 25;
 		int y = 23;
-		g.drawImage(board, 0, 0, width, height, 0, 0, board.getWidth(),
-			    board.getHeight(), null);
+
 		g.setColor(Color.red);
 		for(int i = 0; i < 24; i++){
 			for(int j = 0; j < 25; j++){
@@ -57,4 +60,20 @@ public class CluedoCanvas extends Canvas {
 			}
 		}
 	}
+	
+//	public void paintLandingSquares(Set<Square> squares){
+//		int x  = 25;
+//		int y = 23;
+//
+//		
+//	}
+	
+	@Override
+	public void paint(Graphics g){
+		
+	}
 }
+
+
+
+
