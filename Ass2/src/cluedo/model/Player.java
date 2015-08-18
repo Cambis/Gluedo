@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Set;
 
+import cluedo.control.CluedoGame;
 import cluedo.model.cards.Card;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
@@ -46,6 +47,40 @@ public class Player implements KeyListener{
 		this.m_y = start.y;
 	}
 
+	public Player(String name, Suspect character) {
+		this.m_name = name;
+		this.m_character = character;
+
+		switch (character) {
+		case COLONEL_MUSTARD:
+			this.m_x = CluedoGame.COLONEL_MUSTARD_START.x;
+			this.m_y = CluedoGame.COLONEL_MUSTARD_START.y;
+			break;
+		case MISS_SCARLET:
+			this.m_x = CluedoGame.MISS_SCARLET_START.x;
+			this.m_y = CluedoGame.MISS_SCARLET_START.y;
+			break;
+		case MRS_PEACOCK:
+			this.m_x = CluedoGame.MRS_PEACOCK_START.x;
+			this.m_y = CluedoGame.MRS_PEACOCK_START.y;
+			break;
+		case MRS_WHITE:
+			this.m_x = CluedoGame.MRS_WHITE_START.x;
+			this.m_y = CluedoGame.MRS_WHITE_START.y;
+			break;
+		case PROFESSOR_PLUM:
+			this.m_x = CluedoGame.PROFESSOR_PLUM_START.x;
+			this.m_y = CluedoGame.PROFESSOR_PLUM_START.y;
+			break;
+		case THE_REVEREND_GREEN:
+			this.m_x = CluedoGame.MR_GREEN_START.x;
+			this.m_y = CluedoGame.MR_GREEN_START.y;
+			break;
+		default:
+			break;
+
+		}
+	}
 	/**
 	 * Moves a player's coordinates to the x and y coordinates given
 	 * @param x is the x coordinate
@@ -55,7 +90,7 @@ public class Player implements KeyListener{
 		m_x = x;
 		m_y = y;
 	}
-	
+
 	/**
 	 * setHand givens a collection of cards that belong to the player
 	 * @param hand is a set of the player's cards
@@ -80,7 +115,7 @@ public class Player implements KeyListener{
 	public final Suspect getCharacter() {
 		return m_character;
 	}
-	
+
 	/**
 	 * Gets the players hand of cards
 	 * @return the player's hand
@@ -93,13 +128,13 @@ public class Player implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
