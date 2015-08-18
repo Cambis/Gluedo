@@ -34,16 +34,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	public GUI(CluedoGame game) {		
 		this.game = game;
-		//frame = new CluedoMainFrame(this);
-		createFrame();
+		frame = new CluedoMainFrame(this);		
 	}
-	
-	public void createFrame(){
-		frame = new CluedoMainFrame(this);
-	}
-
-
-
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -95,7 +87,19 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(game.getState());
-		if(game.getState() == GameState.SETUP_PLAYERS){
+
+		if(game.getState() == GameState.WELCOME){
+			game.setState(GameState.SETUP_PLAYERS);
+			frame.updateCanvas(GameState.SETUP_PLAYERS);			
+			frame.repaint();
+		}
+
+
+
+
+
+
+		else if(game.getState() == GameState.SETUP_PLAYERS){
 			int players = Integer.parseInt(e.getActionCommand());
 			game.setNumOfPlayers(players);
 			System.out.println(game.getNumOfPlayers());

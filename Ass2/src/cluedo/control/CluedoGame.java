@@ -65,6 +65,8 @@ public class CluedoGame {
 
 	public CluedoGame() {
 		
+		state = GameState.WELCOME;
+		
 
 		// TODO create players
 		//state = GameState.SETUP_PLAYERS;
@@ -156,6 +158,10 @@ public class CluedoGame {
 	
 	public GameState getState(){
 		return state;		
+	}
+	
+	public void setState(GameState g){
+		state = g;
 	}
 
 	/**

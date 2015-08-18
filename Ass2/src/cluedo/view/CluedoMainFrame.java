@@ -29,6 +29,8 @@ public class CluedoMainFrame extends JFrame {
 	NewGameFrame start;
 
 	private CluedoGame game;
+	
+	private GameState state;
 
 	public CluedoMainFrame(GUI g) {
 
@@ -37,6 +39,8 @@ public class CluedoMainFrame extends JFrame {
 		setLayout(new BorderLayout()); // use border layour
 		this.setSize(800, 800); // sets size
 		setJMenuBar(createMenu()); // creates menu bar
+		
+		
 
 		// Add game
 		//game = new CluedoGame();
@@ -62,6 +66,9 @@ public class CluedoMainFrame extends JFrame {
 		board = new CluedoBoardPanel();
 		board.updateState(GameState.WELCOME);
 		add(board, BorderLayout.CENTER);
+		
+		//Sets opening mode to welcome
+				updateCanvas(GameState.WELCOME);
 
 		// Adds player control panel
 		//		cp = new ControlPanel();
@@ -72,6 +79,7 @@ public class CluedoMainFrame extends JFrame {
 		createStartButton();
 		startButton.addActionListener(g);
 		add(startButton, BorderLayout.SOUTH);
+		//startButton.setVisible(true);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -119,8 +127,17 @@ public class CluedoMainFrame extends JFrame {
 
 	@Override
 	public void repaint(){
+		//System.out.println(state);
+		if(state != GameState.WELCOME){ // turns off the startButton after title screen
+			startButton.setVisible(false);
+		}
 		//start.repaint();
 		board.repaint();
+	}
+
+	public void updateCanvas(GameState state) {
+		this.state = state;
+		board.updateState(state);		
 	}
 }
 
