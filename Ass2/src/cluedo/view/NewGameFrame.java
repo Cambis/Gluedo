@@ -31,7 +31,7 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 	private ButtonGroup group;
 	private JRadioButton one, two, three, four, five, six;
 
-	// Go setup
+	// Player setup
 	private JButton addPlayer, removePlayer;
 
 	// Number of players that the user wants
