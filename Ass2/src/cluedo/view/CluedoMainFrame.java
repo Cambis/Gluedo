@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import cluedo.control.CluedoGame;
+import cluedo.control.CluedoGame.GameState;
 
 public class CluedoMainFrame extends JFrame {
 
@@ -40,24 +41,25 @@ public class CluedoMainFrame extends JFrame {
 		//game = new CluedoGame();
 
 		// Add new game frame
-		start = new NewGameFrame(g) {
+//		start = new NewGameFrame(g) {
+//
+//			private static final long serialVersionUID = -7643791232912141407L;
+//
+////			@Override
+////			public void actionPerformed(ActionEvent e) {
+////				System.out.println(e.getActionCommand());
+////				super.actionPerformed(e);
+////				//game.setNumOfPlayers(super.getNumOfPlayers());
+////				
+////			}
+//		};
 
-			private static final long serialVersionUID = -7643791232912141407L;
-
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println(e.getActionCommand());
-//				super.actionPerformed(e);
-//				//game.setNumOfPlayers(super.getNumOfPlayers());
-//				
-//			}
-		};
-
-		start.setVisible(true); // make it visible
-		add(start, BorderLayout.CENTER);
+		//start.setVisible(true); // make it visible
+		//add(start, BorderLayout.CENTER);
 
 		// Adds cluedo board (JPanel, use this or the one above)
 		board = new CluedoBoardPanel();
+		board.updateState(GameState.WELCOME);
 		add(board, BorderLayout.CENTER);
 
 		// Adds player control panel
@@ -102,7 +104,7 @@ public class CluedoMainFrame extends JFrame {
 
 	@Override
 	public void repaint(){
-		start.repaint();
+		//start.repaint();
 		board.repaint();
 	}
 }

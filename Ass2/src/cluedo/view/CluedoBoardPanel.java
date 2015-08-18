@@ -14,6 +14,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import cluedo.control.CluedoGame.GameState;
 import cluedo.model.board.Square;
 
 /**
@@ -25,8 +26,9 @@ import cluedo.model.board.Square;
  */
 public class CluedoBoardPanel extends JPanel {
 
-	private BufferedImage board;
+	private BufferedImage board, titleScreen;
 	private int width, height;
+	private GameState state;
 
 	public CluedoBoardPanel() {
 		init();
@@ -46,6 +48,14 @@ public class CluedoBoardPanel extends JPanel {
 		super(layout, isDoubleBuffered);
 		init();
 	}
+	/**
+	 * Updates the canvas so it knows the state of the game
+	 * @param g
+	 */
+
+	public void updateState(GameState g){
+		state = g;
+	}
 
 	/**
 	 * Set up the board
@@ -54,11 +64,20 @@ public class CluedoBoardPanel extends JPanel {
 		height =  500;
 		width = 500;
 
-		// Read the image
+		// Read the title screen image
 		File img = new File("Cluedo.jpg");
 		board = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		try {
 			board = ImageIO.read(img);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Read the board image
+		File img2 = new File("title-screen.jpg");
+		titleScreen = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		try {
+			titleScreen = ImageIO.read(img2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,6 +92,12 @@ public class CluedoBoardPanel extends JPanel {
 				board.getHeight(), null);
 	}
 
+	public void paintTitleScreen(Graphics g){
+		// Draw the board image
+		g.drawImage(titleScreen, 0, 0, width, height, 0, 0, titleScreen.getWidth(),
+				titleScreen.getHeight(), null);
+	}
+
 	public void paintGrid(Graphics g){
 		int x = 20;
 		int y = 20;
@@ -85,7 +110,7 @@ public class CluedoBoardPanel extends JPanel {
 			}
 		}
 	}
-	
+
 	public void paintLandingSquares(Set<Square> sq, Graphics g){
 		int x = 20;
 		int y = 20;
@@ -97,7 +122,13 @@ public class CluedoBoardPanel extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
+		if(state.equals(GameState.WELCOME)){
+			paintTitleScreen(g);
+		}
+		else{		
 		paintBoard(g);
+		paintGrid(g);
+		}
 
 	}
 }
