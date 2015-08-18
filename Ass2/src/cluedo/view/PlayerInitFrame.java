@@ -1,7 +1,11 @@
 package cluedo.view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -26,27 +30,62 @@ public class PlayerInitFrame extends JFrame {
 	private JPanel playerPanel;
 
 	// Suspects, rooms and weapons
-	private String suspects[] = { "Miss Scarlet", "Professor Plum",
-			"Mrs. Peacock", "Reverend Green", "Colonel Mustard", "Mrs. White" };
-
-	private String weapons[] = { "Candlestick", "Dagger", "Lead Pipe",
-			"Revolver", "Rope", "Spanner" };
+	private String suspects[] = { "Miss Scarlet", "Professor Plum", "Mrs. Peacock", "Reverend Green", "Colonel Mustard",
+			"Mrs. White" };
 
 	// User input
 	private JTextField prompt;
 	private JTextArea input;
 	private JPanel userInputPanel;
 
+	private ActionListener promptListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String text = prompt.getText();
+			input.append(text + "\n");
+			prompt.selectAll();
+
+			// Make sure the new text is visible, even if there
+			// was a selection in the text area.
+			input.setCaretPosition(input.getDocument().getLength());
+		}
+
+	};
+
 	public PlayerInitFrame() throws HeadlessException {
 		super("Welcome");
 		setSize(300, 500);
-		setLayout(new GridLayout (3, 3, 1, 1));
+		setLayout(new GridLayout(3, 3, 1, 1));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		init();
 		setVisible(true);
 	}
 
 	private void init() {
+
+		// Set up players
+		playerGroup = new ButtonGroup();
+		addPlayer = new JButton("Add Player");
+		addPlayer.setSize(10, 10);
+		removePlayer = new JButton("Remove Player");
+		playerGroup.add(addPlayer);
+		playerGroup.add(removePlayer);
+
+		prompt = new JTextField(15);
+		prompt.setEditable(true);
+		prompt.setText("Please enter a name");
+		prompt.addActionListener(promptListener);
+
+		input = new JTextArea();
+		input.setEditable(true);
+		playerPanel = new JPanel(new BorderLayout());
+
+		scroll = new JScrollPane(prompt);
+
+		playerPanel.add(scroll, BorderLayout.NORTH);
+		playerPanel.add(addPlayer, BorderLayout.WEST);
+		playerPanel.add(input, BorderLayout.EAST);
 
 		// Set up suspects
 		JRadioButton suspectButtons[] = new JRadioButton[6];
@@ -60,20 +99,8 @@ public class PlayerInitFrame extends JFrame {
 			suspectPanel.add(suspectButtons[i]);
 		}
 
-		// Set up weapons
-		JRadioButton weaponButtons[] = new JRadioButton[6];
-		JPanel weaponPanel = new JPanel(new GridLayout(6, 0, 0, 0));
-		weaponPanel.setSize(100, 100);
-		ButtonGroup weaponGroup = new ButtonGroup();
-
-		for (int i = 0; i < weaponButtons.length; i++) {
-			weaponButtons[i] = new JRadioButton(weapons[i], false);
-			weaponGroup.add(weaponButtons[i]);
-			weaponPanel.add(weaponButtons[i]);
-		}
-
+		add(playerPanel);
 		add(suspectPanel);
-		add(weaponPanel);
 		pack();
 	}
 
