@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -29,6 +30,14 @@ public class CluedoBoardPanel extends JPanel {
 	private BufferedImage board, titleScreen;
 	private int width, height;
 	private GameState state;
+	private Set<Square> landSquares;
+	
+	int x = 20;
+	int y = 20;
+	
+	public int getWidth(){
+		return x;
+	}
 
 	public CluedoBoardPanel() {
 		init();
@@ -63,6 +72,7 @@ public class CluedoBoardPanel extends JPanel {
 	private void init() {
 		height =  500;
 		width = 500;
+		landSquares = new HashSet<Square>();
 
 		// Read the title screen image
 		File img = new File("Cluedo.jpg");
@@ -91,6 +101,10 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawImage(board, 0, 0, width, height, 0, 0, board.getWidth(),
 				board.getHeight(), null);
 	}
+	
+	public void setLandingSquares(Set<Square> ls){
+		landSquares = ls;
+	}
 
 	public void paintTitleScreen(Graphics g){
 		// Draw the board image
@@ -100,8 +114,7 @@ public class CluedoBoardPanel extends JPanel {
 	}
 
 	public void paintGrid(Graphics g){
-		int x = 20;
-		int y = 20;
+		
 
 		// Draw the grid
 		g.setColor(Color.red);
@@ -126,9 +139,14 @@ public class CluedoBoardPanel extends JPanel {
 		if(state.equals(GameState.WELCOME)){
 			paintTitleScreen(g);
 		}
+		
+		else if(state.equals(GameState.GENERAL)){
+			paintBoard(g);
+			paintLandingSquares(landSquares, g);
+		}
 		else{		
 		paintBoard(g);
-		paintGrid(g);
+		//paintGrid(g);
 		}
 
 	}

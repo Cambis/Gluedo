@@ -66,8 +66,10 @@ public class CluedoMainFrame extends JFrame {
 
 		// Adds cluedo board (JPanel, use this or the one above)
 		board = new CluedoBoardPanel();
+		board.addMouseListener(g);
 		board.updateState(GameState.WELCOME);
 		add(board, BorderLayout.CENTER);
+		
 		
 		//Sets opening mode to welcome
 				updateCanvas(GameState.WELCOME);
@@ -165,6 +167,10 @@ public class CluedoMainFrame extends JFrame {
 		
 		//start.repaint();
 		board.repaint();
+	}
+	
+	public int getCanvasSquareWidth(){
+		return board.getWidth();
 	}
 
 	public void updateCanvas(GameState state) {

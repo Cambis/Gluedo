@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.Set;
 
 import cluedo.model.Player;
+import cluedo.model.board.Board;
 import cluedo.model.cards.Card;
 import cluedo.model.cards.CharacterCard;
 import cluedo.model.cards.RoomCard;
@@ -62,12 +63,15 @@ public class CluedoGame {
 
 	// All players in the game
 	private List<Player> players;
+	
+	// The board for this game
+	private Board board;
 
 	public CluedoGame() {
 		
 		state = GameState.WELCOME;
+		board = new Board("cluedo.txt");
 		
-
 		// TODO create players
 		//state = GameState.SETUP_PLAYERS;
 		
@@ -81,6 +85,10 @@ public class CluedoGame {
 	//game logic
 	
 	//players = Gui.getPLayers();
+	
+	public Board getBoard(){
+		return board;
+	}
 	
 
 	/**

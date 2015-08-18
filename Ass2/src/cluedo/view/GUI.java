@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
 import cluedo.model.Game;
+import cluedo.model.board.Square;
 
 /**
  * Main user interface class, might not need all of the listeners.
@@ -44,7 +45,13 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		int x = arg0.getX()/frame.getCanvasSquareWidth();
+		int y =  arg0.getY()/frame.getCanvasSquareWidth();
+		Square s = game.getBoard().squareAt(x, y);
+		
+		if(game.getState() == GameState.GENERAL){
+			
+		}
 	}
 
 	@Override
