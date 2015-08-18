@@ -39,7 +39,7 @@ public class CluedoGame {
 		WELCOME, SETUP_PLAYERS, GENERAL, SUGGESTION, ACCUSATION, GAME_WIN, GAME_LOST, GAME_OVER;
 	}
 
-	private GameState state;
+	private GameState state = GameState.WELCOME; // Default screen is welcome
 
 	// Starting positions for the characters
 	public static final Point MRS_WHITE_START = new Point(0, 9);
@@ -64,14 +64,22 @@ public class CluedoGame {
 	private List<Player> players;
 
 	public CluedoGame() {
+		
 
 		// TODO create players
-		state = GameState.SETUP_PLAYERS;
+		//state = GameState.SETUP_PLAYERS;
+		
+		// GUI gui = new GUI();
 
 		// Deal cards
 		// createDeck();
 		// deal();
 	}
+	
+	//game logic
+	
+	//players = Gui.getPLayers();
+	
 
 	/**
 	 * Creates the game deck and envelope
@@ -144,6 +152,10 @@ public class CluedoGame {
 
 	public void setNumOfPlayers(int numOfPlayers) {
 		this.numOfPlayers = numOfPlayers;
+	}
+	
+	public GameState getState(){
+		return state;		
 	}
 
 	/**

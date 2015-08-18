@@ -1,5 +1,6 @@
 package cluedo;
 
+import cluedo.control.CluedoGame;
 import cluedo.model.Game;
 import cluedo.view.GUI;
 
@@ -12,7 +13,7 @@ import cluedo.view.GUI;
 public class Main {
 
 	public static void main(String args[]) {
-		// Game cluedo = new Game();
-		GUI main = new GUI();
+		CluedoGame cluedo = new CluedoGame();
+		GUI main = new GUI(cluedo);
 	}
 }

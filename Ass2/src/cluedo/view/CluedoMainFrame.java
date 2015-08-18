@@ -28,7 +28,7 @@ public class CluedoMainFrame extends JFrame {
 
 	private CluedoGame game;
 
-	public CluedoMainFrame() {
+	public CluedoMainFrame(GUI g) {
 
 		// Creates frame
 		super("Cluedo");
@@ -37,18 +37,20 @@ public class CluedoMainFrame extends JFrame {
 		setJMenuBar(createMenu()); // creates menu bar
 
 		// Add game
-		game = new CluedoGame();
+		//game = new CluedoGame();
 
 		// Add new game frame
-		start = new NewGameFrame() {
+		start = new NewGameFrame(g) {
 
 			private static final long serialVersionUID = -7643791232912141407L;
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				super.actionPerformed(e);
-				game.setNumOfPlayers(super.getNumOfPlayers());
-			}
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println(e.getActionCommand());
+//				super.actionPerformed(e);
+//				//game.setNumOfPlayers(super.getNumOfPlayers());
+//				
+//			}
 		};
 
 		start.setVisible(true); // make it visible
@@ -59,8 +61,8 @@ public class CluedoMainFrame extends JFrame {
 		add(board, BorderLayout.CENTER);
 
 		// Adds player control panel
-		cp = new ControlPanel();
-		add(cp, BorderLayout.SOUTH);
+		//		cp = new ControlPanel();
+		//		add(cp, BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -98,4 +100,11 @@ public class CluedoMainFrame extends JFrame {
 		return menuBar;
 	}
 
+	@Override
+	public void repaint(){
+		start.repaint();
+		board.repaint();
+	}
 }
+
+

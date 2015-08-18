@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 
 import cluedo.control.CluedoGame;
+import cluedo.control.CluedoGame.GameState;
+import cluedo.model.Game;
 
 /**
  * Main user interface class, might not need all of the listeners.
@@ -28,10 +30,15 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	// Main frame that holds the boards, actions etc.
 	private CluedoMainFrame frame;
+	CluedoGame game;
 
-	public GUI() {
-		frame = new CluedoMainFrame();
+	public GUI(CluedoGame game) {
+		frame = new CluedoMainFrame(this);
+		this.game = game;
 	}
+
+
+
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -82,12 +89,13 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println(game.getState());
+		if(game.getState() == GameState.SETUP_PLAYERS){
+			int players = Integer.parseInt(e.getActionCommand());
+			game.setNumOfPlayers(players);
+			System.out.println(game.getNumOfPlayers());
+		}
 
-	}
-
-	public static void main(String[] args) {
-		GUI main = new GUI();
-	}
+	}	
 
 }

@@ -46,7 +46,7 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 	// Add buttons to this
 	private JPanel radioPanel;
 
-	public NewGameFrame() throws HeadlessException {
+	public NewGameFrame(GUI g) throws HeadlessException {
 
 		super("New Game");
 
@@ -63,7 +63,7 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 
 		prompt = new JTextField();
 
-		init();
+		init(g);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -73,15 +73,15 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 		repaint();
 	}
 
-	private void init() {
+	private void init(GUI g) {
 
 		// Add action listeners
-		one.addActionListener(this);
-		two.addActionListener(this);
-		three.addActionListener(this);
-		four.addActionListener(this);
-		five.addActionListener(this);
-		six.addActionListener(this);
+		one.addActionListener(g);
+		two.addActionListener(g);
+		three.addActionListener(g);
+		four.addActionListener(g);
+		five.addActionListener(g);
+		six.addActionListener(g);
 
 		// Add buttons to the button group
 		group.add(one);
@@ -131,7 +131,7 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 		return this.numOfPlayers;
 	}
 
-	public static void main(String args[]) {
-		NewGameFrame frame = new NewGameFrame();
-	}
+//	public static void main(String args[]) {
+//		NewGameFrame frame = new NewGameFrame();
+//	}
 }
