@@ -52,6 +52,8 @@ public class CluedoGame {
 	public final static boolean DEBUG = false;
 	public final static int NUM_OF_DICE = 2;
 
+	private int numOfPlayers;
+
 	// Solution cards
 	private Set<Card> enevelope;
 
@@ -134,6 +136,14 @@ public class CluedoGame {
 			// Give player the cards
 			player.setHand(hand);
 		}
+	}
+
+	public final int getNumOfPlayers() {
+		return numOfPlayers;
+	}
+
+	public void setNumOfPlayers(int numOfPlayers) {
+		this.numOfPlayers = numOfPlayers;
 	}
 
 	/**

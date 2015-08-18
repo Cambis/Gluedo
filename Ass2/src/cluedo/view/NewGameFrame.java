@@ -7,6 +7,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,9 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class NewGameFrame extends JFrame implements ActionListener {
+/**
+ * Asks user(s) for how many players they want
+ * @author Cameron Bryers and Hannah Craighead
+ *
+ */
+public class NewGameFrame extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = -721173876268663162L;
 
@@ -24,14 +31,17 @@ public class NewGameFrame extends JFrame implements ActionListener {
 	private ButtonGroup group;
 	private JRadioButton one, two, three, four, five, six;
 
-	// Go to player setup
-	private JButton next;
+	// Go setup
+	private JButton addPlayer, removePlayer;
 
 	// Number of players that the user wants
 	private int numOfPlayers;
 
 	// Prompt the user for input
 	private JTextField prompt;
+
+	// User input
+	private JTextArea input;
 
 	// Add buttons to this
 	private JPanel radioPanel;
@@ -41,6 +51,7 @@ public class NewGameFrame extends JFrame implements ActionListener {
 		super("New Game");
 
 		setLayout(new BorderLayout());
+		setClosable(false);
 
 		group = new ButtonGroup();
 		one = new JRadioButton("1", false);
@@ -51,8 +62,6 @@ public class NewGameFrame extends JFrame implements ActionListener {
 		six = new JRadioButton("6", false);
 
 		prompt = new JTextField();
-
-		next = new JButton("Next");
 
 		init();
 
@@ -99,6 +108,10 @@ public class NewGameFrame extends JFrame implements ActionListener {
 		add(radioPanel, BorderLayout.SOUTH);
 	}
 
+	private void createPlayers() {
+
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String num = ((JRadioButton) e.getSource()).getText();
@@ -106,7 +119,16 @@ public class NewGameFrame extends JFrame implements ActionListener {
 		System.out.println("NUM: " + numOfPlayers);
 
 		// Close this frame
-		this.dispose();
+		try {
+			setClosed(true);
+		} catch (PropertyVetoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+	public final int getNumOfPlayers() {
+		return this.numOfPlayers;
 	}
 
 	public static void main(String args[]) {

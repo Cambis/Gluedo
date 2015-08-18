@@ -19,6 +19,8 @@ import cluedo.control.CluedoGame;
 
 /**
  * Main user interface class, might not need all of the listeners.
+ * Actually we probably don't need this.
+ *
  * @author Cameron Bryers and Hannah Craighead
  *
  */
@@ -27,32 +29,13 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	// Main frame that holds the boards, actions etc.
 	private CluedoMainFrame frame;
 
-	// Called when a new game is started
-	private NewGameFrame newGame;
-
-	// Main game class
-	private CluedoGame game;
-
 	public GUI() {
-		newGame = new NewGameFrame() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// Make the main frame visible
-				frame.setVisible(true);
-				super.actionPerformed(e);
-			}
-		};
-
 		frame = new CluedoMainFrame();
-		game = new CluedoGame();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
