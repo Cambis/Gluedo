@@ -23,6 +23,7 @@ public class CluedoMainFrame extends JFrame {
 	ControlPanel cp;
 	JMenuBar menuBar;
 	JMenu menu;
+	JButton startButton;
 
 	// Asks for the number of players
 	NewGameFrame start;
@@ -65,6 +66,12 @@ public class CluedoMainFrame extends JFrame {
 		// Adds player control panel
 		//		cp = new ControlPanel();
 		//		add(cp, BorderLayout.SOUTH);
+		
+		
+		//Adds start button to panel
+		createStartButton();
+		startButton.addActionListener(g);
+		add(startButton, BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -85,6 +92,14 @@ public class CluedoMainFrame extends JFrame {
 	// JPanel playerControls = new JPanel(new BorderLayout());
 	// add(playerControls, BorderLayout.SOUTH);
 	// }
+	
+	/**
+	 * Creates start button for title screen
+	 */
+	
+	private void createStartButton(){
+		startButton = new JButton("Start New Game");		
+	}
 
 	private JMenuBar createMenu() {
 		menuBar = new JMenuBar(); // creates menu bar

@@ -95,7 +95,8 @@ public class CluedoBoardPanel extends JPanel {
 	public void paintTitleScreen(Graphics g){
 		// Draw the board image
 		g.drawImage(titleScreen, 0, 0, width, height, 0, 0, titleScreen.getWidth(),
-				titleScreen.getHeight(), null);
+				titleScreen.getHeight(), null);	
+
 	}
 
 	public void paintGrid(Graphics g){

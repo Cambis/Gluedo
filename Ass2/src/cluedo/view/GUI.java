@@ -32,9 +32,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	private CluedoMainFrame frame;
 	CluedoGame game;
 
-	public GUI(CluedoGame game) {
-		frame = new CluedoMainFrame(this);
+	public GUI(CluedoGame game) {		
 		this.game = game;
+		//frame = new CluedoMainFrame(this);
+		createFrame();
+	}
+	
+	public void createFrame(){
+		frame = new CluedoMainFrame(this);
 	}
 
 
