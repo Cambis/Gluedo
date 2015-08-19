@@ -45,13 +45,14 @@ public class PlayerInitFrame extends JFrame {
 
 	// Player setup
 	private ButtonGroup playerGroup;
-	private JButton addPlayer, removePlayer;
+	private JButton addPlayer, removePlayer, finish;
 	private int numOfPlayers;
 	private JPanel playerPanel;
 
 	// Suspects, rooms and weapons
 	private String suspects[] = { "Miss Scarlet", "Professor Plum",
-			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard", "Mrs. White" };
+			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard",
+			"Mrs. White" };
 
 	// User input
 	private JTextField input;
@@ -91,8 +92,12 @@ public class PlayerInitFrame extends JFrame {
 		addPlayer.addActionListener(playerAddListener);
 		removePlayer = new JButton("Remove Player");
 		removePlayer.addActionListener(playerRemoveListener);
+		finish = new JButton("Finish");
+		finish.addActionListener(finishListener);
+
 		playerGroup.add(addPlayer);
 		playerGroup.add(removePlayer);
+		playerGroup.add(finish);
 
 		input = new JTextField(15);
 		input.setEditable(true);
@@ -108,7 +113,7 @@ public class PlayerInitFrame extends JFrame {
 		playerDisplay = new JList<String>(model);
 		playerDisplay.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		playerDisplay.addListSelectionListener(listListener);
-		playerPanel = new JPanel(new GridLayout(4, 1));
+		playerPanel = new JPanel(new GridLayout(5, 1));
 
 		scroll = new JScrollPane(playerDisplay);
 
@@ -116,6 +121,7 @@ public class PlayerInitFrame extends JFrame {
 		playerPanel.add(input);
 		playerPanel.add(addPlayer);
 		playerPanel.add(removePlayer);
+		playerPanel.add(finish);
 
 		playerDisplayPanel = new JPanel(new GridLayout(2, 1));
 		JLabel playerLabel = new JLabel();
@@ -138,7 +144,8 @@ public class PlayerInitFrame extends JFrame {
 		}
 
 		add(playerPanel);
-		add(new JPanel());		// Add an empty one, will put image of character here instead
+		add(new JPanel()); // Add an empty one, will put image of character here
+							// instead
 		add(suspectPanel);
 		add(playerDisplayPanel);
 		pack();
@@ -184,6 +191,12 @@ public class PlayerInitFrame extends JFrame {
 
 			input.selectAll();
 
+			// Check if there is a valid number of players
+			if (numOfPlayers >= 6) {
+				prompt.setText("Maximum amount of players reached");
+				return;
+			}
+
 			// Null checker
 			if (character == null || name == null) {
 				prompt.setText("Invalid input, try again");
@@ -197,14 +210,15 @@ public class PlayerInitFrame extends JFrame {
 				usedSuspects.add(character);
 				players.put(name, new Player(name, suspect));
 				model.addElement(name);
-				System.out.println("PLAYER: " + name + " " + character);
+				numOfPlayers++;
+				// System.out.println("PLAYER: " + name + " " + character);
 			}
 
 		}
 
 	};
 
-	private ActionListener playerRemoveListener = new ActionListener(){
+	private ActionListener playerRemoveListener = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -217,11 +231,27 @@ public class PlayerInitFrame extends JFrame {
 
 			if (players.containsKey(selectedPlayer)) {
 				prompt.setText("Please enter a name:");
-				String susName = players.get(selectedPlayer).getCharacter().toString();
+				String susName = players.get(selectedPlayer).getCharacter()
+						.toString();
 				usedSuspects.remove(susName);
 				players.remove(selectedPlayer);
 				model.removeElement(selectedPlayer);
+				numOfPlayers--;
 			}
+		}
+
+	};
+
+	private ActionListener finishListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			// Check if there is a valid number of players
+			if (numOfPlayers < 3)
+				prompt.setText("Minimum amount of players is three");
+			else
+				setVisible(false);
 		}
 
 	};
