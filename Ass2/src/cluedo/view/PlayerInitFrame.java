@@ -7,19 +7,30 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import cluedo.model.Player;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
@@ -39,16 +50,18 @@ public class PlayerInitFrame extends JFrame {
 
 	// Suspects, rooms and weapons
 	private String suspects[] = { "Miss Scarlet", "Professor Plum",
-			"Mrs. Peacock", "Reverend Green", "Colonel Mustard", "Mrs. White" };
+			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard", "Mrs. White" };
 
 	// User input
-	private JTextField prompt;
-	private JTextArea input;
-	private JPanel userInputPanel;
+	private JTextField input;
+	private JLabel prompt;
+	private JPanel playerDisplayPanel;
+	private String selectedPlayer;
+	private JList<String> playerDisplay;
+	private DefaultListModel<String> model;
 
 	// New players
-	private List<Player> players;
-	private Set<String> playerNames;
+	private Map<String, Player> players;
 	private Set<String> usedSuspects;
 
 	// Information for new player
@@ -56,98 +69,59 @@ public class PlayerInitFrame extends JFrame {
 	private String character;
 	private Suspect suspect;
 
-	private ActionListener promptListener = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			String text = prompt.getText();
-
-			if (playerNames.contains(text))
-				prompt.setText("That name is already chosen");
-			else {
-				input.append(text + "\n");
-				playerNames.add(text);
-				name = text;
-			}
-
-			prompt.selectAll();
-
-			// Make sure the new text is visible, even if there
-			// was a selection in the text area.
-			input.setCaretPosition(input.getDocument().getLength());
-		}
-
-	};
-
-	private ActionListener suspectListener = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			character = ((JRadioButton) e.getSource()).getText();
-
-			if (usedSuspects.contains(character))
-				prompt.setText("That name is already chosen");
-			else {
-				// usedSuspects.add(character);
-				for (Suspect s : Suspect.values())
-					if (s.toString().equals(character)) {
-						suspect = s;
-						break;
-					}
-			}
-		}
-
-	};
-
-	private ActionListener playerListener = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			usedSuspects.add(character);
-			players.add(new Player(name, suspect));
-		}
-
-	};
-
 	public PlayerInitFrame() throws HeadlessException {
 		super("Welcome");
-		setSize(300, 500);
-		setLayout(new GridLayout(3, 3, 1, 1));
+		setSize(500, 500);
+		setLayout(new GridLayout(2, 2, 1, 1));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		init();
 		setVisible(true);
+		setResizable(false);
 	}
 
 	private void init() {
 
-		players = new ArrayList<Player>();
-		playerNames = new HashSet<String>();
+		players = new HashMap<String, Player>();
 		usedSuspects = new HashSet<String>();
 
 		// Set up players
 		playerGroup = new ButtonGroup();
 		addPlayer = new JButton("Add Player");
-		addPlayer.setPreferredSize(new Dimension(200, 1));
-		addPlayer.addActionListener(playerListener);
+		addPlayer.addActionListener(playerAddListener);
 		removePlayer = new JButton("Remove Player");
+		removePlayer.addActionListener(playerRemoveListener);
 		playerGroup.add(addPlayer);
 		playerGroup.add(removePlayer);
 
-		prompt = new JTextField(15);
-		prompt.setEditable(true);
-		prompt.setText("Please enter a name");
-		prompt.addActionListener(promptListener);
-
-		input = new JTextArea();
+		input = new JTextField(15);
 		input.setEditable(true);
-		playerPanel = new JPanel(new BorderLayout());
+		// input.setText("Please enter a name");
+		input.selectAll();
 
-		scroll = new JScrollPane(prompt);
+		prompt = new JLabel();
+		prompt.setHorizontalAlignment(JLabel.CENTER);
+		prompt.setText("Please enter a name:");
 
-		playerPanel.add(scroll, BorderLayout.NORTH);
-		playerPanel.add(addPlayer, BorderLayout.WEST);
-		playerPanel.add(input, BorderLayout.EAST);
+		// Set up JList
+		model = new DefaultListModel<String>();
+		playerDisplay = new JList<String>(model);
+		playerDisplay.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		playerDisplay.addListSelectionListener(listListener);
+		playerPanel = new JPanel(new GridLayout(4, 1));
+
+		scroll = new JScrollPane(playerDisplay);
+
+		playerPanel.add(prompt);
+		playerPanel.add(input);
+		playerPanel.add(addPlayer);
+		playerPanel.add(removePlayer);
+
+		playerDisplayPanel = new JPanel(new GridLayout(2, 1));
+		JLabel playerLabel = new JLabel();
+		playerLabel.setHorizontalAlignment(JLabel.CENTER);
+		playerLabel.setText("Players");
+		playerDisplayPanel.add(playerLabel);
+		playerDisplayPanel.add(scroll);
 
 		// Set up suspects
 		JRadioButton suspectButtons[] = new JRadioButton[6];
@@ -163,9 +137,93 @@ public class PlayerInitFrame extends JFrame {
 		}
 
 		add(playerPanel);
+		add(new JPanel());		// Add an empty one, will put image of character here instead
 		add(suspectPanel);
+		add(playerDisplayPanel);
 		pack();
 	}
+
+	private ActionListener suspectListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			character = ((JRadioButton) e.getSource()).getText();
+
+			if (usedSuspects.contains(character))
+				prompt.setText("That name is already chosen");
+			else {
+				prompt.setText("Please enter a name:");
+				for (Suspect s : Suspect.values())
+					if (s.toString().equals(character)) {
+						suspect = s;
+						break;
+					}
+			}
+		}
+
+	};
+
+	private ListSelectionListener listListener = new ListSelectionListener() {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			selectedPlayer = (String) playerDisplay.getSelectedValue();
+		}
+
+	};
+
+	private ActionListener playerAddListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			String text = input.getText();
+			name = text;
+
+			input.selectAll();
+
+			// Null checker
+			if (character == null || name == null) {
+				prompt.setText("Invalid input, try again");
+			}
+			// check if player can be added
+			else if (usedSuspects.contains(character)
+					|| players.containsKey(name)) {
+				prompt.setText("Character has already been chosen");
+			} else {
+				prompt.setText("Please enter a name:");
+				usedSuspects.add(character);
+				players.put(name, new Player(name, suspect));
+				model.addElement(name);
+				System.out.println("PLAYER: " + name + " " + character);
+			}
+
+		}
+
+	};
+
+	private ActionListener playerRemoveListener = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			// Null checker
+			if (selectedPlayer == null) {
+				prompt.setText("No player selected");
+				return;
+			}
+
+			if (players.containsKey(selectedPlayer)) {
+				prompt.setText("Please enter a name:");
+				String susName = players.get(selectedPlayer).getCharacter().toString();
+				usedSuspects.remove(susName);
+				players.remove(selectedPlayer);
+				model.removeElement(selectedPlayer);
+			}
+		}
+
+	};
 
 	public static void main(String args[]) {
 		new PlayerInitFrame();
