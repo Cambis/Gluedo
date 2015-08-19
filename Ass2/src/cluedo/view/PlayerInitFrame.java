@@ -36,7 +36,7 @@ import javax.swing.event.ListSelectionListener;
 import cluedo.model.Player;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
-public class PlayerInitFrame extends JInternalFrame {
+public class PlayerInitFrame extends JFrame {
 
 	private static final long serialVersionUID = -2976740998106737976L;
 
