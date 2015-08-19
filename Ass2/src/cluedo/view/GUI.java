@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
@@ -19,6 +20,7 @@ import javax.swing.JTextField;
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
 import cluedo.model.Game;
+import cluedo.model.Player;
 import cluedo.model.board.Square;
 
 /**
@@ -47,10 +49,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	public void mouseClicked(MouseEvent arg0) {
 		int x = arg0.getX()/frame.getCanvasSquareWidth();
 		int y =  arg0.getY()/frame.getCanvasSquareWidth();
-		Square s = game.getBoard().squareAt(x, y);
-		
+		Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click	
 		if(game.getState() == GameState.GENERAL){
-			
+
 		}
 	}
 
@@ -86,7 +87,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		
+
 		//Mode is setting up an individual player
 		if(game.getState() == GameState.SETUP_INDIVIDUAL){
 			if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
@@ -127,8 +128,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			//game.setState(GameState.);
 		}
 
-		else if(game.getState() == GameState.SETUP_INDIVIDUAL){
-
+		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
+			Map<String,Player> players = ((PlayerInitFrame)e.getSource()).getPlayers();
 		}
 
 	}	

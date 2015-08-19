@@ -28,7 +28,7 @@ public class CluedoMainFrame extends JFrame {
 
 	// Asks for the number of players
 	NewGameFrame start;
-	JTextField nameAsker;
+	PlayerInitFrame nameAsker;
 
 	private CluedoGame game;
 	
@@ -103,8 +103,8 @@ public class CluedoMainFrame extends JFrame {
 		start.setVisible(false);
 		
 		//Sets up TextField for getting a player's name
-		nameAsker = new JTextField();
-		nameAsker.addKeyListener(g);
+		nameAsker = new PlayerInitFrame(g); // note: Link to Finish button
+		//nameAsker.addKeyListener(g);
 		//nameAsker.addActionListener(g);
 		
 	}
@@ -158,8 +158,7 @@ public class CluedoMainFrame extends JFrame {
 			start.setVisible(false);
 			nameAsker.setVisible(true);
 			remove(start);
-			add(nameAsker, BorderLayout.SOUTH);
-			
+			add(nameAsker, BorderLayout.EAST);			
 		}
 		
 		
