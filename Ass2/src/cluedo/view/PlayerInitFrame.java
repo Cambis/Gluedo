@@ -21,6 +21,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ import javax.swing.event.ListSelectionListener;
 import cluedo.model.Player;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
-public class PlayerInitFrame extends JFrame {
+public class PlayerInitFrame extends JInternalFrame {
 
 	private static final long serialVersionUID = -2976740998106737976L;
 
