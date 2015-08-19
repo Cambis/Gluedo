@@ -150,6 +150,10 @@ public class PlayerInitFrame extends JFrame {
 		add(playerDisplayPanel);
 		pack();
 	}
+	
+	public Map<String, Player> getPlayers(){
+		return players;
+	}
 
 	private ActionListener suspectListener = new ActionListener() {
 
