@@ -21,7 +21,7 @@ public class CluedoMainFrame extends JFrame {
 
 	CluedoCanvas canvas;
 	CluedoBoardPanel board;
-	ControlPanel cp;
+	CardPanel cp;
 	JMenuBar menuBar;
 	JMenu menu;
 	JButton startButton;
@@ -72,12 +72,7 @@ public class CluedoMainFrame extends JFrame {
 
 
 		//Sets opening mode to welcome
-				updateCanvas(GameState.WELCOME);
-
-		// Adds player control panel
-		//		cp = new ControlPanel();
-		//		add(cp, BorderLayout.SOUTH);
-
+		updateCanvas(GameState.WELCOME);
 
 		//Adds start button to panel
 		createStartButton();
@@ -126,12 +121,15 @@ public class CluedoMainFrame extends JFrame {
 	private void createStartButton(){
 		startButton = new JButton("Start New Game");
 	}
+	
+	/**
+	 * Creates player set up tool
+	 * @param g
+	 */
 	public void createPlayerSelector(GUI g){
 		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
 		nameAsker.addListener(g);
 	}
-	
-
 
 
 	private JMenuBar createMenu() {

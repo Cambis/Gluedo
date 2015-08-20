@@ -33,8 +33,8 @@ public class CluedoBoardPanel extends JPanel {
 	private GameState state;
 	private Set<Square> landSquares;
 	
-	int x = 20;
-	int y = 20;
+	int x = 21;
+	int y = 21;
 	
 	public int getSquareWidth(){
 		return x;
@@ -71,8 +71,8 @@ public class CluedoBoardPanel extends JPanel {
 	 * Set up the board
 	 */
 	private void init() {
-		height =  500;
-		width = 500;
+		height =  526;
+		width = 526;
 		landSquares = new HashSet<Square>();
 
 		// Read the title screen image

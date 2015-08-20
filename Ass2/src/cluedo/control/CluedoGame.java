@@ -1,5 +1,6 @@
 package cluedo.control;
 
+import java.awt.Image;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,6 +115,21 @@ public class CluedoGame {
 		createDeck();
 		deal();
 		dice1 = new Dice(); // Note: need to add in letting the player choose a second dice
+		dice2 = new Dice();
+	}
+	
+	/**
+	 * Rolls the dice for a player and then returns the images
+	 * of the dice for drawing on the player panel
+	 */
+	
+	public Image[] getDice(){
+		Image[] dice = new Image[2];
+		dice1.roll();
+		dice[0] = dice1.getRollImage();
+		dice2.roll();
+		dice[1] = dice2.getRollImage();
+		return dice;
 	}
 	
 
