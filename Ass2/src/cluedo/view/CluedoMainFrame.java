@@ -130,6 +130,15 @@ public class CluedoMainFrame extends JFrame {
 		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
 		nameAsker.addListener(g);
 	}
+	
+	public void createCardPanel(int cards){
+		cp = new CardPanel(cards);
+		add(cp,BorderLayout.SOUTH);
+	}
+	
+//	public void setCardPanel(){
+//		cp.setCards(dice, cards);
+//	}
 
 
 	private JMenuBar createMenu() {

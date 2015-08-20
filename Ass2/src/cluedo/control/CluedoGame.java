@@ -232,7 +232,7 @@ public class CluedoGame {
 	 * @param filename
 	 * @return
 	 */
-	private static ImageIcon makeImageIcon(Card c) {		
+	public static ImageIcon makeImageIcon(Card c) {		
 		ImageIcon icon = null;
 		if (c != null) {
 			icon = new ImageIcon(c.getImage());

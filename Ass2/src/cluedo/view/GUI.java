@@ -124,6 +124,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				
 				game.setState(GameState.GENERAL); // changes state to select number of player
 				frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+				frame.createCardPanel((int)Math.ceil(18/players.size()));
 				
 				frame.repaint();
 			}
