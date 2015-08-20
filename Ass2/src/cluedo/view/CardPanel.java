@@ -12,33 +12,33 @@ public class CardPanel extends JPanel{
 
 	private JLabel[] cardImages;
 	private JLabel[] diceImages;
-	
+
 	public CardPanel(int size) {
 		setLayout(new FlowLayout());
 		cardImages = new JLabel[size];
 		diceImages = new JLabel[2];
-		
+
 		// Set up dice
 		for (int i = 0; i < 2; i++) {
 			diceImages[i] = new JLabel();
 			add(diceImages[i]);
 		}
-		
+
 		// Set up cards
 		for (int i = 0; i < size; i++) {
 			cardImages[i] = new JLabel();
 			add(cardImages[i]);
 		}
 	}
-	
+
 	public void setCards(ImageIcon[] dice, ImageIcon[] cards) {
-		
+
 		// Set up dice
-		for (int i = 0; i < diceImages.length; i++)
+		for (int i = 0; i < dice.length; i++)
 			diceImages[i].setIcon(dice[i]);
-		
+
 		// Set up cards
-		for (int i = 0; i < cardImages.length; i++)
+		for (int i = 0; i < cards.length; i++)
 			cardImages[i].setIcon(cards[i]);
 	}
 }
