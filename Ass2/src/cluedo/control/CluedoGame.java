@@ -90,6 +90,13 @@ public class CluedoGame {
 		return board;
 	}
 	
+	/**
+	 * Sets the players in the game
+	 */
+	public void addPlayers(List<Player> players){
+		this.players = players;
+	}
+	
 
 	/**
 	 * Creates the game deck and envelope

@@ -108,6 +108,10 @@ public class CluedoMainFrame extends JFrame {
 		//nameAsker.addActionListener(g);
 		
 	}
+	
+	public PlayerInitFrame getSetup(){
+		return nameAsker;
+	}
 
 	// private void addButtons() {
 	// // section for player controls
@@ -180,6 +184,10 @@ public class CluedoMainFrame extends JFrame {
 	public void updateCanvas(GameState state) {
 		this.state = state;
 		board.updateState(state);		
+	}
+	
+	public static void main(String[] args){
+		new CluedoMainFrame(new GUI(new CluedoGame()));
 	}
 }
 

@@ -151,6 +151,10 @@ public class PlayerInitFrame extends JFrame {
 		pack();
 	}
 	
+	public void setPrompt(String msg){
+		prompt.setText(msg);
+	}
+	
 	public Map<String, Player> getPlayers(){
 		return players;
 	}

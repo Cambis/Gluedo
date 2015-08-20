@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ButtonGroup;
@@ -46,12 +48,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		int x = arg0.getX()/frame.getCanvasSquareWidth();
-		int y =  arg0.getY()/frame.getCanvasSquareWidth();
-		Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click	
+	public void mouseClicked(MouseEvent arg0) {		
 		if(game.getState() == GameState.GENERAL){
-
+			int x = arg0.getX()/frame.getCanvasSquareWidth();
+			int y =  arg0.getY()/frame.getCanvasSquareWidth();
+			Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click	
 		}
 	}
 
@@ -113,7 +114,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		// The start new game button has been pressed
 
 		if(game.getState() == GameState.WELCOME){
-			game.setState(GameState.SETUP_PLAYERS); // changes state to select number of playes
+			game.setState(GameState.SETUP_PLAYERS); // changes state to select number of player
 			frame.updateCanvas(GameState.SETUP_PLAYERS); // lets the frame know of state change			
 			frame.repaint(); // repaints the frame
 		}
@@ -130,7 +131,15 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		}
 
 		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
-			Map<String,Player> players = ((PlayerInitFrame)e.getSource()).getPlayers();
+			PlayerInitFrame playerFrame = frame.getSetup();
+			Map<String,Player> players = playerFrame.getPlayers();
+			if(players.size() > 3){
+				game.setNumOfPlayers(players.size());
+				List<Player> p = new ArrayList<Player>();
+				p.addAll(players.values());
+				game.addPlayers(p);
+				System.out.println("Done");
+			}
 		}
 
 	}	
