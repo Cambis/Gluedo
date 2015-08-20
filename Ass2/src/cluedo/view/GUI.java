@@ -125,12 +125,19 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				System.out.println("Done");
 				game.setUp();
 				
-				game.setState(GameState.GENERAL); // changes state to select number of player
-				frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
-				frame.createCardPanel((int)Math.ceil(18/players.size()));
-				runTurn();
+				game.setState(GameState.START_TURN); // changes state to first players roll
+				frame.updateCanvas(GameState.START_TURN); // lets the frame know of state change
+				frame.createCardPanel((int)Math.ceil(18/players.size()));	
+				// Need to pop up a startTurn box here
 				frame.repaint();
 			}
+		}
+		
+		else if(game.getState() == GameState.START_TURN){
+			runTurn(); // rolls the dice
+			game.setState(GameState.GENERAL); // changes state to first players roll
+			frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+			frame.repaint();
 		}
 		
 		
