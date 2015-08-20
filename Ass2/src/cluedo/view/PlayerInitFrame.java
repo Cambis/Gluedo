@@ -154,6 +154,15 @@ public class PlayerInitFrame extends JFrame {
 	public Map<String, Player> getPlayers(){
 		return players;
 	}
+	
+	/**
+	 * Adds a listener to the finish button from the GUI class so 
+	 * it can extract information out of the PlayerInitFrame once it has been completed
+	 * @param g
+	 */
+	public void addListener(GUI g){
+		finish.addActionListener(g);
+	}
 
 	private ActionListener suspectListener = new ActionListener() {
 
