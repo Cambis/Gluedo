@@ -1,5 +1,7 @@
 package cluedo.model.cards;
 
+import java.awt.image.BufferedImage;
+
 import cluedo.model.Player;
 import cluedo.model.gameObjects.CluedoCharacter;
 import cluedo.model.gameObjects.GameObject;
@@ -22,5 +24,11 @@ public class CharacterCard implements Card {
 	@Override
 	public GameObject getObject() {
 		return m_character;
+	}
+
+	@Override
+	public BufferedImage getImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

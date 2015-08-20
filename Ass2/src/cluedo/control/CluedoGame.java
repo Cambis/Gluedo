@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+
 import cluedo.model.Player;
 import cluedo.model.board.Board;
 import cluedo.model.cards.Card;
@@ -208,4 +210,18 @@ public class CluedoGame {
 	public static int randomNumber(int min, int max) {
 		return new Random().nextInt((max - min) + 1) + min;
 	}
+	
+	/**
+	 * Helper method for loading image icons.
+	 * @param filename
+	 * @return
+	 */
+	private static ImageIcon makeImageIcon(Card c) {		
+		ImageIcon icon = null;
+		if (c != null) {
+			icon = new ImageIcon(c.getImage());
+		}
+		return icon;
+	}
+
 }
