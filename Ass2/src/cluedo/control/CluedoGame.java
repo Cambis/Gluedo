@@ -16,6 +16,7 @@ import cluedo.model.cards.CharacterCard;
 import cluedo.model.cards.RoomCard;
 import cluedo.model.cards.WeaponCard;
 import cluedo.model.gameObjects.CluedoCharacter;
+import cluedo.model.gameObjects.Dice;
 import cluedo.model.gameObjects.Room;
 import cluedo.model.gameObjects.Weapon;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
@@ -64,6 +65,10 @@ public class CluedoGame {
 	// All players in the game
 	private List<Player> players;
 	
+	// Dice that the game uses
+	private Dice dice1;
+	private Dice dice2;
+	
 	// The board for this game
 	private Board board;
 
@@ -106,6 +111,7 @@ public class CluedoGame {
 		board = new Board("cluedo.txt");
 		createDeck();
 		deal();
+		dice1 = new Dice(); // Note: need to add in letting the player choose a second dice
 	}
 	
 
