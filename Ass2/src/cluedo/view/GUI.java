@@ -139,6 +139,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				p.addAll(players.values());
 				game.addPlayers(p);
 				System.out.println("Done");
+				game.setUp();
 			}
 		}
 

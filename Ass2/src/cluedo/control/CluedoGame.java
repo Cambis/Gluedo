@@ -97,6 +97,17 @@ public class CluedoGame {
 		this.players = players;
 	}
 	
+	/**
+	 * Is responsible for setting up the game itself so the players can begin
+	 * This includes creating a board and deck then selecting the cards for the
+	 * envelope and dealing
+	 */
+	public void setUp(){
+		board = new Board("cluedo.txt");
+		createDeck();
+		deal();
+	}
+	
 
 	/**
 	 * Creates the game deck and envelope
