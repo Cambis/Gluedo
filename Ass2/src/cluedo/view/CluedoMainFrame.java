@@ -108,6 +108,10 @@ public class CluedoMainFrame extends JFrame {
 		// nameAsker.addActionListener(g);
 
 	}
+	
+	public PlayerInitFrame getSetup(){
+		return nameAsker;
+	}
 
 	// private void addButtons() {
 	// // section for player controls
@@ -122,6 +126,11 @@ public class CluedoMainFrame extends JFrame {
 	private void createStartButton(){
 		startButton = new JButton("Start New Game");
 	}
+	public void createPlayerSelector(GUI g){
+		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
+		nameAsker.addListener(g);
+	}
+	
 
 
 
@@ -146,26 +155,14 @@ public class CluedoMainFrame extends JFrame {
 		//System.out.println(state);
 		if(state != GameState.WELCOME){ // turns off the startButton after title screen
 			startButton.setVisible(false);
+		}	
+		
+		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL){
+			cp.repaint();
 		}
-
-		// If in set up players mode
-		if(state == GameState.SETUP_PLAYERS){
-			start.setVisible(true);
-			add(start, BorderLayout.SOUTH);
-		}
-
-		if(state == GameState.SETUP_INDIVIDUAL){
-			start.setVisible(false);
-			nameAsker.setVisible(true);
-			remove(start);
-			add(nameAsker, BorderLayout.EAST);
-		}
-
-
-
-
 		//start.repaint();
 		board.repaint();
+
 	}
 
 	public int getCanvasSquareWidth(){

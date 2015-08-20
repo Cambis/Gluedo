@@ -151,8 +151,21 @@ public class PlayerInitFrame extends JFrame {
 		pack();
 	}
 	
+	public void setPrompt(String msg){
+		prompt.setText(msg);
+	}
+	
 	public Map<String, Player> getPlayers(){
 		return players;
+	}
+	
+	/**
+	 * Adds a listener to the finish button from the GUI class so 
+	 * it can extract information out of the PlayerInitFrame once it has been completed
+	 * @param g
+	 */
+	public void addListener(GUI g){
+		finish.addActionListener(g);
 	}
 
 	private ActionListener suspectListener = new ActionListener() {
@@ -206,15 +219,20 @@ public class PlayerInitFrame extends JFrame {
 				prompt.setText("Invalid input, try again");
 			}
 			// check if player can be added
-			else if (usedSuspects.contains(character)
-					|| players.containsKey(name)) {
+			else if (usedSuspects.contains(character)) {
 				prompt.setText("Character has already been chosen");
-			} else {
+			} 
+			else if(players.containsKey(name)){
+				prompt.setText("That name has already been used");
+				input.setText(null);
+			}
+			else {
 				prompt.setText("Please enter a name:");
 				usedSuspects.add(character);
 				players.put(name, new Player(name, suspect));
 				model.addElement(name);
 				numOfPlayers++;
+				input.setText(null);
 				// System.out.println("PLAYER: " + name + " " + character);
 			}
 

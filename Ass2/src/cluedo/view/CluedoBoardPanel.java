@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import cluedo.control.CluedoGame.GameState;
@@ -149,6 +150,6 @@ public class CluedoBoardPanel extends JPanel {
 		//paintGrid(g);
 		}
 
-	}
+	}	
 }
 

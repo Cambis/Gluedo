@@ -1,5 +1,7 @@
 package cluedo.model.cards;
 
+import java.awt.image.BufferedImage;
+
 import cluedo.model.Player;
 import cluedo.model.gameObjects.GameObject;
 
@@ -14,4 +16,6 @@ import cluedo.model.gameObjects.GameObject;
 public interface Card {
 
 	public abstract GameObject getObject();
+	
+	public abstract BufferedImage getImage();
 }

@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ButtonGroup;
@@ -46,12 +48,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		int x = arg0.getX()/frame.getCanvasSquareWidth();
-		int y =  arg0.getY()/frame.getCanvasSquareWidth();
-		Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click	
+	public void mouseClicked(MouseEvent arg0) {		
 		if(game.getState() == GameState.GENERAL){
-
+			int x = arg0.getX()/frame.getCanvasSquareWidth();
+			int y =  arg0.getY()/frame.getCanvasSquareWidth();
+			Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click	
 		}
 	}
 
@@ -88,15 +89,6 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 
-		//Mode is setting up an individual player
-		if(game.getState() == GameState.SETUP_INDIVIDUAL){
-			if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
-				JTextField t = (JTextField)arg0.getSource();
-				name = t.getText();
-				System.out.println(name);
-			}
-		}
-
 	}
 
 	@Override
@@ -113,24 +105,31 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		// The start new game button has been pressed
 
 		if(game.getState() == GameState.WELCOME){
-			game.setState(GameState.SETUP_PLAYERS); // changes state to select number of playes
-			frame.updateCanvas(GameState.SETUP_PLAYERS); // lets the frame know of state change			
+			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to select number of player
+			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame know of state change			
 			frame.repaint(); // repaints the frame
-		}
-
-		else if(game.getState() == GameState.SETUP_PLAYERS){
-			int players = Integer.parseInt(e.getActionCommand());
-			game.setNumOfPlayers(players);
-			game.setState(GameState.SETUP_INDIVIDUAL);
-			frame.updateCanvas(GameState.SETUP_INDIVIDUAL);
-			frame.repaint();
-			//System.out.println(game.getNumOfPlayers());
-			//game.setState(GameState.);
-		}
+			frame.createPlayerSelector(this);
+		}		
 
 		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
-			Map<String,Player> players = ((PlayerInitFrame)e.getSource()).getPlayers();
+			PlayerInitFrame playerFrame = frame.getSetup();
+			Map<String,Player> players = playerFrame.getPlayers();
+			if(players.size() > 3){
+				game.setNumOfPlayers(players.size());
+				List<Player> p = new ArrayList<Player>();
+				p.addAll(players.values());
+				game.addPlayers(p);
+				System.out.println("Done");
+				game.setUp();
+				
+				game.setState(GameState.GENERAL); // changes state to select number of player
+				frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+				
+				frame.repaint();
+			}
 		}
+		
+		
 
 	}	
 

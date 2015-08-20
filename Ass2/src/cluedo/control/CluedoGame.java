@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+
 import cluedo.model.Player;
 import cluedo.model.board.Board;
 import cluedo.model.cards.Card;
@@ -16,6 +18,7 @@ import cluedo.model.cards.CharacterCard;
 import cluedo.model.cards.RoomCard;
 import cluedo.model.cards.WeaponCard;
 import cluedo.model.gameObjects.CluedoCharacter;
+import cluedo.model.gameObjects.Dice;
 import cluedo.model.gameObjects.Room;
 import cluedo.model.gameObjects.Weapon;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
@@ -64,6 +67,10 @@ public class CluedoGame {
 	// All players in the game
 	private List<Player> players;
 	
+	// Dice that the game uses
+	private Dice dice1;
+	private Dice dice2;
+	
 	// The board for this game
 	private Board board;
 
@@ -88,6 +95,25 @@ public class CluedoGame {
 	
 	public Board getBoard(){
 		return board;
+	}
+	
+	/**
+	 * Sets the players in the game
+	 */
+	public void addPlayers(List<Player> players){
+		this.players = players;
+	}
+	
+	/**
+	 * Is responsible for setting up the game itself so the players can begin
+	 * This includes creating a board and deck then selecting the cards for the
+	 * envelope and dealing
+	 */
+	public void setUp(){
+		board = new Board("cluedo.txt");
+		createDeck();
+		deal();
+		dice1 = new Dice(); // Note: need to add in letting the player choose a second dice
 	}
 	
 
@@ -184,4 +210,18 @@ public class CluedoGame {
 	public static int randomNumber(int min, int max) {
 		return new Random().nextInt((max - min) + 1) + min;
 	}
+	
+	/**
+	 * Helper method for loading image icons.
+	 * @param filename
+	 * @return
+	 */
+	private static ImageIcon makeImageIcon(Card c) {		
+		ImageIcon icon = null;
+		if (c != null) {
+			icon = new ImageIcon(c.getImage());
+		}
+		return icon;
+	}
+
 }
