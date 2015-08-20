@@ -139,7 +139,7 @@ public class CluedoGame {
 	 * of the dice for drawing on the player panel
 	 */
 	
-	public Image[] getDice(){
+	public Image[] getDiceRoll(){
 		Image[] dice = new Image[2];
 		dice1.roll();
 		dice[0] = dice1.getRollImage();

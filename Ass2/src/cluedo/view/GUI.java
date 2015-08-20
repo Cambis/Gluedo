@@ -2,6 +2,7 @@ package cluedo.view;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
@@ -24,6 +26,7 @@ import cluedo.control.CluedoGame.GameState;
 import cluedo.model.Game;
 import cluedo.model.Player;
 import cluedo.model.board.Square;
+import cluedo.model.cards.Card;
 
 /**
  * Main user interface class, might not need all of the listeners.
@@ -125,7 +128,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				game.setState(GameState.GENERAL); // changes state to select number of player
 				frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
 				frame.createCardPanel((int)Math.ceil(18/players.size()));
-				
+				runTurn();
 				frame.repaint();
 			}
 		}
@@ -133,5 +136,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		
 
 	}	
+	
+	public void runTurn(){
+		Player p = game.getCurrentPlayer();
+		Image[] dice  = game.getDiceRoll();
+		Set<Card>  cards = p.getHand();
+		
+		frame.setCardPanel(cards, dice);		
+		// then pass information to interaction panel
+	}
 
 }
