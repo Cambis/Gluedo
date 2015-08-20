@@ -114,21 +114,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		// The start new game button has been pressed
 
 		if(game.getState() == GameState.WELCOME){
-			game.setState(GameState.SETUP_PLAYERS); // changes state to select number of player
-			frame.updateCanvas(GameState.SETUP_PLAYERS); // lets the frame know of state change			
+			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to select number of player
+			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame know of state change			
 			frame.repaint(); // repaints the frame
-		}
-
-		else if(game.getState() == GameState.SETUP_PLAYERS){
-			int players = Integer.parseInt(e.getActionCommand());
-			game.setNumOfPlayers(players);
-			game.setState(GameState.SETUP_INDIVIDUAL);
-			frame.updateCanvas(GameState.SETUP_INDIVIDUAL);
-			frame.repaint();
 			frame.createPlayerSelector(this);
-			//System.out.println(game.getNumOfPlayers());
-			//game.setState(GameState.);
-		}
+		}		
 
 		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
 			PlayerInitFrame playerFrame = frame.getSetup();
@@ -140,8 +130,13 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				game.addPlayers(p);
 				System.out.println("Done");
 				game.setUp();
+				
+				game.setState(GameState.GENERAL); // changes state to select number of player
+				frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
 			}
 		}
+		
+		
 
 	}	
 
