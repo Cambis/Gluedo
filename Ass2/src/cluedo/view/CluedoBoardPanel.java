@@ -36,7 +36,7 @@ public class CluedoBoardPanel extends JPanel {
 	int x = 20;
 	int y = 20;
 	
-	public int getWidth(){
+	public int getSquareWidth(){
 		return x;
 	}
 
@@ -115,8 +115,6 @@ public class CluedoBoardPanel extends JPanel {
 	}
 
 	public void paintGrid(Graphics g){
-		
-
 		// Draw the grid
 		g.setColor(Color.red);
 		for (int i = 0; i < 25; i++) {

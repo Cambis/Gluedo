@@ -215,7 +215,7 @@ public class PlayerInitFrame extends JFrame {
 			}
 
 			// Null checker
-			if (character == null || name == null) {
+			if (character == null || name == null || name.length() == 0) {
 				prompt.setText("Invalid input, try again");
 			}
 			// check if player can be added
