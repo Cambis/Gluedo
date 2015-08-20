@@ -1,5 +1,7 @@
 package cluedo.view;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -29,6 +31,10 @@ public class CardPanel extends JPanel{
 			cardImages[i] = new JLabel();
 			add(cardImages[i]);
 		}
+		
+		//Sets up size and background colour of JPanel
+		this.setPreferredSize(new Dimension(600,200));
+		this.setBackground(Color.black);
 	}
 
 	public void setCards(ImageIcon[] dice, ImageIcon[] cards) {

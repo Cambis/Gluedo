@@ -68,6 +68,9 @@ public class CluedoGame {
 	// All players in the game
 	private List<Player> players;
 	
+	//Current player index
+	private int current;
+	
 	// Dice that the game uses
 	private Dice dice1;
 	private Dice dice2;
@@ -116,6 +119,19 @@ public class CluedoGame {
 		deal();
 		dice1 = new Dice(); // Note: need to add in letting the player choose a second dice
 		dice2 = new Dice();
+		}
+	
+	public Player getCurrentPlayer(){
+		return players.get(current);
+	}
+	
+	public void nextPlayer(){
+		if(current < players.size() - 1){
+			current++;
+		}
+		else{ // full round has been completed
+			current = 0;
+		}
 	}
 	
 	/**

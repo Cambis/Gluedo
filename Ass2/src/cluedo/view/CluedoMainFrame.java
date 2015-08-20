@@ -39,7 +39,7 @@ public class CluedoMainFrame extends JFrame {
 		// Creates frame
 		super("Cluedo");
 		setLayout(new BorderLayout()); // use border layour
-		this.setSize(800, 800); // sets size
+		this.setSize(700, 700); // sets size
 		setJMenuBar(createMenu()); // creates menu bar
 
 
@@ -88,7 +88,7 @@ public class CluedoMainFrame extends JFrame {
 
 		// getContentPane().add(menuBar);
 
-		pack(); // pack components tightly together
+		//pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
 		repaint();
@@ -134,6 +134,8 @@ public class CluedoMainFrame extends JFrame {
 	public void createCardPanel(int cards){
 		cp = new CardPanel(cards);
 		add(cp,BorderLayout.SOUTH);
+		cp.setVisible(true);
+		//pack();
 	}
 	
 //	public void setCardPanel(){
