@@ -89,15 +89,6 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 
-		//Mode is setting up an individual player
-		if(game.getState() == GameState.SETUP_INDIVIDUAL){
-			if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
-				JTextField t = (JTextField)arg0.getSource();
-				name = t.getText();
-				System.out.println(name);
-			}
-		}
-
 	}
 
 	@Override
