@@ -124,6 +124,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			game.setState(GameState.SETUP_INDIVIDUAL);
 			frame.updateCanvas(GameState.SETUP_INDIVIDUAL);
 			frame.repaint();
+			frame.createPlayerSelector(this);
 			//System.out.println(game.getNumOfPlayers());
 			//game.setState(GameState.);
 		}

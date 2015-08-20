@@ -103,8 +103,7 @@ public class CluedoMainFrame extends JFrame {
 		start.setVisible(false);
 		
 		//Sets up TextField for getting a player's name
-		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
-		nameAsker.addListener(g);
+		
 		//nameAsker.addKeyListener(g);
 		//nameAsker.addActionListener(g);
 		
@@ -122,6 +121,11 @@ public class CluedoMainFrame extends JFrame {
 	
 	private void createStartButton(){
 		startButton = new JButton("Start New Game");		
+	}
+	
+	public void createPlayerSelector(GUI g){
+		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
+		nameAsker.addListener(g);
 	}
 	
 
@@ -157,9 +161,9 @@ public class CluedoMainFrame extends JFrame {
 		
 		if(state == GameState.SETUP_INDIVIDUAL){
 			start.setVisible(false);
-			nameAsker.setVisible(true);
+			//nameAsker.setVisible(true);
 			remove(start);
-			add(nameAsker, BorderLayout.EAST);			
+			//add(nameAsker, BorderLayout.EAST);			
 		}
 		
 		
