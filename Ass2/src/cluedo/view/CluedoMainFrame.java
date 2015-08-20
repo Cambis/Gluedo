@@ -72,7 +72,7 @@ public class CluedoMainFrame extends JFrame {
 		
 		
 		//Sets opening mode to welcome
-				updateCanvas(GameState.WELCOME);
+		updateCanvas(GameState.WELCOME);
 
 		// Adds player control panel
 		//		cp = new ControlPanel();
@@ -96,11 +96,8 @@ public class CluedoMainFrame extends JFrame {
 		pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
-		repaint();
+		repaint();	
 		
-		//Sets up player frame and links to gui
-		start = new NewGameFrame(g);
-		start.setVisible(false);
 		
 		//Sets up TextField for getting a player's name
 		
@@ -155,24 +152,7 @@ public class CluedoMainFrame extends JFrame {
 		//System.out.println(state);
 		if(state != GameState.WELCOME){ // turns off the startButton after title screen
 			startButton.setVisible(false);
-		}
-		
-		// If in set up players mode
-		if(state == GameState.SETUP_PLAYERS){
-			start.setVisible(true);
-			add(start, BorderLayout.SOUTH);
-		}
-		
-		if(state == GameState.SETUP_INDIVIDUAL){
-			start.setVisible(false);
-			//nameAsker.setVisible(true);
-			remove(start);
-			//add(nameAsker, BorderLayout.EAST);			
-		}
-		
-		
-		
-		
+		}		
 		//start.repaint();
 		board.repaint();
 	}
