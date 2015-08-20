@@ -219,15 +219,20 @@ public class PlayerInitFrame extends JFrame {
 				prompt.setText("Invalid input, try again");
 			}
 			// check if player can be added
-			else if (usedSuspects.contains(character)
-					|| players.containsKey(name)) {
+			else if (usedSuspects.contains(character)) {
 				prompt.setText("Character has already been chosen");
-			} else {
+			} 
+			else if(players.containsKey(name)){
+				prompt.setText("That name has already been used");
+				input.setText(null);
+			}
+			else {
 				prompt.setText("Please enter a name:");
 				usedSuspects.add(character);
 				players.put(name, new Player(name, suspect));
 				model.addElement(name);
 				numOfPlayers++;
+				input.setText(null);
 				// System.out.println("PLAYER: " + name + " " + character);
 			}
 
