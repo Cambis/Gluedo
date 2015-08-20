@@ -19,7 +19,7 @@ public class CluedoMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 6909931835454164833L;
 
-	CluedoCanvas canvas;
+	
 	CluedoBoardPanel board;
 	ControlPanel cp;
 	JMenuBar menuBar;
@@ -84,6 +84,10 @@ public class CluedoMainFrame extends JFrame {
 		startButton.addActionListener(g);
 		add(startButton, BorderLayout.SOUTH);
 		//startButton.setVisible(true);
+		
+		cp = new ControlPanel();
+		add(cp,BorderLayout.EAST);
+		cp.setVisible(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -152,7 +156,11 @@ public class CluedoMainFrame extends JFrame {
 		//System.out.println(state);
 		if(state != GameState.WELCOME){ // turns off the startButton after title screen
 			startButton.setVisible(false);
-		}		
+		}	
+		
+		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL){
+			cp.repaint();
+		}
 		//start.repaint();
 		board.repaint();
 	}
