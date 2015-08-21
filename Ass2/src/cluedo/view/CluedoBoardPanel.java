@@ -135,6 +135,8 @@ public class CluedoBoardPanel extends JPanel {
 		g.setColor(Color.CYAN);
 		((Graphics2D)g).setStroke(new BasicStroke(5f));
 		g.drawPolygon(roomOutlines.getKitchen());
+		g.drawPolygon(roomOutlines.getBallRoom());
+		g.drawPolygon(roomOutlines.getConservatory());
 	}
 
 	public void paintLandingSquares(Set<Square> sq, Graphics g){
