@@ -20,6 +20,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -36,7 +37,7 @@ import javax.swing.event.ListSelectionListener;
 import cluedo.model.Player;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
-public class PlayerInitFrame extends JFrame {
+public class PlayerInitBox extends JDialog {
 
 	private static final long serialVersionUID = -2976740998106737976L;
 
@@ -71,11 +72,11 @@ public class PlayerInitFrame extends JFrame {
 	private String character;
 	private Suspect suspect;
 
-	public PlayerInitFrame() throws HeadlessException {
-		super("Welcome");
+	public PlayerInitBox() throws HeadlessException {
+		// super("Welcome");
 		setSize(500, 500);
 		setLayout(new GridLayout(2, 2, 1, 1));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		init();
 		setVisible(true);
 		setResizable(false);
@@ -148,19 +149,20 @@ public class PlayerInitFrame extends JFrame {
 							// instead
 		add(suspectPanel);
 		add(playerDisplayPanel);
+		// setCloseable(false);
 		pack();
 	}
-	
+
 	public void setPrompt(String msg){
 		prompt.setText(msg);
 	}
-	
+
 	public Map<String, Player> getPlayers(){
 		return players;
 	}
-	
+
 	/**
-	 * Adds a listener to the finish button from the GUI class so 
+	 * Adds a listener to the finish button from the GUI class so
 	 * it can extract information out of the PlayerInitFrame once it has been completed
 	 * @param g
 	 */
@@ -221,7 +223,7 @@ public class PlayerInitFrame extends JFrame {
 			// check if player can be added
 			else if (usedSuspects.contains(character)) {
 				prompt.setText("Character has already been chosen");
-			} 
+			}
 			else if(players.containsKey(name)){
 				prompt.setText("That name has already been used");
 				input.setText(null);
@@ -279,6 +281,7 @@ public class PlayerInitFrame extends JFrame {
 	};
 
 	public static void main(String args[]) {
-		new PlayerInitFrame();
+		PlayerInitBox box = new PlayerInitBox();
+		box.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 }

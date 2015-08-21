@@ -3,6 +3,7 @@ package cluedo.view;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ import javax.swing.JPanel;
  * @author Cameron Bryers and Hannah Craighead
  *
  */
-public class PlayerStartTurnFrame extends JInternalFrame {
+public class PlayerStartTurnBox extends JDialog {
 
 	private String playerName;
 	private final String message = ", are you ready?";
@@ -27,7 +28,7 @@ public class PlayerStartTurnFrame extends JInternalFrame {
 
 	private JLabel prompt;
 
-	public PlayerStartTurnFrame() {
+	public PlayerStartTurnBox() {
 
 		panel = new JPanel(new GridLayout(2, 1));
 		next = new JButton("Yes");
@@ -42,6 +43,7 @@ public class PlayerStartTurnFrame extends JInternalFrame {
 		add(panel);
 		setVisible(false);
 		setResizable(false);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 	}
 
@@ -59,7 +61,7 @@ public class PlayerStartTurnFrame extends JInternalFrame {
 	}
 
 	public static void main(String args[]) {
-		PlayerStartTurnFrame frame = new PlayerStartTurnFrame();
+		PlayerStartTurnBox frame = new PlayerStartTurnBox();
 		frame.changePlayer("Dave");
 		frame.setVisible(true);
 	}

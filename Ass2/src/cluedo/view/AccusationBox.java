@@ -15,7 +15,7 @@ import javax.swing.JRadioButton;
  * @author Cameron Bryers and Hannah Craighead
  *
  */
-public class AccusationFrame extends SuggestionFrame {
+public class AccusationBox extends SuggestionBox {
 
 	private JRadioButton[] roomButtons;
 
@@ -29,7 +29,7 @@ public class AccusationFrame extends SuggestionFrame {
 	// User response
 	private String roomResponse;
 
-	public AccusationFrame() {
+	public AccusationBox() {
 		super();
 		init();
 	}
@@ -97,6 +97,6 @@ public class AccusationFrame extends SuggestionFrame {
 	};
 
 	public static void main(String args[]) {
-		new AccusationFrame().setVisible(true);
+		new AccusationBox().setVisible(true);
 	}
 }

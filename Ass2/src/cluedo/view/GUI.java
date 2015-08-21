@@ -115,7 +115,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		}		
 
 		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
-			PlayerInitFrame playerFrame = frame.getSetup();
+			PlayerInitBox playerFrame = frame.getSetup();
 			Map<String,Player> players = playerFrame.getPlayers();
 			if(players.size() > 3){
 				game.setNumOfPlayers(players.size());

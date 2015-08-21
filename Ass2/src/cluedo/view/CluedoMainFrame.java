@@ -32,7 +32,7 @@ public class CluedoMainFrame extends JFrame {
 
 	// Asks for the number of players
 	NewGameFrame start;
-	PlayerInitFrame nameAsker;
+	PlayerInitBox nameAsker;
 
 	private CluedoGame game;
 
@@ -75,7 +75,7 @@ public class CluedoMainFrame extends JFrame {
 
 	}
 
-	public PlayerInitFrame getSetup(){
+	public PlayerInitBox getSetup(){
 		return nameAsker;
 	}
 
@@ -93,7 +93,7 @@ public class CluedoMainFrame extends JFrame {
 	 * @param g
 	 */
 	public void createPlayerSelector(GUI g){
-		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
+		nameAsker = new PlayerInitBox(); // note: Link to Finish button
 		nameAsker.addListener(g);
 	}
 

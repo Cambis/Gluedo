@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -18,13 +19,10 @@ import javax.swing.JRadioButton;
 /**
  * Prompts the user for a suggestion.
  *
- * If you want to test this class separately make it extend JFrame and not
- * JInternalFrame, the final version should extend JInternalFrame.
- *
  * @author Cameron Bryers and Hannah Craighead
  *
  */
-public class SuggestionFrame extends JInternalFrame {
+public class SuggestionBox extends JDialog {
 
 	private JRadioButton[] suspectButtons, weaponButtons;
 
@@ -50,7 +48,7 @@ public class SuggestionFrame extends JInternalFrame {
 	private String weapons[] = { "Dagger", "Lead Pipe", "Revolver", "Rope",
 			"Spanner", "Candlestick" };
 
-	public SuggestionFrame() throws HeadlessException {
+	public SuggestionBox() throws HeadlessException {
 
 		panel = new JPanel();
 		prompt = new JLabel();
@@ -79,7 +77,7 @@ public class SuggestionFrame extends JInternalFrame {
 		// GUI or MainFrame should tell this class when it can be visible
 		setVisible(false);
 		setResizable(false);
-		setClosable(false);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 	}
 
 	/**
@@ -180,7 +178,7 @@ public class SuggestionFrame extends JInternalFrame {
 	};
 
 	public static void main(String args[]) {
-		SuggestionFrame frame = new SuggestionFrame();
+		SuggestionBox frame = new SuggestionBox();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
