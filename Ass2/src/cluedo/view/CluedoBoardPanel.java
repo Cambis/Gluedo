@@ -1,9 +1,12 @@
 package cluedo.view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -29,6 +32,7 @@ import cluedo.model.board.Square;
 public class CluedoBoardPanel extends JPanel {
 
 	private BufferedImage board, titleScreen;
+	private RoomPolygonGenerator roomOutlines;
 	private int width, height;
 	private GameState state;
 	private Set<Square> landSquares;
@@ -92,6 +96,9 @@ public class CluedoBoardPanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		// Generates rooms
+		roomOutlines = new RoomPolygonGenerator(x);
 
 		Dimension maxSize = new Dimension(height, width);
 		setPreferredSize(maxSize);
@@ -123,6 +130,12 @@ public class CluedoBoardPanel extends JPanel {
 			}
 		}
 	}
+	
+	public void testRoomOutlines(Graphics g){
+		g.setColor(Color.CYAN);
+		((Graphics2D)g).setStroke(new BasicStroke(5f));
+		g.drawPolygon(roomOutlines.getKitchen());
+	}
 
 	public void paintLandingSquares(Set<Square> sq, Graphics g){
 		int x = 20;
@@ -135,7 +148,12 @@ public class CluedoBoardPanel extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
-		if(state.equals(GameState.WELCOME)){
+		if(true){
+			paintBoard(g);
+			testRoomOutlines(g);
+		}
+		
+		else if(state.equals(GameState.WELCOME)){
 			paintTitleScreen(g);
 		}
 		
@@ -145,9 +163,16 @@ public class CluedoBoardPanel extends JPanel {
 		}
 		else{		
 		paintBoard(g);
+		testRoomOutlines(g);
 		//paintGrid(g);
 		}
-
 	}	
+	
+	public static void main(String args[]){
+		JFrame j = new JFrame();		
+		j.setSize(550, 550);
+		j.add(new CluedoBoardPanel());
+		j.setVisible(true);
+	}
 }
 
