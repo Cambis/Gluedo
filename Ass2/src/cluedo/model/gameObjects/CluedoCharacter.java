@@ -120,4 +120,8 @@ public class CluedoCharacter implements GameObject {
 			return null;
 		}
 	}
+
+	public Suspect getSuspect() {
+		return m_suspect;
+	}
 }

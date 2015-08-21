@@ -1,6 +1,6 @@
 package cluedo.model.cards;
 
-import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 
 import cluedo.model.Player;
 import cluedo.model.gameObjects.GameObject;
@@ -8,7 +8,7 @@ import cluedo.model.gameObjects.Weapon;
 
 /**
  * Class that represents a weapon card in the game.
- * 
+ *
  * @author Cameron Bryers, Hannah Craighead.
  *
  */
@@ -27,8 +27,40 @@ public class WeaponCard implements Card {
 	}
 
 	@Override
-	public BufferedImage getImage() {
-		// TODO Auto-generated method stub
-		return null;
+	public ImageIcon getImageIcon() {
+
+		java.net.URL imageURL = null;
+
+		switch (m_weapon.getWeaponType()) {
+		case CANDLESTICK:
+			imageURL = getClass().getResource("/cluedo/assets/candlestick_card.jpg");
+			break;
+		case DAGGER:
+			imageURL = getClass().getResource("/cluedo/assets/dagger_card.jpg");
+			break;
+		case LEAD_PIPE:
+			imageURL = getClass().getResource("/cluedo/assets/lead_pipe_card.jpg");
+			break;
+		case REVOLVER:
+			imageURL = getClass().getResource("/cluedo/assets/revolver_card.jpg");
+			break;
+		case ROPE:
+			imageURL = getClass().getResource("/cluedo/assets/rope_card.jpg");
+			break;
+		case SPANNER:
+			imageURL = getClass().getResource("/cluedo/assets/spanner_card.jpg");
+			break;
+		default:
+			break;
+		}
+
+		ImageIcon image = null;
+
+		if (imageURL != null) {
+			// System.out.println("In here");
+			image = new ImageIcon(imageURL);
+		}
+
+		return image;
 	}
 }

@@ -67,47 +67,47 @@ public class CluedoGame {
 
 	// All players in the game
 	private List<Player> players;
-	
+
 	//Current player index
 	private int current;
-	
+
 	// Dice that the game uses
 	private Dice dice1;
 	private Dice dice2;
-	
+
 	// The board for this game
 	private Board board;
 
 	public CluedoGame() {
-		
+
 		state = GameState.WELCOME;
 		board = new Board("cluedo.txt");
-		
+
 		// TODO create players
 		//state = GameState.SETUP_PLAYERS;
-		
+
 		// GUI gui = new GUI();
 
 		// Deal cards
 		// createDeck();
 		// deal();
 	}
-	
+
 	//game logic
-	
+
 	//players = Gui.getPLayers();
-	
+
 	public Board getBoard(){
 		return board;
 	}
-	
+
 	/**
 	 * Sets the players in the game
 	 */
 	public void addPlayers(List<Player> players){
 		this.players = players;
 	}
-	
+
 	/**
 	 * Is responsible for setting up the game itself so the players can begin
 	 * This includes creating a board and deck then selecting the cards for the
@@ -120,11 +120,11 @@ public class CluedoGame {
 		dice1 = new Dice(); // Note: need to add in letting the player choose a second dice
 		dice2 = new Dice();
 		}
-	
+
 	public Player getCurrentPlayer(){
 		return players.get(current);
 	}
-	
+
 	public void nextPlayer(){
 		if(current < players.size() - 1){
 			current++;
@@ -133,12 +133,12 @@ public class CluedoGame {
 			current = 0;
 		}
 	}
-	
+
 	/**
 	 * Rolls the dice for a player and then returns the images
 	 * of the dice for drawing on the player panel
 	 */
-	
+
 	public Image[] getDice(){
 		Image[] dice = new Image[2];
 		dice1.roll();
@@ -147,7 +147,7 @@ public class CluedoGame {
 		dice[1] = dice2.getRollImage();
 		return dice;
 	}
-	
+
 
 	/**
 	 * Creates the game deck and envelope
@@ -221,11 +221,11 @@ public class CluedoGame {
 	public void setNumOfPlayers(int numOfPlayers) {
 		this.numOfPlayers = numOfPlayers;
 	}
-	
+
 	public GameState getState(){
-		return state;		
+		return state;
 	}
-	
+
 	public void setState(GameState g){
 		state = g;
 	}
@@ -242,16 +242,16 @@ public class CluedoGame {
 	public static int randomNumber(int min, int max) {
 		return new Random().nextInt((max - min) + 1) + min;
 	}
-	
+
 	/**
 	 * Helper method for loading image icons.
 	 * @param filename
 	 * @return
 	 */
-	public static ImageIcon makeImageIcon(Card c) {		
+	public static ImageIcon makeImageIcon(Card c) {
 		ImageIcon icon = null;
 		if (c != null) {
-			icon = new ImageIcon(c.getImage());
+			// icon = new ImageIcon(c.getImageIcon());
 		}
 		return icon;
 	}

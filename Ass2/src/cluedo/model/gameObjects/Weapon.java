@@ -97,4 +97,8 @@ public class Weapon implements GameObject {
 		}
 	}
 
+	public final WeaponType getWeaponType() {
+		return this.m_weapon;
+	}
+
 }

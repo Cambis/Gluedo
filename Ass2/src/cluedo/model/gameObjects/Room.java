@@ -40,7 +40,7 @@ public class Room implements GameObject {
 
 		// Characters that are in this room.
 		private Set<Player> characters;
-		
+
 		private final int value;
 
 		private RoomType(int value) {
@@ -53,11 +53,11 @@ public class Room implements GameObject {
 		public int getValue() {
 			return value;
 		}
-		
+
 		public void addSquare(RoomSquare r){
 			squares.add(r);
 		}
-		
+
 		public void removePlayer(Player p){
 			characters.remove(p);
 			for(RoomSquare rs: squares){
@@ -95,15 +95,15 @@ public class Room implements GameObject {
 		public final Set<DoorSquare> getDoors() {
 			return doors;
 		}
-		
+
 		public boolean hasPassage(){
 			return Passage != null;
 		}
-		
+
 		public PassageWaySquare getPassage(){
 			return Passage;
 		}
-		
+
 
 	}
 
@@ -134,8 +134,8 @@ public class Room implements GameObject {
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 
 	@Override
@@ -162,6 +162,10 @@ public class Room implements GameObject {
 		default:
 			return null;
 		}
+	}
+
+	public final RoomType getRoomType() {
+		return this.m_room;
 	}
 
 }
