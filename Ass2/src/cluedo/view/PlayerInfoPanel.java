@@ -1,6 +1,7 @@
 package cluedo.view;
 
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -32,7 +33,7 @@ public class PlayerInfoPanel extends JPanel {
 			"Make An Accusation", "Show Cards", "Show Checklist" };
 
 	// Current player info
-	private ImageIcon playerImage;
+	private BufferedImage playerImage;
 	private String playerName;
 
 	public PlayerInfoPanel() {
@@ -70,12 +71,12 @@ public class PlayerInfoPanel extends JPanel {
 	 * @param playerImage
 	 * @param playerName
 	 */
-	public void setPlayer(ImageIcon playerImage, String playerName) {
+	public void setPlayer(BufferedImage playerImage, String playerName) {
 
 		this.playerImage = playerImage;
 		this.playerName = playerName;
 
-		playerIcon.setIcon(playerImage);
+		playerIcon.setIcon(new ImageIcon(playerImage));
 		playerIcon.setSize(50, 50);
 		playerLabel.setText(playerName);
 	}
@@ -86,7 +87,7 @@ public class PlayerInfoPanel extends JPanel {
 	 */
 	public static void main(String args[]) {
 		JFrame frame = new JFrame();
-		ImageIcon image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImageIcon();
+		BufferedImage image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
 		PlayerInfoPanel panel = new PlayerInfoPanel();
 		panel.setPlayer(image, "David");
 		frame.add(panel);

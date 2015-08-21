@@ -1,5 +1,9 @@
 package cluedo.model.cards;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import cluedo.model.Player;
@@ -27,7 +31,7 @@ public class WeaponCard implements Card {
 	}
 
 	@Override
-	public ImageIcon getImageIcon() {
+	public BufferedImage getImage() {
 
 		java.net.URL imageURL = null;
 
@@ -54,11 +58,12 @@ public class WeaponCard implements Card {
 			break;
 		}
 
-		ImageIcon image = null;
+		BufferedImage image = null;
 
-		if (imageURL != null) {
-			// System.out.println("In here");
-			image = new ImageIcon(imageURL);
+		try {
+			image = ImageIO.read(imageURL);
+		} catch (IOException e) {
+
 		}
 
 		return image;

@@ -1,5 +1,6 @@
 package cluedo.model.cards;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class CharacterCard implements Card {
 	}
 
 	@Override
-	public ImageIcon getImageIcon() {
+	public BufferedImage getImage() {
 
 		// java.net.URL imageURL = getClass().getResource("/cluedo/assets/mrs_peacok_card.jpg");
 		java.net.URL imageURL = null;
@@ -61,17 +62,19 @@ public class CharacterCard implements Card {
 			break;
 		}
 
-		ImageIcon image = null;
-		if (imageURL != null) {
-			// System.out.println("In here");
-			image = new ImageIcon(imageURL);
+		BufferedImage image = null;
+		
+		try {
+			image = ImageIO.read(imageURL);
+		} catch (IOException e) {
+			
 		}
-
+		
 		return image;
 	}
 
 	public static void main(String args[]) throws IOException {
-		ImageIcon image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImageIcon();
+		BufferedImage image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
 		System.out.println(image.toString());
 	}
 }

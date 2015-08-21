@@ -1,5 +1,9 @@
 package cluedo.model.cards;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import cluedo.model.Player;
@@ -27,11 +31,11 @@ public class RoomCard implements Card {
 	}
 
 	@Override
-	public ImageIcon getImageIcon() {
+	public BufferedImage getImage() {
 
 		java.net.URL imageURL = null;
 
-		switch(m_room.getRoomType()) {
+		switch (m_room.getRoomType()) {
 		case BALL_ROOM:
 			imageURL = getClass().getResource("/cluedo/assets/ballroom_card.jpg");
 			break;
@@ -65,10 +69,12 @@ public class RoomCard implements Card {
 			break;
 		}
 
-		ImageIcon image = null;
+		BufferedImage image = null;
 
-		if (imageURL != null) {
-			image = new ImageIcon(imageURL);
+		try {
+			image = ImageIO.read(imageURL);
+		} catch (IOException e) {
+
 		}
 
 		return image;

@@ -37,14 +37,14 @@ public class CardPanel extends JPanel{
 		this.setBackground(Color.black);
 	}
 
-	public void setCards(ImageIcon[] dice, ImageIcon[] cards) {
+	public void setCards(BufferedImage[] dice, BufferedImage[] cards) {
 
 		// Set up dice
 		for (int i = 0; i < dice.length; i++)
-			diceImages[i].setIcon(dice[i]);
+			diceImages[i].setIcon(new ImageIcon(dice[i]));
 
 		// Set up cards
 		for (int i = 0; i < cards.length; i++)
-			cardImages[i].setIcon(cards[i]);
+			cardImages[i].setIcon(new ImageIcon(cards[i]));
 	}
 }

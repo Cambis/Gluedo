@@ -1,6 +1,6 @@
 package cluedo.model.cards;
 
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
 
 import cluedo.model.Player;
 import cluedo.model.gameObjects.GameObject;
@@ -21,5 +21,5 @@ public interface Card {
 	 * Returns the image of the card as an ImageIcon
 	 * @return
 	 */
-	public abstract ImageIcon getImageIcon();
+	public abstract BufferedImage getImage();
 }

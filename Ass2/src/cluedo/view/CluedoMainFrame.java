@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -51,96 +52,92 @@ public class CluedoMainFrame extends JFrame {
 		board.updateState(GameState.WELCOME);
 		add(board, BorderLayout.CENTER);
 
-
-		//Sets opening mode to welcome
+		// Sets opening mode to welcome
 		updateCanvas(GameState.WELCOME);
 
-		//Adds start button to panel
+		// Adds start button to panel
 		createStartButton();
 		startButton.addActionListener(g);
 		add(startButton, BorderLayout.SOUTH);
-		//startButton.setVisible(true);
+		// startButton.setVisible(true);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-		//pack(); // pack components tightly together
+		// pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
 		repaint();
 
-		//Sets up player frame and links to gui
+		// Sets up player frame and links to gui
 		start = new NewGameFrame(g);
 		start.setVisible(false);
 
 	}
 
-	public PlayerInitBox getSetup(){
+	public PlayerInitBox getSetup() {
 		return nameAsker;
 	}
-
 
 	/**
 	 * Creates start button for title screen
 	 */
 
-	private void createStartButton(){
+	private void createStartButton() {
 		startButton = new JButton("Start New Game");
 	}
 
 	/**
 	 * Creates player set up tool
+	 * 
 	 * @param g
 	 */
-	public void createPlayerSelector(GUI g){
+	public void createPlayerSelector(GUI g) {
 		nameAsker = new PlayerInitBox(); // note: Link to Finish button
 		nameAsker.addListener(g);
 	}
 
-	public void createCardPanel(int cards){
+	public void createCardPanel(int cards) {
 		cp = new CardPanel(cards);
-		add(cp,BorderLayout.SOUTH);
+		add(cp, BorderLayout.SOUTH);
 		cp.setVisible(true);
-		//pack();
+		// pack();
 	}
 
 	/**
-	 * This updates the panel to hold a given
-	 * set of cards and dice rolls
+	 * This updates the panel to hold a given set of cards and dice rolls
 	 *
 	 * This should be called when a new player is taking their turn
 	 *
-	 * @param cards is a set of the current players cards
-	 * @param dice	is an array of the images of
-	 * the dice values they have rolled
+	 * @param cards
+	 *            is a set of the current players cards
+	 * @param dice
+	 *            is an array of the images of the dice values they have rolled
 	 */
 
-	public void setCardPanel(Set<Card> cards, Image[] dice){
-		ImageIcon[] d = new ImageIcon[dice.length];
-		ImageIcon[] c = new ImageIcon[cards.size()];
+	public void setCardPanel(Set<Card> cards, Image[] dice) {
+		BufferedImage[] d = new BufferedImage[dice.length];
+		BufferedImage[] c = new BufferedImage[cards.size()];
 
 		// Creates dice image icons
-		for(int i = 0; i < dice.length; i++){
-			d[i] = new ImageIcon(dice[i]);
-		}
+		// for(int i = 0; i < dice.length; i++){
+		// d[i] = new ImageIcon(dice[i]);
+		// }
 
 		// Creates card image icons
 		int count = 0;
-		for(Card card: cards){
-			c[count++] = card.getImageIcon();
+		for (Card card : cards) {
+			c[count++] = card.getImage();
 		}
 
 		cp.setCards(d, c);
 	}
-
 
 	private JMenuBar createMenu() {
 		menuBar = new JMenuBar(); // creates menu bar
 
 		menu = new JMenu("Game"); // creates first menu item
 		menu.setMnemonic(KeyEvent.VK_A);
-		menu.getAccessibleContext().setAccessibleDescription(
-				"The only menu in this program that has menu items");
+		menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
 
 		menuBar.add(menu); // adds to menu bar
 
@@ -151,21 +148,22 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	@Override
-	public void repaint(){
-		//System.out.println(state);
-		if(state != GameState.WELCOME){ // turns off the startButton after title screen
+	public void repaint() {
+		// System.out.println(state);
+		if (state != GameState.WELCOME) { // turns off the startButton after
+											// title screen
 			startButton.setVisible(false);
 		}
 
-		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL){
+		if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {
 			cp.repaint();
 		}
-		//start.repaint();
+		// start.repaint();
 		board.repaint();
 
 	}
 
-	public int getCanvasSquareWidth(){
+	public int getCanvasSquareWidth() {
 		return board.getWidth();
 	}
 
@@ -178,5 +176,3 @@ public class CluedoMainFrame extends JFrame {
 		new CluedoMainFrame(new GUI(new CluedoGame()));
 	}
 }
-
-
