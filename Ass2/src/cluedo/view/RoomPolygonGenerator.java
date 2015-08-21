@@ -17,8 +17,34 @@ public class RoomPolygonGenerator {
 		makeKitchen();
 		makeBallRoom();
 		makeConservatory();
+		makeBilliardRoom();
+		makeLibrary();
+		makeStudy();
 	}
 	
+	private void makeStudy() {
+		xPoints =  new int[]{17*size, 24*size, 24*size, 18*size, 18*size,
+				17*size};
+		yPoints = new int[]{21*size, 21*size, 25*size, 25*size, 24*size, 24*size};
+		study = new Polygon(xPoints, yPoints, xPoints.length);
+		
+	}
+
+	private void makeLibrary() {
+		xPoints =  new int[]{18*size,23*size,23*size, 24*size, 24*size,
+				23*size, 23*size, 18*size, 18*size, 17*size, 17*size, 18*size };
+		yPoints = new int[]{14*size, 14*size, 15*size, 15*size, 18*size,
+				18*size, 19*size, 19*size, 18*size, 18*size, 15*size, 15*size };
+		library = new Polygon(xPoints, yPoints, xPoints.length);
+	}
+
+	private void makeBilliardRoom() {
+		xPoints =  new int[]{18*size,24*size, 24*size, 18*size};
+		yPoints = new int[]{8*size, 8*size, 13*size, 13*size};
+		billiardsRoom = new Polygon(xPoints, yPoints, xPoints.length);
+		
+	}
+
 	public void makeKitchen(){
 		xPoints =  new int[]{0, 6*size, 6*size, 1*size, 1*size, 0*size};
 		yPoints = new int[]{1*size, 1*size, 7*size, 7*size, 6*size, 6*size};
