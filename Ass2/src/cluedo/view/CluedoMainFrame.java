@@ -1,9 +1,12 @@
 package cluedo.view;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -14,6 +17,7 @@ import javax.swing.JTextField;
 
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
+import cluedo.model.cards.Card;
 
 public class CluedoMainFrame extends JFrame {
 
@@ -42,29 +46,6 @@ public class CluedoMainFrame extends JFrame {
 		this.setSize(700, 700); // sets size
 		setJMenuBar(createMenu()); // creates menu bar
 
-
-
-		// Add game
-		//game = new CluedoGame();
-
-		// Add new game frame
-//		start = new NewGameFrame(g) {
-//
-//			private static final long serialVersionUID = -7643791232912141407L;
-//
-////			@Override
-////			public void actionPerformed(ActionEvent e) {
-////				System.out.println(e.getActionCommand());
-////				super.actionPerformed(e);
-////				//game.setNumOfPlayers(super.getNumOfPlayers());
-////
-////			}
-//		};
-
-		//start.setVisible(true); // make it visible
-		//add(start, BorderLayout.CENTER);
-
-		// Adds cluedo board (JPanel, use this or the one above)
 		board = new CluedoBoardPanel();
 		board.addMouseListener(g);
 		board.updateState(GameState.WELCOME);
@@ -82,12 +63,7 @@ public class CluedoMainFrame extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// addButtons();
-
-		// this.add(createMenu());
-
-		// getContentPane().add(menuBar);
-
+		
 		//pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
@@ -97,23 +73,13 @@ public class CluedoMainFrame extends JFrame {
 		start = new NewGameFrame(g);
 		start.setVisible(false);
 
-		// Sets up TextField for getting a player's name
-		// nameAsker = new PlayerInitFrame(g); // note: Link to Finish button
-		// nameAsker.addKeyListener(g);
-		// nameAsker.addActionListener(g);
-
 	}
 	
 	public PlayerInitFrame getSetup(){
 		return nameAsker;
 	}
 
-	// private void addButtons() {
-	// // section for player controls
-	// JPanel playerControls = new JPanel(new BorderLayout());
-	// add(playerControls, BorderLayout.SOUTH);
-	// }
-
+	
 	/**
 	 * Creates start button for title screen
 	 */
@@ -138,9 +104,34 @@ public class CluedoMainFrame extends JFrame {
 		//pack();
 	}
 	
-//	public void setCardPanel(){
-//		cp.setCards(dice, cards);
-//	}
+	/**
+	 * This updates the panel to hold a given
+	 * set of cards and dice rolls
+	 * 
+	 * This should be called when a new player is taking their turn
+	 * 
+	 * @param cards is a set of the current players cards
+	 * @param dice	is an array of the images of 
+	 * the dice values they have rolled
+	 */
+	
+	public void setCardPanel(Set<Card> cards, Image[] dice){
+		ImageIcon[] d = new ImageIcon[dice.length];
+		ImageIcon[] c = new ImageIcon[cards.size()];
+		
+		// Creates dice image icons
+		for(int i = 0; i < dice.length; i++){
+			d[i] = new ImageIcon(dice[i]);
+		}		
+		
+		// Creates card image icons
+		int count = 0;
+		for(Card card: cards){
+			c[count++] = new ImageIcon(card.getImage());
+		}
+		
+		cp.setCards(d, c);
+	}
 
 
 	private JMenuBar createMenu() {

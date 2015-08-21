@@ -2,6 +2,7 @@ package cluedo.view;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
@@ -24,6 +26,7 @@ import cluedo.control.CluedoGame.GameState;
 import cluedo.model.Game;
 import cluedo.model.Player;
 import cluedo.model.board.Square;
+import cluedo.model.cards.Card;
 
 /**
  * Main user interface class, might not need all of the listeners.
@@ -122,16 +125,32 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				System.out.println("Done");
 				game.setUp();
 				
-				game.setState(GameState.GENERAL); // changes state to select number of player
-				frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
-				frame.createCardPanel((int)Math.ceil(18/players.size()));
-				
+				game.setState(GameState.START_TURN); // changes state to first players roll
+				frame.updateCanvas(GameState.START_TURN); // lets the frame know of state change
+				frame.createCardPanel((int)Math.ceil(18/players.size()));	
+				// Need to pop up a startTurn box here
 				frame.repaint();
 			}
+		}
+		
+		else if(game.getState() == GameState.START_TURN){
+			runTurn(); // rolls the dice
+			game.setState(GameState.GENERAL); // changes state to first players roll
+			frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+			frame.repaint();
 		}
 		
 		
 
 	}	
+	
+	public void runTurn(){
+		Player p = game.getCurrentPlayer();
+		Image[] dice  = game.getDiceRoll();
+		Set<Card>  cards = p.getHand();
+		
+		frame.setCardPanel(cards, dice);		
+		// then pass information to interaction panel
+	}
 
 }
