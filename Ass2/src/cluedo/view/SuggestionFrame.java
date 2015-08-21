@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -25,75 +26,70 @@ import javax.swing.JRadioButton;
  */
 public class SuggestionFrame extends JInternalFrame {
 
-	private JRadioButton[] suspectButtons, roomButtons;
+	private JRadioButton[] suspectButtons, weaponButtons;
 
-	private ButtonGroup suspectGroup, roomGroup;
+	private ButtonGroup suspectGroup, weaponGroup;
 
 	// Displays rooms, suspects.
-	private JPanel panel;
+	protected final JPanel panel;
 
-	private JLabel prompt;
+	// Prompts user for input
+	protected final JLabel prompt;
+
+	// In case the user wants to cancel their action
+	protected final JButton cancel;
 
 	// User responses
-	private String suspectResponse, roomResponse;
+	protected String suspectResponse, weaponResponse;
 
-	// Used to test this class separately from the GUI
-	private static boolean TEST;
-
-	// Suspects, rooms and weapons
+	// Suspects, weapons.
 	private String suspects[] = { "Miss Scarlet", "Professor Plum",
 			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard",
 			"Mrs. White" };
 
-	private String rooms[] = { "Study", "Hall", "Lounge", "Library",
-			"Billiard Room", "Dining Room", "Conservatory", "Ballroom",
-			"Kitchen" };
+	private String weapons[] = { "Dagger", "Lead Pipe", "Revolver", "Rope",
+			"Spanner", "Candlestick" };
 
 	public SuggestionFrame() throws HeadlessException {
-		this(false);
-	}
 
-	/**
-	 * Used for testing this class
-	 *
-	 * @param test
-	 * @throws HeadlessException
-	 */
-	public SuggestionFrame(boolean test) throws HeadlessException {
-		TEST = test;
+		panel = new JPanel();
+		prompt = new JLabel();
+		cancel = new JButton("Cancel");
+
 		init();
 	}
 
 	private void init() {
 
-		setLayout(new FlowLayout());
+		setLayout(new GridLayout());
 
 		suspectButtons = new JRadioButton[6];
-		roomButtons = new JRadioButton[9];
+		weaponButtons = new JRadioButton[9];
 
-		panel = new JPanel();
-		prompt = new JLabel();
+
+		cancel.addActionListener(cancelListener);
 
 		suspectGroup = new ButtonGroup();
-		roomGroup = new ButtonGroup();
+		weaponGroup = new ButtonGroup();
 
 		add(panel);
 		changeToSuspects();
 		pack();
 
-		// If it is a test set it to visible, otherwise the GUI should tell
-		// were ever this class is visible
-		setVisible(TEST);
+		// GUI or MainFrame should tell this class when it can be visible
+		setVisible(false);
+		setResizable(false);
+		setClosable(false);
 	}
 
 	/**
 	 * Changes the panel to show suspects
 	 */
-	private void changeToSuspects() {
+	protected void changeToSuspects() {
 
 		panel.removeAll();
 		panel.revalidate();
-		panel.setLayout(new GridLayout(7, 1));
+		panel.setLayout(new GridLayout(8, 1));
 
 		// Set label
 		prompt.setText("Please choose a character");
@@ -108,18 +104,20 @@ public class SuggestionFrame extends JInternalFrame {
 			panel.add(suspectButtons[i]);
 		}
 
+		panel.add(cancel);
+
 		pack();
 		panel.repaint();
 	}
 
 	/**
-	 * Change the panel to show rooms
+	 * Change the panel to show weapons
 	 */
-	private void changeToRooms() {
+	protected void changeToWeapons() {
 
 		panel.removeAll();
 		panel.revalidate();
-		panel.setLayout(new GridLayout(10, 1));
+		panel.setLayout(new GridLayout(8, 1));
 
 		// Set label
 		prompt.setText("Please choose a room");
@@ -127,12 +125,14 @@ public class SuggestionFrame extends JInternalFrame {
 		panel.add(prompt);
 
 		// Setup buttons
-		for (int i = 0; i < 9; i++) {
-			roomButtons[i] = new JRadioButton(rooms[i], false);
-			roomButtons[i].addActionListener(roomListener);
-			roomGroup.add(roomButtons[i]);
-			panel.add(roomButtons[i]);
+		for (int i = 0; i < 6; i++) {
+			weaponButtons[i] = new JRadioButton(weapons[i], false);
+			weaponButtons[i].addActionListener(weaponListener);
+			weaponGroup.add(weaponButtons[i]);
+			panel.add(weaponButtons[i]);
 		}
+
+		panel.add(cancel);
 
 		pack();
 		panel.repaint();
@@ -144,7 +144,7 @@ public class SuggestionFrame extends JInternalFrame {
 	 * @return
 	 */
 	public String[] getAnswers() {
-		return new String[] { suspectResponse, roomResponse };
+		return new String[] { suspectResponse, weaponResponse };
 	}
 
 	private ActionListener suspectListener = new ActionListener() {
@@ -152,24 +152,36 @@ public class SuggestionFrame extends JInternalFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			suspectResponse = ((JRadioButton) e.getSource()).getName();
-			changeToRooms();
+			changeToWeapons();
 			repaint();
 		}
 
 	};
 
-	private ActionListener roomListener = new ActionListener() {
+	protected ActionListener weaponListener = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			roomResponse = ((JRadioButton) e.getSource()).getName();
+			weaponResponse = ((JRadioButton) e.getSource()).getName();
 			changeToSuspects();
 			repaint();
 		}
 
 	};
 
+	private ActionListener cancelListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// Should we make it close the window or hide it?
+			setVisible(false);
+		}
+
+	};
+
 	public static void main(String args[]) {
-		new SuggestionFrame(true);
+		SuggestionFrame frame = new SuggestionFrame();
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 }
