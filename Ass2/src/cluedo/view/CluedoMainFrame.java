@@ -63,7 +63,7 @@ public class CluedoMainFrame extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		
+
 		//pack(); // pack components tightly together
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
@@ -74,12 +74,12 @@ public class CluedoMainFrame extends JFrame {
 		start.setVisible(false);
 
 	}
-	
+
 	public PlayerInitFrame getSetup(){
 		return nameAsker;
 	}
 
-	
+
 	/**
 	 * Creates start button for title screen
 	 */
@@ -87,7 +87,7 @@ public class CluedoMainFrame extends JFrame {
 	private void createStartButton(){
 		startButton = new JButton("Start New Game");
 	}
-	
+
 	/**
 	 * Creates player set up tool
 	 * @param g
@@ -96,40 +96,40 @@ public class CluedoMainFrame extends JFrame {
 		nameAsker = new PlayerInitFrame(); // note: Link to Finish button
 		nameAsker.addListener(g);
 	}
-	
+
 	public void createCardPanel(int cards){
 		cp = new CardPanel(cards);
 		add(cp,BorderLayout.SOUTH);
 		cp.setVisible(true);
 		//pack();
 	}
-	
+
 	/**
 	 * This updates the panel to hold a given
 	 * set of cards and dice rolls
-	 * 
+	 *
 	 * This should be called when a new player is taking their turn
-	 * 
+	 *
 	 * @param cards is a set of the current players cards
-	 * @param dice	is an array of the images of 
+	 * @param dice	is an array of the images of
 	 * the dice values they have rolled
 	 */
-	
+
 	public void setCardPanel(Set<Card> cards, Image[] dice){
 		ImageIcon[] d = new ImageIcon[dice.length];
 		ImageIcon[] c = new ImageIcon[cards.size()];
-		
+
 		// Creates dice image icons
 		for(int i = 0; i < dice.length; i++){
 			d[i] = new ImageIcon(dice[i]);
-		}		
-		
+		}
+
 		// Creates card image icons
 		int count = 0;
 		for(Card card: cards){
-			c[count++] = new ImageIcon(card.getImage());
+			c[count++] = card.getImageIcon();
 		}
-		
+
 		cp.setCards(d, c);
 	}
 
@@ -155,8 +155,8 @@ public class CluedoMainFrame extends JFrame {
 		//System.out.println(state);
 		if(state != GameState.WELCOME){ // turns off the startButton after title screen
 			startButton.setVisible(false);
-		}	
-		
+		}
+
 		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL){
 			cp.repaint();
 		}
