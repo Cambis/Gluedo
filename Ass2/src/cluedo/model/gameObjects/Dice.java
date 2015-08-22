@@ -42,6 +42,6 @@ public class Dice {
 	}
 	
 	public BufferedImage getRollImage(){
-		return rollImages[value];
+		return rollImages[value-1];
 	}
 }

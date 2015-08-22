@@ -162,6 +162,7 @@ public class CluedoBoardPanel extends JPanel {
 		int x = 20;
 		int y = 20;
 		g.setColor(Color.CYAN);
+		((Graphics2D)g).setStroke(new BasicStroke(5f));
 		for(Square s : landSquares){
 			g.drawRect(s.getX()*x, s.getY()*y, x, y);
 		}

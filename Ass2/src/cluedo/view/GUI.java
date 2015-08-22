@@ -164,6 +164,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		Player current = game.getCurrentPlayer(); // gets current player		
 		Square start = b.squareAt(current.getX(), current.getY()); // gets current player's location
 		int roll = game.getRoll(); // gets their roll value
+		System.out.println("Roll: " + roll);
 		
 		Set<Square> lands = game.getBoard().djikstra(start, roll);
 		Set<String> rooms = findRooms(lands);	
