@@ -147,6 +147,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			runTurn(); // rolls the dice
 			game.setState(GameState.GENERAL); // changes state to first players roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+			frame.drawPlayers(game.getPlayers());
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");

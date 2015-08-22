@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -21,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import cluedo.control.CluedoGame.GameState;
+import cluedo.model.Player;
 import cluedo.model.board.Square;
 
 /**
@@ -39,6 +41,7 @@ public class CluedoBoardPanel extends JPanel {
 	
 	private Set<Square> landSquares;
 	private Set<Polygon> rooms;
+	private List<Player> players;
 	
 	int x = 21;
 	int y = 21;
@@ -177,6 +180,7 @@ public class CluedoBoardPanel extends JPanel {
 		
 		else if(state.equals(GameState.GENERAL)){
 			paintBoard(g);
+			drawPlayers(players,g);
 			paintLandingSquares(g);
 		}
 		else{		
@@ -191,6 +195,16 @@ public class CluedoBoardPanel extends JPanel {
 		j.setSize(550, 550);
 		j.add(new CluedoBoardPanel());
 		j.setVisible(true);
+	}	
+
+	public void drawPlayers(List<Player> players, Graphics g) {
+		for(Player p : players){
+			p.draw(g);
+		}
+	}
+
+	public void setPlayerPositions(List<Player> players2) {
+		players = players2;		
 	}
 }
 

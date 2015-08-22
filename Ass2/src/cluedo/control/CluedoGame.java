@@ -48,8 +48,8 @@ public class CluedoGame {
 	private GameState state = GameState.WELCOME; // Default screen is welcome
 
 	// Starting positions for the characters
-	public static final Point MRS_WHITE_START = new Point(0, 9);
-	public static final Point MR_GREEN_START = new Point(0, 14);
+	public static final Point MRS_WHITE_START = new Point(0, 7);
+	public static final Point MR_GREEN_START = new Point(0, 17);
 	public static final Point MRS_PEACOCK_START = new Point(6, 24);
 	public static final Point COLONEL_MUSTARD_START = new Point(14, 0);
 	public static final Point MISS_SCARLET_START = new Point(23, 6);
@@ -263,6 +263,10 @@ public class CluedoGame {
 			// icon = new ImageIcon(c.getImageIcon());
 		}
 		return icon;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
 	}
 
 }

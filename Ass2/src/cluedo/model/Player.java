@@ -1,5 +1,7 @@
 package cluedo.model;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -141,6 +143,33 @@ public class Player implements KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		// Use for entering name and what not
+	}
+	
+	public void draw(Graphics g){
+		switch(m_character){
+		case COLONEL_MUSTARD:
+			g.setColor(Color.yellow);
+			break;
+		case MISS_SCARLET:
+			g.setColor(Color.red);
+			break;
+		case MRS_PEACOCK:
+			g.setColor(Color.blue);
+			break;
+		case MRS_WHITE:
+			g.setColor(Color.WHITE);
+			break;
+		case PROFESSOR_PLUM:
+			g.setColor(Color.MAGENTA);
+			break;
+		case THE_REVEREND_GREEN:
+			g.setColor(Color.green);
+			break;
+		default:
+			break;
+		
+		}
+		g.fillOval(m_x *21, m_y*21, 21, 21);
 	}
 
 }
