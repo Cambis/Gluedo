@@ -1,6 +1,7 @@
 package cluedo.model.cards;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,13 +64,13 @@ public class CharacterCard implements Card {
 		}
 
 		BufferedImage image = null;
-		
+
 		try {
 			image = ImageIO.read(imageURL);
 		} catch (IOException e) {
-			
+
 		}
-		
+
 		return image;
 	}
 

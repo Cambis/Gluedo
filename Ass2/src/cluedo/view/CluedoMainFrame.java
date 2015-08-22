@@ -88,7 +88,7 @@ public class CluedoMainFrame extends JFrame {
 
 	/**
 	 * Creates player set up tool
-	 * 
+	 *
 	 * @param g
 	 */
 	public void createPlayerSelector(GUI g) {
@@ -171,6 +171,21 @@ public class CluedoMainFrame extends JFrame {
 		this.state = state;
 		board.updateState(state);
 	}
+
+	/**
+	 * Resizes an image
+	 * @param image
+	 * @param scaleX
+	 * @param scaleY
+	 * @return
+	 */
+	public static BufferedImage resizeImage(BufferedImage image, int scaleX, int scaleY) {
+		Image img = image.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
+		BufferedImage resized = new BufferedImage(scaleX, scaleY, Image.SCALE_SMOOTH);
+		resized.getGraphics().drawImage(img, 0, 0, null);
+		return resized;
+	}
+
 
 	public static void main(String args[]) {
 		new CluedoMainFrame(new GUI(new CluedoGame()));

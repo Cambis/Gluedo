@@ -68,7 +68,7 @@ public class CluedoGame {
 	// All players in the game
 	private List<Player> players;
 
-	//Current player index
+	// Current player index
 	private int current;
 
 	// Dice that the game uses
@@ -84,7 +84,7 @@ public class CluedoGame {
 		board = new Board("cluedo.txt");
 
 		// TODO create players
-		//state = GameState.SETUP_PLAYERS;
+		// state = GameState.SETUP_PLAYERS;
 
 		// GUI gui = new GUI();
 
@@ -93,18 +93,18 @@ public class CluedoGame {
 		// deal();
 	}
 
-	//game logic
+	// game logic
 
-	//players = Gui.getPLayers();
+	// players = Gui.getPLayers();
 
-	public Board getBoard(){
+	public Board getBoard() {
 		return board;
 	}
 
 	/**
 	 * Sets the players in the game
 	 */
-	public void addPlayers(List<Player> players){
+	public void addPlayers(List<Player> players) {
 		this.players = players;
 	}
 
@@ -113,33 +113,33 @@ public class CluedoGame {
 	 * This includes creating a board and deck then selecting the cards for the
 	 * envelope and dealing
 	 */
-	public void setUp(){
+	public void setUp() {
 		board = new Board("cluedo.txt");
 		createDeck();
 		deal();
-		dice1 = new Dice(); // Note: need to add in letting the player choose a second dice
+		dice1 = new Dice(); // Note: need to add in letting the player choose a
+							// second dice
 		dice2 = new Dice();
-		}
+	}
 
-	public Player getCurrentPlayer(){
+	public Player getCurrentPlayer() {
 		return players.get(current);
 	}
 
-	public void nextPlayer(){
-		if(current < players.size() - 1){
+	public void nextPlayer() {
+		if (current < players.size() - 1) {
 			current++;
-		}
-		else{ // full round has been completed
+		} else { // full round has been completed
 			current = 0;
 		}
 	}
 
 	/**
-	 * Rolls the dice for a player and then returns the images
-	 * of the dice for drawing on the player panel
+	 * Rolls the dice for a player and then returns the images of the dice for
+	 * drawing on the player panel
 	 */
 
-	public Image[] getDiceRoll(){
+	public Image[] getDiceRoll() {
 		Image[] dice = new Image[2];
 		dice1.roll();
 		dice[0] = dice1.getRollImage();
@@ -147,7 +147,6 @@ public class CluedoGame {
 		dice[1] = dice2.getRollImage();
 		return dice;
 	}
-
 
 	/**
 	 * Creates the game deck and envelope
@@ -222,11 +221,11 @@ public class CluedoGame {
 		this.numOfPlayers = numOfPlayers;
 	}
 
-	public GameState getState(){
+	public GameState getState() {
 		return state;
 	}
 
-	public void setState(GameState g){
+	public void setState(GameState g) {
 		state = g;
 	}
 
@@ -245,6 +244,7 @@ public class CluedoGame {
 
 	/**
 	 * Helper method for loading image icons.
+	 * 
 	 * @param filename
 	 * @return
 	 */

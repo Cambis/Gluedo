@@ -1,6 +1,7 @@
 package cluedo.view;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ButtonGroup;
@@ -63,6 +64,8 @@ public class PlayerInfoPanel extends JPanel {
 
 		// TODO setup button listeners
 
+
+		setVisible(true);
 	}
 
 	/**
@@ -76,8 +79,10 @@ public class PlayerInfoPanel extends JPanel {
 		this.playerImage = playerImage;
 		this.playerName = playerName;
 
-		playerIcon.setIcon(new ImageIcon(playerImage));
-		playerIcon.setSize(50, 50);
+		// Resize image
+		BufferedImage resized = CluedoMainFrame.resizeImage(playerImage, 100, 200);
+
+		playerIcon.setIcon(new ImageIcon(resized));
 		playerLabel.setText(playerName);
 	}
 
