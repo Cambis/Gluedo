@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
+import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
 public class CluedoMainFrame extends JFrame {
@@ -79,6 +80,15 @@ public class CluedoMainFrame extends JFrame {
 	public PlayerInitBox getSetup() {
 		return nameAsker;
 	}
+	
+	/**
+	 * Passes a set of possible landing squares and Rooms onto the 
+	 * CluedoBoardPanel for drawing
+	 */
+	
+	public void drawValidMoves(Set<Square> lands, Set<String> rooms){
+		board.setLandingSquares(lands, rooms);
+	}
 
 	/**
 	 * Creates start button for title screen
@@ -116,14 +126,14 @@ public class CluedoMainFrame extends JFrame {
 	 *            is an array of the images of the dice values they have rolled
 	 */
 
-	public void setCardPanel(Set<Card> cards, Image[] dice) {
+	public void setCardPanel(Set<Card> cards, BufferedImage[] dice) {
 		BufferedImage[] d = new BufferedImage[dice.length];
 		BufferedImage[] c = new BufferedImage[cards.size()];
 
 		// Creates dice image icons
-		// for(int i = 0; i < dice.length; i++){
-		// d[i] = new ImageIcon(dice[i]);
-		// }
+		 for(int i = 0; i < dice.length; i++){
+			 d[i] = (dice[i]);
+		 }
 
 		// Creates card image icons
 		int count = 0;

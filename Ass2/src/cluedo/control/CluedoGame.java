@@ -2,6 +2,7 @@ package cluedo.control;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -139,13 +140,17 @@ public class CluedoGame {
 	 * drawing on the player panel
 	 */
 
-	public Image[] getDiceRoll() {
-		Image[] dice = new Image[2];
+	public BufferedImage[] getDiceRoll() {
+		BufferedImage[] dice = new BufferedImage[2];
 		dice1.roll();
 		dice[0] = dice1.getRollImage();
 		dice2.roll();
 		dice[1] = dice2.getRollImage();
 		return dice;
+	}
+	
+	public int getRoll(){
+		return dice1.getValue() + dice2.getValue();
 	}
 
 	/**

@@ -139,5 +139,32 @@ public class RoomPolygonGenerator {
 	public Polygon getBilliardsRoom() {
 		return billiardsRoom;
 	}
+
+	public Polygon getRoom(String s) {
+		switch(s){
+		case "LIBRARY":
+			return library;
+		case "HALL":
+			return hall;
+		case "DINING_ROOM":
+			return diningRoom;
+		case "KITCHEN":
+			return kitchen;
+		case "SWIMMING_POLL":
+			return swimmingPool;
+		case "BILLIARD_ROOM":
+			return billiardsRoom;
+		case "STUDY":
+			return study;
+		case "BALL_ROOM":
+			return ballRoom;
+		case "CONSERVATORY":
+			return conservatory;
+		case "LOUNGE":
+			return lounge;
+			
+		}
+		return null;
+	}
 	
 }
