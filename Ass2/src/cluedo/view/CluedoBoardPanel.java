@@ -158,9 +158,7 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawPolygon(roomOutlines.getSwimmingPool());
 	}
 
-	public void paintLandingSquares(Graphics g){
-		int x = 20;
-		int y = 20;
+	public void paintLandingSquares(Graphics g){		
 		g.setColor(Color.CYAN);
 		((Graphics2D)g).setStroke(new BasicStroke(5f));
 		for(Square s : landSquares){

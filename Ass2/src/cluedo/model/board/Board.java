@@ -396,7 +396,7 @@ public class Board {
 			}
 			
 			// Add square to right to priority queue
-			if(door.getX() < board[0].length -1){
+			if(door.getX() < board.length -1){
 				Square right = squareAt(door.getX()+1,
 						door.getY());
 				if (right instanceof InhabitableSquare) {
@@ -493,7 +493,7 @@ public class Board {
 					}
 
 					// add square right
-					if (currentSquare.getX() < board[0].length - 1) {
+					if (currentSquare.getX() < board.length - 1) {
 						Square right = squareAt(currentSquare.getX() + 1,
 								currentSquare.getY());
 						if (right instanceof InhabitableSquare) {
