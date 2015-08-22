@@ -432,6 +432,7 @@ public class Board {
 
 				if (current.getMoves() == roll) { // add as final destination
 					// square
+					System.out.println("Adding " + currentSquare.getX() + " " + currentSquare.getY());
 					squares.add((Square) currentSquare);
 				}
 

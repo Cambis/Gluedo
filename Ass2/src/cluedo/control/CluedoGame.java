@@ -51,9 +51,9 @@ public class CluedoGame {
 	public static final Point MRS_WHITE_START = new Point(0, 9);
 	public static final Point MR_GREEN_START = new Point(0, 14);
 	public static final Point MRS_PEACOCK_START = new Point(6, 24);
-	public static final Point COLONEL_MUSTARD_START = new Point(17, 0);
-	public static final Point MISS_SCARLET_START = new Point(24, 7);
-	public static final Point PROFESSOR_PLUM_START = new Point(19, 24);
+	public static final Point COLONEL_MUSTARD_START = new Point(14, 0);
+	public static final Point MISS_SCARLET_START = new Point(23, 6);
+	public static final Point PROFESSOR_PLUM_START = new Point(16, 24);
 
 	public final static boolean DEBUG = false;
 	public final static int NUM_OF_DICE = 2;
