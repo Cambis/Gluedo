@@ -453,6 +453,7 @@ public class Board {
 										above));
 							}
 						} else if (above instanceof DoorSquare && !(above instanceof PassageWaySquare) ){
+							System.out.println("Adding DoorSquare " + ((DoorSquare)above).toString());
 							squares.add(above);
 						}
 					}
@@ -471,6 +472,7 @@ public class Board {
 										below));
 							}
 						} else if (below instanceof DoorSquare && !(below instanceof PassageWaySquare)) {
+							System.out.println("Adding DoorSquare " + ((DoorSquare)below).toString());
 							squares.add(below);
 						}
 					}
@@ -489,6 +491,7 @@ public class Board {
 										left));
 							}
 						} else if (left instanceof DoorSquare && !(left instanceof PassageWaySquare)) {
+							System.out.println("Adding DoorSquare " + ((DoorSquare)left).toString());
 							squares.add(left);
 						}
 					}
@@ -507,6 +510,7 @@ public class Board {
 										right));
 							}
 						} else if (right instanceof DoorSquare && !(right instanceof PassageWaySquare)) {
+							System.out.println("Adding DoorSquare " + ((DoorSquare)right).toString());
 							squares.add(right);
 						}
 					}
