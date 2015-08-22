@@ -24,12 +24,14 @@ public class CluedoMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 6909931835454164833L;
 
-	CluedoCanvas canvas;
-	CluedoBoardPanel board;
-	CardPanel cp;
-	JMenuBar menuBar;
-	JMenu menu;
-	JButton startButton;
+	private CluedoCanvas canvas;
+	private CluedoBoardPanel board;
+	private CardPanel cp;
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JButton startButton;
+	
+	PlayerStartTurnBox turnBox;
 
 	// Asks for the number of players
 	NewGameFrame start;
@@ -189,5 +191,16 @@ public class CluedoMainFrame extends JFrame {
 
 	public static void main(String args[]) {
 		new CluedoMainFrame(new GUI(new CluedoGame()));
+	}
+	
+	public PlayerStartTurnBox getTurnBox(){
+		return turnBox;
+	}
+
+	public void startTurnBox(GUI g, String playerName) {
+		turnBox = new PlayerStartTurnBox();
+		turnBox.addListener(g);
+		turnBox.changePlayer(playerName);
+		turnBox.setVisible(true);
 	}
 }

@@ -117,7 +117,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
 			PlayerInitBox playerFrame = frame.getSetup();
 			Map<String,Player> players = playerFrame.getPlayers();
-			if(players.size() > 3){
+			if(players.size() >= 3){
 				game.setNumOfPlayers(players.size());
 				List<Player> p = new ArrayList<Player>();
 				p.addAll(players.values());
@@ -128,6 +128,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				game.setState(GameState.START_TURN); // changes state to first players roll
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know of state change
 				frame.createCardPanel((int)Math.ceil(18/players.size()));	
+				
+				System.out.println("Turnbox being created");
+				frame.startTurnBox(this, game.getCurrentPlayer().getName());				
 				// Need to pop up a startTurn box here
 				frame.repaint();
 			}

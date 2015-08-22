@@ -65,4 +65,8 @@ public class PlayerStartTurnBox extends JDialog {
 		frame.changePlayer("Dave");
 		frame.setVisible(true);
 	}
+
+	public void addListener(GUI g) {
+		next.addActionListener(g);		
+	}
 }

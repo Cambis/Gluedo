@@ -177,12 +177,12 @@ public class CluedoGame {
 		envelope.add(weapons.remove(randomNumber(0, 5)));
 
 		// Add remaining cards to the deck
-		List<Card> deck = new ArrayList<Card>();
+		deck = new HashSet<Card>();
 		deck.addAll(suspects);
 		deck.addAll(rooms);
 		deck.addAll(weapons);
 
-		Collections.shuffle(deck);
+		//Collections.shuffle(deck);
 
 		// List<List<Card>> cards = new ArrayList<List<Card>>();
 		// cards.add(deck);
@@ -195,6 +195,10 @@ public class CluedoGame {
 	private void deal() {
 
 		// Number of cards in each player's hand
+		if(deck == null){
+			System.out.println("Deck is null");
+		}		
+		
 		int numOfCards = deck.size() / players.size();
 
 		Iterator<Card> iter = deck.iterator();

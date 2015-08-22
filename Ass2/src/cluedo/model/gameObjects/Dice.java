@@ -21,6 +21,8 @@ public class Dice {
 	private int value;
 	
 	public Dice(){
+		rollImages = new Image[6];
+		
 		for(int i = 1; i <= 6; i++){
 			File img = new File("Dice" + i + ".png");
 			BufferedImage die = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
