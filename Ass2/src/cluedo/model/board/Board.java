@@ -373,7 +373,7 @@ public class Board {
 			if(door.getY() != 0){
 				Square above = squareAt(door.getX(),
 						door.getY() - 1);
-				if (above instanceof InhabitableSquare) {
+				if (above instanceof InhabitableSquare && !(above instanceof RoomSquare)) {
 					InhabitableSquare a = (InhabitableSquare) above;
 					if(!a.isOccupied()){
 						fringe.offer(new dStore(1,above));
@@ -386,7 +386,7 @@ public class Board {
 			if(door.getY() < board.length -1){
 				Square below = squareAt(door.getX(),
 						door.getY() + 1);
-				if (below instanceof InhabitableSquare) {
+				if (below instanceof InhabitableSquare && !(below instanceof RoomSquare)) {
 					InhabitableSquare b = (InhabitableSquare) below;
 					if(!b.isOccupied()){
 						fringe.offer(new dStore(1,below));
@@ -399,7 +399,7 @@ public class Board {
 			if(door.getX() < board.length -1){
 				Square right = squareAt(door.getX()+1,
 						door.getY());
-				if (right instanceof InhabitableSquare) {
+				if (right instanceof InhabitableSquare && !(right instanceof RoomSquare)) {
 					InhabitableSquare r = (InhabitableSquare) right;
 					if(!r.isOccupied()){
 						fringe.offer(new dStore(1,right));
@@ -411,7 +411,7 @@ public class Board {
 			if(door.getX() != 0){
 				Square left = squareAt(door.getX()-1,
 						door.getY());
-				if (left instanceof InhabitableSquare) {
+				if (left instanceof InhabitableSquare && !(left instanceof RoomSquare)) {
 					InhabitableSquare l = (InhabitableSquare) left;
 					if(!l.isOccupied()){
 						fringe.offer(new dStore(1,left));
@@ -443,7 +443,7 @@ public class Board {
 					if (currentSquare.getY() != 0) {
 						Square above = squareAt(currentSquare.getX(),
 								currentSquare.getY() - 1);
-						if (above instanceof InhabitableSquare) {
+						if (above instanceof InhabitableSquare && !(above instanceof RoomSquare)) {
 							InhabitableSquare a = (InhabitableSquare) above;
 
 							// Only visit a square if it hasn't already has been
@@ -461,7 +461,7 @@ public class Board {
 					if (currentSquare.getY() < board[0].length - 1) {
 						Square below = squareAt(currentSquare.getX(),
 								currentSquare.getY() + 1);
-						if (below instanceof InhabitableSquare) {
+						if (below instanceof InhabitableSquare && !(below instanceof RoomSquare)) {
 							InhabitableSquare b = (InhabitableSquare) below;
 
 							// Only visit a square if it hasn't already has been
@@ -479,7 +479,7 @@ public class Board {
 					if (currentSquare.getX() != 0) {
 						Square left = squareAt(currentSquare.getX() - 1,
 								currentSquare.getY());
-						if (left instanceof InhabitableSquare) {
+						if (left instanceof InhabitableSquare && !(left instanceof RoomSquare)) {
 							InhabitableSquare l = (InhabitableSquare) left;
 
 							// Only visit a square if it hasn't already has been
@@ -497,7 +497,7 @@ public class Board {
 					if (currentSquare.getX() < board.length - 1) {
 						Square right = squareAt(currentSquare.getX() + 1,
 								currentSquare.getY());
-						if (right instanceof InhabitableSquare) {
+						if (right instanceof InhabitableSquare && !(right instanceof RoomSquare)) {
 							InhabitableSquare r = (InhabitableSquare) right;
 
 							// Only visit a square if it hasn't already has been
