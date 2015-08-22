@@ -140,6 +140,10 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawPolygon(roomOutlines.getStudy());
 		g.drawPolygon(roomOutlines.getLibrary());
 		g.drawPolygon(roomOutlines.getBilliardsRoom());
+		g.drawPolygon(roomOutlines.getLounge());
+		g.drawPolygon(roomOutlines.getHall());
+		g.drawPolygon(roomOutlines.getDiningRoom());
+		g.drawPolygon(roomOutlines.getSwimmingPool());
 	}
 
 	public void paintLandingSquares(Set<Square> sq, Graphics g){
