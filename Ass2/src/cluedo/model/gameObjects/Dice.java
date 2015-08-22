@@ -16,11 +16,13 @@ import javax.imageio.ImageIO;
  */
 public class Dice {
 	
-	private Image[] rollImages;
+	private BufferedImage[] rollImages;
 
 	private int value;
 	
 	public Dice(){
+		rollImages = new BufferedImage[6];
+		
 		for(int i = 1; i <= 6; i++){
 			File img = new File("Dice" + i + ".png");
 			BufferedImage die = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
@@ -39,7 +41,7 @@ public class Dice {
 		return value;
 	}
 	
-	public Image getRollImage(){
-		return rollImages[value];
+	public BufferedImage getRollImage(){
+		return rollImages[value-1];
 	}
 }

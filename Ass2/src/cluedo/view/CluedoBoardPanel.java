@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+import java.awt.Polygon;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,7 +36,9 @@ public class CluedoBoardPanel extends JPanel {
 	private RoomPolygonGenerator roomOutlines;
 	private int width, height;
 	private GameState state;
+	
 	private Set<Square> landSquares;
+	private Set<Polygon> rooms;
 	
 	int x = 21;
 	int y = 21;
@@ -77,7 +80,9 @@ public class CluedoBoardPanel extends JPanel {
 	private void init() {
 		height =  526;
 		width = 526;
+		
 		landSquares = new HashSet<Square>();
+		rooms = new HashSet<Polygon>();
 
 		// Read the title screen image
 		File img = new File("Cluedo.jpg");
@@ -110,8 +115,15 @@ public class CluedoBoardPanel extends JPanel {
 				board.getHeight(), null);
 	}
 	
-	public void setLandingSquares(Set<Square> ls){
+	public void setLandingSquares(Set<Square> ls, Set<String> rooms){
+		// Clear previous entries from earlier turn
+		landSquares.clear();
+		rooms.clear();
+		
 		landSquares = ls;
+		for(String s : rooms){
+			this.rooms.add(roomOutlines.getRoom(s));
+		}
 	}
 
 	public void paintTitleScreen(Graphics g){
@@ -140,35 +152,38 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawPolygon(roomOutlines.getStudy());
 		g.drawPolygon(roomOutlines.getLibrary());
 		g.drawPolygon(roomOutlines.getBilliardsRoom());
+		g.drawPolygon(roomOutlines.getLounge());
+		g.drawPolygon(roomOutlines.getHall());
+		g.drawPolygon(roomOutlines.getDiningRoom());
+		g.drawPolygon(roomOutlines.getSwimmingPool());
 	}
 
-	public void paintLandingSquares(Set<Square> sq, Graphics g){
+	public void paintLandingSquares(Graphics g){
 		int x = 20;
 		int y = 20;
-		g.setColor(Color.red);
-		for(Square s : sq){
+		g.setColor(Color.CYAN);
+		((Graphics2D)g).setStroke(new BasicStroke(5f));
+		for(Square s : landSquares){
 			g.drawRect(s.getX()*x, s.getY()*y, x, y);
+		}
+		for(Polygon p : rooms){
+			g.drawPolygon(p);
 		}
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		if(true){
-			paintBoard(g);
-			testRoomOutlines(g);
-		}
-		
-		else if(state.equals(GameState.WELCOME)){
+	public void paint(Graphics g) {		
+		if(state.equals(GameState.WELCOME)){
 			paintTitleScreen(g);
 		}
 		
 		else if(state.equals(GameState.GENERAL)){
 			paintBoard(g);
-			paintLandingSquares(landSquares, g);
+			paintLandingSquares(g);
 		}
 		else{		
 		paintBoard(g);
-		testRoomOutlines(g);
+		//testRoomOutlines(g);
 		//paintGrid(g);
 		}
 	}	

@@ -118,7 +118,7 @@ public class SuggestionBox extends JDialog {
 		panel.setLayout(new GridLayout(8, 1));
 
 		// Set label
-		prompt.setText("Please choose a room");
+		prompt.setText("Please choose a weapon");
 		prompt.setHorizontalAlignment(JLabel.CENTER);
 		panel.add(prompt);
 

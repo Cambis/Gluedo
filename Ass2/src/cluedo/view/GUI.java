@@ -9,7 +9,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,6 +27,8 @@ import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
 import cluedo.model.Game;
 import cluedo.model.Player;
+import cluedo.model.board.Board;
+import cluedo.model.board.DoorSquare;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
@@ -117,7 +121,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
 			PlayerInitBox playerFrame = frame.getSetup();
 			Map<String,Player> players = playerFrame.getPlayers();
-			if(players.size() > 3){
+			if(players.size() >= 3){
 				game.setNumOfPlayers(players.size());
 				List<Player> p = new ArrayList<Player>();
 				p.addAll(players.values());
@@ -128,15 +132,24 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				game.setState(GameState.START_TURN); // changes state to first players roll
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know of state change
 				frame.createCardPanel((int)Math.ceil(18/players.size()));	
+				
+				System.out.println("Turnbox being created");
+				frame.startTurnBox(this, game.getCurrentPlayer().getName());				
 				// Need to pop up a startTurn box here
 				frame.repaint();
 			}
 		}
 		
 		else if(game.getState() == GameState.START_TURN){
+			// turn off dialog
+			frame.getTurnBox().setVisible(false);
+			
 			runTurn(); // rolls the dice
 			game.setState(GameState.GENERAL); // changes state to first players roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+			System.out.println("Finding moves");
+			findMoves();
+			System.out.println("Repaint");
 			frame.repaint();
 		}
 		
@@ -144,12 +157,37 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	}	
 	
+	//Helper methods
+	
+	private void findMoves() {
+		Board b = game.getBoard(); // gets board to find possible move
+		Player current = game.getCurrentPlayer(); // gets current player		
+		Square start = b.squareAt(current.getX(), current.getY()); // gets current player's location
+		int roll = game.getRoll(); // gets their roll value
+		System.out.println("Roll: " + roll);
+		
+		Set<Square> lands = game.getBoard().djikstra(start, roll);
+		Set<String> rooms = findRooms(lands);	
+		
+		frame.drawValidMoves(lands, rooms);
+	}
+
+	private Set<String> findRooms(Set<Square> lands) {
+		Set<String> room = new HashSet<String>();
+		for(Square s : lands){
+			if(s instanceof DoorSquare){
+				room.add(((DoorSquare)s).getRoom().toString());
+			}
+		}
+		return room;
+	}
+
 	public void runTurn(){
 		Player p = game.getCurrentPlayer();
-		Image[] dice  = game.getDiceRoll();
+		BufferedImage[] dice  = game.getDiceRoll();
 		Set<Card>  cards = p.getHand();
 		
-		frame.setCardPanel(cards, dice);		
+		//frame.setCardPanel(cards, dice);		
 		// then pass information to interaction panel
 	}
 

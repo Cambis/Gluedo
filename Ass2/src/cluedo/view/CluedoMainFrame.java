@@ -18,18 +18,21 @@ import javax.swing.JTextField;
 
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
+import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
 public class CluedoMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 6909931835454164833L;
 
-	CluedoCanvas canvas;
-	CluedoBoardPanel board;
-	CardPanel cp;
-	JMenuBar menuBar;
-	JMenu menu;
-	JButton startButton;
+	private CluedoCanvas canvas;
+	private CluedoBoardPanel board;
+	private CardPanel cp;
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JButton startButton;
+	
+	PlayerStartTurnBox turnBox;
 
 	// Asks for the number of players
 	NewGameFrame start;
@@ -77,6 +80,15 @@ public class CluedoMainFrame extends JFrame {
 	public PlayerInitBox getSetup() {
 		return nameAsker;
 	}
+	
+	/**
+	 * Passes a set of possible landing squares and Rooms onto the 
+	 * CluedoBoardPanel for drawing
+	 */
+	
+	public void drawValidMoves(Set<Square> lands, Set<String> rooms){
+		board.setLandingSquares(lands, rooms);
+	}
 
 	/**
 	 * Creates start button for title screen
@@ -88,7 +100,7 @@ public class CluedoMainFrame extends JFrame {
 
 	/**
 	 * Creates player set up tool
-	 * 
+	 *
 	 * @param g
 	 */
 	public void createPlayerSelector(GUI g) {
@@ -114,14 +126,14 @@ public class CluedoMainFrame extends JFrame {
 	 *            is an array of the images of the dice values they have rolled
 	 */
 
-	public void setCardPanel(Set<Card> cards, Image[] dice) {
+	public void setCardPanel(Set<Card> cards, BufferedImage[] dice) {
 		BufferedImage[] d = new BufferedImage[dice.length];
 		BufferedImage[] c = new BufferedImage[cards.size()];
 
 		// Creates dice image icons
-		// for(int i = 0; i < dice.length; i++){
-		// d[i] = new ImageIcon(dice[i]);
-		// }
+		 for(int i = 0; i < dice.length; i++){
+			 d[i] = (dice[i]);
+		 }
 
 		// Creates card image icons
 		int count = 0;
@@ -172,7 +184,33 @@ public class CluedoMainFrame extends JFrame {
 		board.updateState(state);
 	}
 
+	/**
+	 * Resizes an image
+	 * @param image
+	 * @param scaleX
+	 * @param scaleY
+	 * @return
+	 */
+	public static BufferedImage resizeImage(BufferedImage image, int scaleX, int scaleY) {
+		Image img = image.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
+		BufferedImage resized = new BufferedImage(scaleX, scaleY, Image.SCALE_SMOOTH);
+		resized.getGraphics().drawImage(img, 0, 0, null);
+		return resized;
+	}
+
+
 	public static void main(String args[]) {
 		new CluedoMainFrame(new GUI(new CluedoGame()));
+	}
+	
+	public PlayerStartTurnBox getTurnBox(){
+		return turnBox;
+	}
+
+	public void startTurnBox(GUI g, String playerName) {
+		turnBox = new PlayerStartTurnBox();
+		turnBox.addListener(g);
+		turnBox.changePlayer(playerName);
+		turnBox.setVisible(true);
 	}
 }
