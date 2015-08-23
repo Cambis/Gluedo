@@ -147,6 +147,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			runTurn(); // rolls the dice
 			game.setState(GameState.GENERAL); // changes state to first players roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+			frame.drawPlayers(game.getPlayers());
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");
@@ -174,11 +175,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	private Set<String> findRooms(Set<Square> lands) {
 		Set<String> room = new HashSet<String>();
+		Set<Square> toRemove = new HashSet<Square>();
 		for(Square s : lands){
 			if(s instanceof DoorSquare){
 				room.add(((DoorSquare)s).getRoom().toString());
+				toRemove.add(s);
 			}
 		}
+		lands.removeAll(toRemove);
 		return room;
 	}
 

@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 
 import cluedo.control.CluedoGame;
 import cluedo.control.CluedoGame.GameState;
+import cluedo.model.Player;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
@@ -212,5 +214,9 @@ public class CluedoMainFrame extends JFrame {
 		turnBox.addListener(g);
 		turnBox.changePlayer(playerName);
 		turnBox.setVisible(true);
+	}
+
+	public void drawPlayers(List<Player> players) {
+		board.setPlayerPositions(players);		
 	}
 }
