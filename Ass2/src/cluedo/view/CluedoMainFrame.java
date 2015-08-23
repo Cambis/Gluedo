@@ -34,6 +34,8 @@ public class CluedoMainFrame extends JFrame {
 	private JMenu menu;
 	private JButton startButton;
 	
+	private PlayerInfoPanel playerInfoPanel;
+	
 	PlayerStartTurnBox turnBox;
 
 	// Asks for the number of players
@@ -65,6 +67,11 @@ public class CluedoMainFrame extends JFrame {
 		startButton.addActionListener(g);
 		add(startButton, BorderLayout.SOUTH);
 		// startButton.setVisible(true);
+		
+		// Add info panel
+		playerInfoPanel = new PlayerInfoPanel();
+		playerInfoPanel.setVisible(true);
+		add(playerInfoPanel, BorderLayout.EAST);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

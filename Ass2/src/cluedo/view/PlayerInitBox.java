@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -51,9 +52,8 @@ public class PlayerInitBox extends JDialog {
 	private JPanel playerPanel;
 
 	// Suspects, rooms and weapons
-	private String suspects[] = { "Miss Scarlet", "Professor Plum",
-			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard",
-			"Mrs. White" };
+	private String suspects[] = { "Miss Scarlet", "Professor Plum", "Mrs. Peacock", "The Reverend Green",
+			"Colonel Mustard", "Mrs. White" };
 
 	// User input
 	private JTextField input;
@@ -62,6 +62,9 @@ public class PlayerInitBox extends JDialog {
 	private String selectedPlayer;
 	private JList<String> playerDisplay;
 	private DefaultListModel<String> model;
+	
+	// Error message
+	private JFrame errorPrompt = new JFrame();
 
 	// New players
 	private Map<String, String> players; // Maps player names to characters
@@ -153,20 +156,21 @@ public class PlayerInitBox extends JDialog {
 		pack();
 	}
 
-	public void setPrompt(String msg){
+	public void setPrompt(String msg) {
 		prompt.setText(msg);
 	}
 
-	public Map<String, String> getPlayers(){
+	public Map<String, String> getPlayers() {
 		return players;
 	}
 
 	/**
-	 * Adds a listener to the finish button from the GUI class so
-	 * it can extract information out of the PlayerInitFrame once it has been completed
+	 * Adds a listener to the finish button from the GUI class so it can extract
+	 * information out of the PlayerInitFrame once it has been completed
+	 * 
 	 * @param g
 	 */
-	public void addListener(GUI g){
+	public void addListener(GUI g) {
 		finish.addActionListener(g);
 	}
 
@@ -177,9 +181,13 @@ public class PlayerInitBox extends JDialog {
 
 			character = ((JRadioButton) e.getSource()).getText();
 
-			if (usedSuspects.contains(character))
+			if (usedSuspects.contains(character)) {
 				prompt.setText("That name is already chosen");
-			else {
+				JOptionPane.showMessageDialog(errorPrompt,
+					    "Eggs are not supposed to be green.",
+					    "Inane error",
+					    JOptionPane.ERROR_MESSAGE);
+			} else {
 				prompt.setText("Please enter a name:");
 				for (Suspect s : Suspect.values())
 					if (s.toString().equals(character)) {
@@ -223,12 +231,10 @@ public class PlayerInitBox extends JDialog {
 			// check if player can be added
 			else if (usedSuspects.contains(character)) {
 				prompt.setText("Character has already been chosen");
-			}
-			else if(players.containsKey(name)){
+			} else if (players.containsKey(name)) {
 				prompt.setText("That name has already been used");
 				input.setText(null);
-			}
-			else {
+			} else {
 				prompt.setText("Please enter a name:");
 				usedSuspects.add(character);
 				// players.put(name, new Player(name, suspect));
@@ -260,10 +266,10 @@ public class PlayerInitBox extends JDialog {
 			if (players.containsKey(selectedPlayer)) {
 				prompt.setText("Please enter a name:");
 				// String susName = players.get(selectedPlayer).getCharacter()
-				// 		.toString();
-				
+				// .toString();
+
 				// usedSuspects.remove(susName);
-				
+
 				// Find player and remove them
 				String susName = players.get(selectedPlayer);
 				usedSuspects.remove(susName);
