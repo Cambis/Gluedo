@@ -169,7 +169,7 @@ public class Player implements KeyListener{
 			break;
 		
 		}
-		g.fillOval(m_x *21, m_y*21, 21, 21);
+		g.fillOval(m_y *21, m_x*21, 21, 21);
 	}
 
 }

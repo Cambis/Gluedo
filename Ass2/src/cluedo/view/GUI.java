@@ -29,6 +29,7 @@ import cluedo.model.Game;
 import cluedo.model.Player;
 import cluedo.model.board.Board;
 import cluedo.model.board.DoorSquare;
+import cluedo.model.board.InhabitableSquare;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
@@ -164,6 +165,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		Board b = game.getBoard(); // gets board to find possible move
 		Player current = game.getCurrentPlayer(); // gets current player		
 		Square start = b.squareAt(current.getX(), current.getY()); // gets current player's location
+		
+		System.out.println("Starting square is " + current.getX() +" "
+				+ current.getY() + " and is a " + start.getClass().toString() +
+				" and is occupied " + ((InhabitableSquare)start).isOccupied() );
+		
 		int roll = game.getRoll(); // gets their roll value
 		System.out.println("Roll: " + roll);
 		
