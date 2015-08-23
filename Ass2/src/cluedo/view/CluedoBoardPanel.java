@@ -122,12 +122,13 @@ public class CluedoBoardPanel extends JPanel {
 	public void setLandingSquares(Set<Square> ls, Set<String> rooms){
 		// Clear previous entries from earlier turn
 		landSquares.clear();
-		rooms.clear();
+		this.rooms.clear();
 		
 		landSquares = ls;
 		for(String s : rooms){
 			this.rooms.add(roomOutlines.getRoom(s));
 		}
+		System.out.println("Panel has " + this.rooms.size() + " rooms polygons to draw");
 	}
 
 	public void paintTitleScreen(Graphics g){
@@ -169,6 +170,7 @@ public class CluedoBoardPanel extends JPanel {
 			g.drawRect(s.getY()*y, s.getX()*x, y, x);
 		}
 		for(Polygon p : rooms){
+			System.out.println("Drawing room");
 			g.drawPolygon(p);
 		}
 	}

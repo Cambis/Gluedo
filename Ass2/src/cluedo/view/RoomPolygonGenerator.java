@@ -164,7 +164,8 @@ public class RoomPolygonGenerator {
 			return lounge;
 			
 		}
-		return null;
+		System.out.println(s);
+		throw new RuntimeException();
 	}
 	
 }

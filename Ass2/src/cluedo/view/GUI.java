@@ -273,6 +273,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			}
 		}
 		lands.removeAll(toRemove);
+		System.out.println(room.size() + " rooms located");
+		for(String r : room){
+			System.out.println(r);
+		}
 		return room;
 	}
 
