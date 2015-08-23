@@ -70,8 +70,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			System.out.println("X is " + x + " and y is " + y);
 			
 			if(frame.isHighlighted(s)){				
-				game.moveTo((InhabitableSquare)s);
-				frame.repaint();
+				game.moveTo((InhabitableSquare)s);				
 				
 				//update state 
 				if(s instanceof CorridorSquare){
@@ -79,6 +78,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					frame.updateCanvas(GameState.START_TURN);
 					frame.turnBox.changePlayer(game.getCurrentPlayer().getName()); // updates turn box
 					game.setState(GameState.START_TURN);
+					frame.getTurnBox().setVisible(true);
 				}
 				
 				else if(s instanceof RoomSquare){
@@ -93,6 +93,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 						game.setState(GameState.SUGGESTION);
 					}
 				}
+				
+				frame.repaint();
 			}
 			// otherwise do nothing
 		}

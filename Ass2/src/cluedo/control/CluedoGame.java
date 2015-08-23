@@ -275,8 +275,9 @@ public class CluedoGame {
 	public void moveTo(InhabitableSquare end) {
 		Player currentP = players.get(current);
 		InhabitableSquare start = ((InhabitableSquare)board.squareAt(currentP.getX(), currentP.getY()));
-		start.addPlayer(null);		
+		start.removePlayer();
 		end.addPlayer(currentP);
+		currentP.move(end.getX(), end.getY());
 	}
 
 }
