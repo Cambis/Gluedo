@@ -83,6 +83,7 @@ public class Player implements KeyListener{
 
 		}
 	}
+
 	/**
 	 * Moves a player's coordinates to the x and y coordinates given
 	 * @param x is the x coordinate
