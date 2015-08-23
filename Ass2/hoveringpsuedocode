@@ -1,0 +1,29 @@
+Psuedocode for hovering
+
+Players should return a buffered image of their tokens,
+the images should be put into ImageIcons and they should
+be put into a JLabel
+
+JLabel[] playerIcons;
+
+void setUpPlayerIcons() {
+
+	for each player
+		playerIcons[i] = new JLabel(new ImageIcon(playerToken));
+		add mouse listeners to the JLabels
+
+}
+
+class MouseHandler extends MouseAdapter() {
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		JOption.showMessageDialog(some JFrame, name of player);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// blah blah
+	}
+
+}
