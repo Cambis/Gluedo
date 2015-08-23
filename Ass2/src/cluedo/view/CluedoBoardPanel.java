@@ -218,9 +218,11 @@ public class CluedoBoardPanel extends JPanel {
 			return true;
 		}
 		else{
-			Point click = new Point(s.getX()*x, s.getY()*y);
-			for(Polygon room : rooms){				
+			Point click = new Point(s.getY()*y, s.getX()*x);
+			for(Polygon room : rooms){	
+				System.out.println("Checking room");
 				if(room.contains(click)){
+					System.out.println("Found room");
 					return true;
 				}
 			}
