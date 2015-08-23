@@ -37,6 +37,8 @@ public class CluedoMainFrame extends JFrame {
 	private PlayerInfoPanel playerInfoPanel;
 	
 	PlayerStartTurnBox turnBox;
+	
+	SuggestionBox suggBox;
 
 	// Asks for the number of players
 	NewGameFrame start;
@@ -229,5 +231,12 @@ public class CluedoMainFrame extends JFrame {
 
 	public boolean isHighlighted(Square s) {
 		return board.isHighlighted(s);
+	}
+
+	public void suggestionBox() {
+		if(suggBox == null){
+			suggBox = new SuggestionBox();
+		}		
+			suggBox.setVisible(true);		
 	}
 }

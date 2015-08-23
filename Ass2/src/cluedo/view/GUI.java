@@ -83,7 +83,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				
 				else if(s instanceof RoomSquare){
 					// In centre room so making an accusation
-					if(((RoomSquare)s).getRoom() == Room.RoomType.SWIMMING_POOL){
+					if(((RoomSquare)s).getRoom().equals(Room.RoomType.SWIMMING_POOL)){
 						frame.updateCanvas(GameState.ACCUSATION);
 						game.setState(GameState.ACCUSATION);
 					}
@@ -91,6 +91,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					else{
 						frame.updateCanvas(GameState.SUGGESTION);
 						game.setState(GameState.SUGGESTION);
+						frame.suggestionBox();
 					}
 				}
 				
