@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Stroke;
 import java.awt.event.MouseEvent;
@@ -205,6 +206,22 @@ public class CluedoBoardPanel extends JPanel {
 
 	public void setPlayerPositions(List<Player> players2) {
 		players = players2;		
+	}
+
+	public boolean isHighlighted(Square s) {
+		if(landSquares.contains(s)){
+			return true;
+		}
+		else{
+			Point click = new Point(s.getX()*x, s.getY()*y);
+			for(Polygon room : rooms){				
+				if(room.contains(click)){
+					return true;
+				}
+			}
+		}		
+		
+		return false;
 	}
 }
 

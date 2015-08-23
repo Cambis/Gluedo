@@ -15,6 +15,8 @@ import javax.swing.ImageIcon;
 
 import cluedo.model.Player;
 import cluedo.model.board.Board;
+import cluedo.model.board.InhabitableSquare;
+import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 import cluedo.model.cards.CharacterCard;
 import cluedo.model.cards.RoomCard;
@@ -268,6 +270,13 @@ public class CluedoGame {
 
 	public List<Player> getPlayers() {
 		return players;
+	}
+
+	public void moveTo(InhabitableSquare end) {
+		Player currentP = players.get(current);
+		InhabitableSquare start = ((InhabitableSquare)board.squareAt(currentP.getX(), currentP.getY()));
+		start.addPlayer(null);		
+		end.addPlayer(currentP);
 	}
 
 }

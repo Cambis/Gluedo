@@ -58,12 +58,19 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		if (game.getState() == GameState.GENERAL) {
-			int x = arg0.getX() / frame.getCanvasSquareWidth();
-			int y = arg0.getY() / frame.getCanvasSquareWidth();
-			Square s = game.getBoard().squareAt(x, y); // gets the square
-														// related to this click
+	public void mouseClicked(MouseEvent arg0) {		
+		if(game.getState() == GameState.GENERAL){
+			int y = arg0.getX()/frame.getCanvasSquareWidth();
+			int x =  arg0.getY()/frame.getCanvasSquareWidth();
+			Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click
+			
+			System.out.println("X is " + x + " and y is " + y);
+			
+			if(frame.isHighlighted(s)){				
+				game.moveTo((InhabitableSquare)s);
+				frame.repaint();
+			}
+			// otherwise do nothing
 		}
 	}
 

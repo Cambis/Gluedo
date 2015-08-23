@@ -178,7 +178,7 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public int getCanvasSquareWidth() {
-		return board.getWidth();
+		return board.getSquareWidth();
 	}
 
 	public void updateCanvas(GameState state) {
@@ -218,5 +218,9 @@ public class CluedoMainFrame extends JFrame {
 
 	public void drawPlayers(List<Player> players) {
 		board.setPlayerPositions(players);		
+	}
+
+	public boolean isHighlighted(Square s) {
+		return board.isHighlighted(s);
 	}
 }
