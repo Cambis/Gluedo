@@ -1,9 +1,15 @@
 package cluedo.view;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,6 +46,7 @@ public class PlayerInfoPanel extends JPanel {
 	public PlayerInfoPanel() {
 
 		playerIcon = new JLabel();
+		playerIcon.setHorizontalAlignment(JLabel.CENTER);
 		playerLabel = new JLabel();
 		playerLabel.setHorizontalAlignment(JLabel.CENTER);
 		commandButtons = new JButton[commands.length];
@@ -89,11 +96,14 @@ public class PlayerInfoPanel extends JPanel {
 	/**
 	 * Testing
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 		JFrame frame = new JFrame();
-		Image image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
-		BufferedImage img = (BufferedImage) image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		// BufferedImage image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
+		BufferedImage image = ImageIO.read(new File("blue_player_token.png"));
+		
+		// BufferedImage img = (BufferedImage) image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		
 		PlayerInfoPanel panel = new PlayerInfoPanel();
 		panel.setPlayer(image, "David");
