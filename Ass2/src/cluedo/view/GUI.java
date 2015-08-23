@@ -29,11 +29,14 @@ import cluedo.control.CluedoGame.GameState;
 import cluedo.model.Game;
 import cluedo.model.Player;
 import cluedo.model.board.Board;
+import cluedo.model.board.CorridorSquare;
 import cluedo.model.board.DoorSquare;
 import cluedo.model.board.InhabitableSquare;
+import cluedo.model.board.RoomSquare;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
+import cluedo.model.gameObjects.Room;
 
 /**
  * Main user interface class, might not need all of the listeners. Actually we
@@ -69,6 +72,27 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			if(frame.isHighlighted(s)){				
 				game.moveTo((InhabitableSquare)s);
 				frame.repaint();
+				
+				//update state 
+				if(s instanceof CorridorSquare){
+					game.nextPlayer(); // moves to next players turn
+					frame.updateCanvas(GameState.START_TURN);
+					frame.turnBox.changePlayer(game.getCurrentPlayer().getName()); // updates turn box
+					game.setState(GameState.START_TURN);
+				}
+				
+				else if(s instanceof RoomSquare){
+					// In centre room so making an accusation
+					if(((RoomSquare)s).getRoom() == Room.RoomType.SWIMMING_POOL){
+						frame.updateCanvas(GameState.ACCUSATION);
+						game.setState(GameState.ACCUSATION);
+					}
+					// In an outer room so making a suggestion
+					else{
+						frame.updateCanvas(GameState.SUGGESTION);
+						game.setState(GameState.SUGGESTION);
+					}
+				}
 			}
 			// otherwise do nothing
 		}
