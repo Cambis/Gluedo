@@ -146,7 +146,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			List<Player> newPlayers = new ArrayList<Player>();
 
 			for (String playerName : players.keySet()) {
-				newPlayers.add(new Player(playerName, Suspect.valueOf(players.get(playerName))));
+				Suspect suspect = null;
+				for (Suspect s : Suspect.values())
+					if (s.toString().equals(players.get(playerName))) {
+						suspect = s;
+						break;
+					}
+				
+				newPlayers.add(new Player(playerName, suspect));
 			}
 
 			// Sort out the players according to the suspects they have chosen,
