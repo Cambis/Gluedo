@@ -96,7 +96,7 @@ public class Game {
 
 		// Load board
 		m_board = new Board("cluedo.txt");
-		m_board.addPlayers(players);
+		// m_board.addPlayers(players);
 
 		// Set up dice
 		setupDice();

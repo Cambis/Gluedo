@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +33,11 @@ import cluedo.model.board.DoorSquare;
 import cluedo.model.board.InhabitableSquare;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
+import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
 /**
- * Main user interface class, might not need all of the listeners.
- * Actually we probably don't need this.
+ * Main user interface class, might not need all of the listeners. Actually we
+ * probably don't need this.
  *
  * @author Cameron Bryers and Hannah Craighead
  *
@@ -46,13 +48,13 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	private CluedoMainFrame frame;
 	CluedoGame game;
 
-	//Used for setting up players
+	// Used for setting up players
 	String name;
-	Character c; 
+	Character c;
 
-	public GUI(CluedoGame game) {		
+	public GUI(CluedoGame game) {
 		this.game = game;
-		frame = new CluedoMainFrame(this);		
+		frame = new CluedoMainFrame(this);
 	}
 
 	@Override
@@ -120,79 +122,120 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		// In the welcome state:
 		// The start new game button has been pressed
 
-		if(game.getState() == GameState.WELCOME){
-			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to select number of player
-			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame know of state change			
+		if (game.getState() == GameState.WELCOME) {
+			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to
+														// select number of
+														// player
+			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame
+															// know of state
+															// change
 			frame.repaint(); // repaints the frame
 			frame.createPlayerSelector(this);
-		}		
+		}
 
-		else if(game.getState() == GameState.SETUP_INDIVIDUAL){ //Finish button pressed
+		else if (game.getState() == GameState.SETUP_INDIVIDUAL) { // Finish
+																	// button
+																	// pressed
 			PlayerInitBox playerFrame = frame.getSetup();
-			Map<String,Player> players = playerFrame.getPlayers();
-			if(players.size() >= 3){
-				game.setNumOfPlayers(players.size());
-				List<Player> p = new ArrayList<Player>();
-				p.addAll(players.values());
-				game.addPlayers(p);
+			// Map<String,Player> players = playerFrame.getPlayers();
+
+			// Get players that the users have created
+			Map<String, String> players = playerFrame.getPlayers();
+
+			// Create the players
+			List<Player> newPlayers = new ArrayList<Player>();
+
+			for (String playerName : players.keySet()) {
+				newPlayers.add(new Player(playerName, Suspect.valueOf(players.get(playerName))));
+			}
+
+			// Sort out the players according to the suspects they have chosen,
+			// this is done by comparing the suspects' ordinal position in the
+			// Suspect enum.
+			newPlayers.sort(new Comparator<Player>() {
+
+				@Override
+				public int compare(Player o1, Player o2) {
+					if (o1.getCharacter().ordinal() < o2.getCharacter().ordinal())
+						return 1;
+					else if (o1.getCharacter().ordinal() > o2.getCharacter().ordinal())
+						return -1;
+					return 0;
+				}
+
+			});
+
+			if (players.size() >= 3) {
+				game.setNumOfPlayers(newPlayers.size());
+				// List<Player> p = new ArrayList<Player>();
+				// p.addAll(players.values());
+				// game.addPlayers(p);
+
+				// Add players to the game
+				game.addPlayers(newPlayers);
+
 				System.out.println("Done");
 				game.setUp();
-				
-				game.setState(GameState.START_TURN); // changes state to first players roll
-				frame.updateCanvas(GameState.START_TURN); // lets the frame know of state change
-				frame.createCardPanel((int)Math.ceil(18/players.size()));	
-				
+
+				game.setState(GameState.START_TURN); // changes state to first
+														// players roll
+				frame.updateCanvas(GameState.START_TURN); // lets the frame know
+															// of state change
+				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
+
 				System.out.println("Turnbox being created");
-				frame.startTurnBox(this, game.getCurrentPlayer().getName());				
+				frame.startTurnBox(this, game.getCurrentPlayer().getName());
 				// Need to pop up a startTurn box here
 				frame.repaint();
 			}
 		}
-		
-		else if(game.getState() == GameState.START_TURN){
+
+		else if (game.getState() == GameState.START_TURN) {
 			// turn off dialog
 			frame.getTurnBox().setVisible(false);
-			
+
 			runTurn(); // rolls the dice
-			game.setState(GameState.GENERAL); // changes state to first players roll
-			frame.updateCanvas(GameState.GENERAL); // lets the frame know of state change
+			game.setState(GameState.GENERAL); // changes state to first players
+												// roll
+			frame.updateCanvas(GameState.GENERAL); // lets the frame know of
+													// state change
 			frame.drawPlayers(game.getPlayers());
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");
 			frame.repaint();
 		}
-		
-		
 
-	}	
-	
-	//Helper methods
-	
+	}
+
+	// Helper methods
+
 	private void findMoves() {
 		Board b = game.getBoard(); // gets board to find possible move
-		Player current = game.getCurrentPlayer(); // gets current player		
-		Square start = b.squareAt(current.getX(), current.getY()); // gets current player's location
-		
-		System.out.println("Starting square is " + current.getX() +" "
-				+ current.getY() + " and is a " + start.getClass().toString() +
-				" and is occupied " + ((InhabitableSquare)start).isOccupied() );
-		
+		Player current = game.getCurrentPlayer(); // gets current player
+		Square start = b.squareAt(current.getX(), current.getY()); // gets
+																	// current
+																	// player's
+																	// location
+
+		System.out.println("Starting square is " + current.getX() + " " + current.getY() + " and is a "
+				+ start.getClass().toString() + " and is occupied " + ((InhabitableSquare) start).isOccupied());
+
 		int roll = game.getRoll(); // gets their roll value
 		System.out.println("Roll: " + roll);
-		
+
 		Set<Square> lands = game.getBoard().djikstra(start, roll);
-		Set<String> rooms = findRooms(lands);	
-		
+		Set<String> rooms = findRooms(lands);
+
 		frame.drawValidMoves(lands, rooms);
 	}
 
 	private Set<String> findRooms(Set<Square> lands) {
 		Set<String> room = new HashSet<String>();
 		Set<Square> toRemove = new HashSet<Square>();
-		for(Square s : lands){
-			if(s instanceof DoorSquare){
-				room.add(((DoorSquare)s).getRoom().toString());
+		for (Square s : lands) {
+			if (s instanceof DoorSquare) {
+				room.add(((DoorSquare) s).getRoom().toString());
 				toRemove.add(s);
 			}
 		}
@@ -200,12 +243,12 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		return room;
 	}
 
-	public void runTurn(){
+	public void runTurn() {
 		Player p = game.getCurrentPlayer();
-		BufferedImage[] dice  = game.getDiceRoll();
-		Set<Card>  cards = p.getHand();
-		
-		//frame.setCardPanel(cards, dice);		
+		BufferedImage[] dice = game.getDiceRoll();
+		Set<Card> cards = p.getHand();
+
+		// frame.setCardPanel(cards, dice);
 		// then pass information to interaction panel
 	}
 

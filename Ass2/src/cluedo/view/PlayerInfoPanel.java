@@ -92,7 +92,9 @@ public class PlayerInfoPanel extends JPanel {
 	 */
 	public static void main(String args[]) {
 		JFrame frame = new JFrame();
-		BufferedImage image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
+		Image image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
+		BufferedImage img = (BufferedImage) image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		
 		PlayerInfoPanel panel = new PlayerInfoPanel();
 		panel.setPlayer(image, "David");
 		frame.add(panel);
