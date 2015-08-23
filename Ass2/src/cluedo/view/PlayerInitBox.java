@@ -64,7 +64,7 @@ public class PlayerInitBox extends JDialog {
 	private DefaultListModel<String> model;
 
 	// New players
-	private Map<String, Player> players;
+	private Map<String, String> players; // Maps player names to characters
 	private Set<String> usedSuspects;
 
 	// Information for new player
@@ -84,7 +84,7 @@ public class PlayerInitBox extends JDialog {
 
 	private void init() {
 
-		players = new HashMap<String, Player>();
+		players = new HashMap<String, String>();
 		usedSuspects = new HashSet<String>();
 
 		// Set up players
@@ -157,7 +157,7 @@ public class PlayerInitBox extends JDialog {
 		prompt.setText(msg);
 	}
 
-	public Map<String, Player> getPlayers(){
+	public Map<String, String> getPlayers(){
 		return players;
 	}
 
@@ -231,7 +231,8 @@ public class PlayerInitBox extends JDialog {
 			else {
 				prompt.setText("Please enter a name:");
 				usedSuspects.add(character);
-				players.put(name, new Player(name, suspect));
+				// players.put(name, new Player(name, suspect));
+				players.put(name, character);
 				model.addElement(name);
 				numOfPlayers++;
 				input.setText(null);
@@ -242,6 +243,9 @@ public class PlayerInitBox extends JDialog {
 
 	};
 
+	/**
+	 * Removes players from the list
+	 */
 	private ActionListener playerRemoveListener = new ActionListener() {
 
 		@Override
@@ -255,8 +259,13 @@ public class PlayerInitBox extends JDialog {
 
 			if (players.containsKey(selectedPlayer)) {
 				prompt.setText("Please enter a name:");
-				String susName = players.get(selectedPlayer).getCharacter()
-						.toString();
+				// String susName = players.get(selectedPlayer).getCharacter()
+				// 		.toString();
+				
+				// usedSuspects.remove(susName);
+				
+				// Find player and remove them
+				String susName = players.get(selectedPlayer);
 				usedSuspects.remove(susName);
 				players.remove(selectedPlayer);
 				model.removeElement(selectedPlayer);
