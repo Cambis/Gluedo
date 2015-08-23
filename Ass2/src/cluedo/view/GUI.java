@@ -70,7 +70,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			System.out.println("X is " + x + " and y is " + y);
 			
 			if(frame.isHighlighted(s)){				
-				game.moveTo((InhabitableSquare)s);				
+				game.moveTo(s);				
 				
 				//update state 
 				if(s instanceof CorridorSquare){
@@ -81,7 +81,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					frame.getTurnBox().setVisible(true);
 				}
 				
-				else if(s instanceof RoomSquare){
+				else if(s instanceof RoomSquare || s instanceof DoorSquare){
+					s = game.getBoard().squareAt(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY());
 					// In centre room so making an accusation
 					if(((RoomSquare)s).getRoom().equals(Room.RoomType.SWIMMING_POOL)){
 						frame.updateCanvas(GameState.ACCUSATION);

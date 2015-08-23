@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 
 import cluedo.model.Player;
 import cluedo.model.board.Board;
+import cluedo.model.board.DoorSquare;
 import cluedo.model.board.InhabitableSquare;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
@@ -122,7 +123,7 @@ public class CluedoGame {
 		createDeck();
 		deal();
 		dice1 = new Dice(); // Note: need to add in letting the player choose a
-							// second dice
+		// second dice
 		dice2 = new Dice();
 	}
 
@@ -151,7 +152,7 @@ public class CluedoGame {
 		dice[1] = dice2.getRollImage();
 		return dice;
 	}
-	
+
 	public int getRoll(){
 		return dice1.getValue() + dice2.getValue();
 	}
@@ -206,7 +207,7 @@ public class CluedoGame {
 		if(deck == null){
 			System.out.println("Deck is null");
 		}		
-		
+
 		int numOfCards = deck.size() / players.size();
 
 		Iterator<Card> iter = deck.iterator();
@@ -272,12 +273,18 @@ public class CluedoGame {
 		return players;
 	}
 
-	public void moveTo(InhabitableSquare end) {
+	public void moveTo(Square end) {
 		Player currentP = players.get(current);
 		InhabitableSquare start = ((InhabitableSquare)board.squareAt(currentP.getX(), currentP.getY()));
 		start.removePlayer();
-		end.addPlayer(currentP);
-		currentP.move(end.getX(), end.getY());
+
+		if(end instanceof DoorSquare){
+			((DoorSquare)end).getRoom().addPlayer(currentP);
+		}
+		else{
+			((InhabitableSquare)end).addPlayer(currentP);
+			currentP.move(end.getX(), end.getY());
+		}
 	}
 
 }
