@@ -186,6 +186,9 @@ public class CluedoBoardPanel extends JPanel {
 		}
 		else{		
 		paintBoard(g);
+		if(!state.equals(GameState.SETUP_INDIVIDUAL)){
+		drawPlayers(players,g);
+		}
 		//testRoomOutlines(g);
 		//paintGrid(g);
 		}

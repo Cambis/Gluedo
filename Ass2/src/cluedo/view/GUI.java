@@ -218,7 +218,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 				System.out.println("Turnbox being created");
 				frame.startTurnBox(this, game.getCurrentPlayer().getName());
-				// Need to pop up a startTurn box here
+				frame.drawPlayers(newPlayers);
 				frame.repaint();
 			}
 		}
@@ -232,7 +232,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 												// roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of
 													// state change
-			frame.drawPlayers(game.getPlayers());
+			//frame.drawPlayers(game.getPlayers());
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");
