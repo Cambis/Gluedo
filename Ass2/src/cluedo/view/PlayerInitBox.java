@@ -52,8 +52,9 @@ public class PlayerInitBox extends JDialog {
 	private JPanel playerPanel;
 
 	// Suspects, rooms and weapons
-	private String suspects[] = { "Miss Scarlet", "Professor Plum", "Mrs. Peacock", "The Reverend Green",
-			"Colonel Mustard", "Mrs. White" };
+	private String suspects[] = { "Miss Scarlet", "Professor Plum",
+			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard",
+			"Mrs. White" };
 
 	// User input
 	private JTextField input;
@@ -62,7 +63,7 @@ public class PlayerInitBox extends JDialog {
 	private String selectedPlayer;
 	private JList<String> playerDisplay;
 	private DefaultListModel<String> model;
-	
+
 	// Error message
 	private JFrame errorPrompt = new JFrame();
 
@@ -167,7 +168,7 @@ public class PlayerInitBox extends JDialog {
 	/**
 	 * Adds a listener to the finish button from the GUI class so it can extract
 	 * information out of the PlayerInitFrame once it has been completed
-	 * 
+	 *
 	 * @param g
 	 */
 	public void addListener(GUI g) {
@@ -182,11 +183,10 @@ public class PlayerInitBox extends JDialog {
 			character = ((JRadioButton) e.getSource()).getText();
 
 			if (usedSuspects.contains(character)) {
-				prompt.setText("That name is already chosen");
-				JOptionPane.showMessageDialog(errorPrompt,
-					    "Eggs are not supposed to be green.",
-					    "Inane error",
-					    JOptionPane.ERROR_MESSAGE);
+				// prompt.setText("That name is already chosen");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"That suspect has already been chosen",
+						"Invalid Input", JOptionPane.ERROR_MESSAGE);
 			} else {
 				prompt.setText("Please enter a name:");
 				for (Suspect s : Suspect.values())
@@ -220,26 +220,38 @@ public class PlayerInitBox extends JDialog {
 
 			// Check if there is a valid number of players
 			if (numOfPlayers >= 6) {
-				prompt.setText("Maximum amount of players reached");
+				// prompt.setText("Maximum amount of players reached");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Maximum amount of players reached", "Invalid Input",
+						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			// Null checker
 			if (character == null || name == null || name.length() == 0) {
-				prompt.setText("Invalid input, try again");
+				// prompt.setText("Invalid input, try again");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"No name or no character", "Invalid Input",
+						JOptionPane.ERROR_MESSAGE);
 			}
 			// check if player can be added
 			else if (usedSuspects.contains(character)) {
-				prompt.setText("Character has already been chosen");
+				// prompt.setText("Character has already been chosen");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Suspect has already been chosen", "Invalid Input",
+						JOptionPane.ERROR_MESSAGE);
 			} else if (players.containsKey(name)) {
-				prompt.setText("That name has already been used");
+				// prompt.setText("That name has already been used");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"That name is already being used", "Invalid Input",
+						JOptionPane.ERROR_MESSAGE);
 				input.setText(null);
 			} else {
 				prompt.setText("Please enter a name:");
 				usedSuspects.add(character);
 				// players.put(name, new Player(name, suspect));
 				players.put(name, character);
-				model.addElement(name);
+				model.addElement(character + ": " + name);
 				numOfPlayers++;
 				input.setText(null);
 				// System.out.println("PLAYER: " + name + " " + character);
@@ -259,7 +271,10 @@ public class PlayerInitBox extends JDialog {
 
 			// Null checker
 			if (selectedPlayer == null) {
-				prompt.setText("No player selected");
+				// prompt.setText("No player selected");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"No player selected", "Invalid Action",
+						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
@@ -273,8 +288,9 @@ public class PlayerInitBox extends JDialog {
 				// Find player and remove them
 				String susName = players.get(selectedPlayer);
 				usedSuspects.remove(susName);
+				// int playerIndex = players.g
 				players.remove(selectedPlayer);
-				model.removeElement(selectedPlayer);
+				model.removeElement(susName + ": " + selectedPlayer);
 				numOfPlayers--;
 			}
 		}
@@ -287,8 +303,12 @@ public class PlayerInitBox extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 
 			// Check if there is a valid number of players
-			if (numOfPlayers < 3)
-				prompt.setText("Minimum amount of players is three");
+			if (numOfPlayers < 3) {
+				// prompt.setText("Minimum amount of players is three");
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Minimum amount of players is three", "Too few players",
+						JOptionPane.ERROR_MESSAGE);
+			}
 			else
 				setVisible(false);
 		}
