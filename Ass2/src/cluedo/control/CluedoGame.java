@@ -48,12 +48,12 @@ public class CluedoGame {
 	private GameState state = GameState.WELCOME; // Default screen is welcome
 
 	// Starting positions for the characters
-	public static final Point MRS_WHITE_START = new Point(9, 0);
-	public static final Point MR_GREEN_START = new Point(14, 0);
-	public static final Point MRS_PEACOCK_START = new Point(23, 6);
-	public static final Point COLONEL_MUSTARD_START = new Point(0, 17);
-	public static final Point MISS_SCARLET_START = new Point(7, 24);
-	public static final Point PROFESSOR_PLUM_START = new Point(23, 19);
+	public static final Point MRS_WHITE_START = new Point(0, 9);
+	public static final Point MR_GREEN_START = new Point(0, 14);
+	public static final Point MRS_PEACOCK_START = new Point(6, 23);
+	public static final Point COLONEL_MUSTARD_START = new Point(17, 0);
+	public static final Point MISS_SCARLET_START = new Point(24, 7);
+	public static final Point PROFESSOR_PLUM_START = new Point(19, 23);
 
 	public final static boolean DEBUG = false;
 	public final static int NUM_OF_DICE = 2;
@@ -116,6 +116,7 @@ public class CluedoGame {
 	 */
 	public void setUp() {
 		board = new Board("cluedo.txt");
+		board.addPlayers(players);
 		createDeck();
 		deal();
 		dice1 = new Dice(); // Note: need to add in letting the player choose a
