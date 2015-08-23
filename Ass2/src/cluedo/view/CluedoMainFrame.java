@@ -48,6 +48,8 @@ public class CluedoMainFrame extends JFrame {
 
 	private GameState state;
 
+	private AccusationBox accBox;
+
 	public CluedoMainFrame(GUI g) {
 
 		// Creates frame
@@ -238,5 +240,12 @@ public class CluedoMainFrame extends JFrame {
 			suggBox = new SuggestionBox();
 		}		
 			suggBox.setVisible(true);		
+	}
+	
+	public void accusationBox(){
+		if(accBox == null){
+			accBox = new AccusationBox();
+		}
+		accBox.setVisible(true);
 	}
 }
