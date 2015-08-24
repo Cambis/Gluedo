@@ -11,6 +11,7 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
@@ -23,7 +24,7 @@ import javax.swing.JTextField;
  * @author Cameron Bryers and Hannah Craighead
  *
  */
-public class NewGameFrame extends JInternalFrame implements ActionListener {
+public class NewGameFrame extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = -721173876268663162L;
 
@@ -48,10 +49,10 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 
 	public NewGameFrame(GUI g) throws HeadlessException {
 
-		super("New Game");
+		// super("New Game");
 
 		setLayout(new BorderLayout());
-		setClosable(false);
+		// setClosable(false);
 
 		group = new ButtonGroup();
 		one = new JRadioButton("1", false);
@@ -114,17 +115,17 @@ public class NewGameFrame extends JInternalFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String num = ((JRadioButton) e.getSource()).getText();
-		numOfPlayers = Integer.parseInt(num);
-		System.out.println("NUM: " + numOfPlayers);
-
-		// Close this frame
-		try {
-			setClosed(true);
-		} catch (PropertyVetoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		String num = ((JRadioButton) e.getSource()).getText();
+//		numOfPlayers = Integer.parseInt(num);
+//		System.out.println("NUM: " + numOfPlayers);
+//
+//		// Close this frame
+//		try {
+//			// setClosed(true);
+//		} catch (PropertyVetoException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 	}
 
 	public final int getNumOfPlayers() {

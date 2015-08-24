@@ -33,11 +33,11 @@ public class CluedoMainFrame extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menu;
 	private JButton startButton;
-	
+
 	private PlayerInfoPanel playerInfoPanel;
-	
+
 	private PlayerStartTurnBox turnBox;
-	
+
 	private SuggestionBox suggBox;
 
 	// Asks for the number of players
@@ -71,7 +71,7 @@ public class CluedoMainFrame extends JFrame {
 		startButton.addActionListener(g);
 		add(startButton, BorderLayout.SOUTH);
 		// startButton.setVisible(true);
-		
+
 		// Add info panel
 		playerInfoPanel = new PlayerInfoPanel();
 		playerInfoPanel.setVisible(false);
@@ -85,20 +85,20 @@ public class CluedoMainFrame extends JFrame {
 		repaint();
 
 		// Sets up player frame and links to gui
-		start = new NewGameFrame(g);
-		start.setVisible(false);
+		// start = new NewGameFrame(g);
+		// start.setVisible(false);
 
 	}
 
 	public PlayerInitBox getSetup() {
 		return nameAsker;
 	}
-	
+
 	/**
-	 * Passes a set of possible landing squares and Rooms onto the 
+	 * Passes a set of possible landing squares and Rooms onto the
 	 * CluedoBoardPanel for drawing
 	 */
-	
+
 	public void drawValidMoves(Set<Square> lands, Set<String> rooms){
 		board.setLandingSquares(lands, rooms);
 	}
@@ -180,17 +180,17 @@ public class CluedoMainFrame extends JFrame {
 			startButton.setVisible(false);
 		}
 
-		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {	
+		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {
 			System.out.println("Is past set up");
 			playerInfoPanel.setVisible(true);
-		
+
 			playerInfoPanel.repaint();
 			//cp.repaint();
 		}
-		
-		
-		
-		
+
+
+
+
 		// start.repaint();
 		board.repaint();
 
@@ -223,7 +223,7 @@ public class CluedoMainFrame extends JFrame {
 	public static void main(String args[]) {
 		new CluedoMainFrame(new GUI(new CluedoGame()));
 	}
-	
+
 	public PlayerStartTurnBox getTurnBox(){
 		return turnBox;
 	}
@@ -236,7 +236,7 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public void drawPlayers(List<Player> players) {
-		board.setPlayerPositions(players);		
+		board.setPlayerPositions(players);
 	}
 
 	public boolean isHighlighted(Square s) {
@@ -246,11 +246,11 @@ public class CluedoMainFrame extends JFrame {
 	public void suggestionBox(GUI g) {
 		if(suggBox == null){
 			suggBox = new SuggestionBox();
-		}		
+		}
 			suggBox.setListener(g);
-			suggBox.setVisible(true);		
+			suggBox.setVisible(true);
 	}
-	
+
 	public void accusationBox(GUI g){
 		if(accBox == null){
 			accBox = new AccusationBox();
@@ -266,14 +266,14 @@ public class CluedoMainFrame extends JFrame {
 		//reset for next time
 		suggBox.changeToSuspects();
 		suggBox.setVisible(false);
-		
+
 	}
 
 	public void turnAccOff() {
 		//reset for next time
 		accBox.changeToSuspects();
 		accBox.setVisible(false);
-		
+
 	}
 
 	public String[] getAccusation() {
@@ -283,5 +283,5 @@ public class CluedoMainFrame extends JFrame {
 	public void setNextPlayer(BufferedImage playerImage, String playerName) {
 		playerInfoPanel.setPlayer(playerImage, playerName);
 	}
-	
+
 }

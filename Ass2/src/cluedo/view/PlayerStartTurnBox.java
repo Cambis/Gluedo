@@ -43,6 +43,7 @@ public class PlayerStartTurnBox extends JDialog {
 		add(panel);
 		setVisible(false);
 		setResizable(false);
+		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		pack();
 	}
@@ -67,6 +68,6 @@ public class PlayerStartTurnBox extends JDialog {
 	}
 
 	public void addListener(GUI g) {
-		next.addActionListener(g);		
+		next.addActionListener(g);
 	}
 }
