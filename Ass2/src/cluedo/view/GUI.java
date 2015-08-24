@@ -251,21 +251,6 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					
 			new RefutionPopUp(game.suggestion(answers, room));
 			
-			frame.updateCanvas(GameState.NOTIFICATION);
-			game.setState(GameState.NOTIFICATION);
-		}
-		
-		else if(game.getState() == GameState.ACCUSATION){
-			System.out.println("Heard accusation");
-			frame.turnAccOff();
-			String[] answers = frame.getAccusation();						
-					
-			new AccusationPopUp(game.accusation(answers));
-			frame.updateCanvas(GameState.NOTIFICATION);
-			game.setState(GameState.NOTIFICATION);
-		}
-		
-		else if(game.getState() == GameState.NOTIFICATION){
 			game.nextPlayer(); // moves to next players turn
 			frame.updateCanvas(GameState.START_TURN);
 			frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
@@ -273,7 +258,21 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			frame.getTurnBox().setVisible(true);
 		}
 		
+		else if(game.getState() == GameState.ACCUSATION){
+			System.out.println("Heard accusation");
+			frame.turnAccOff();
+			String[] answers = frame.getAccusation();						
+					
+			new AccusationPopUp(game.accusation(answers));			
+			
+			game.nextPlayer(); // moves to next players turn
+			frame.updateCanvas(GameState.START_TURN);
+			frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
+			game.setState(GameState.START_TURN);
+			frame.getTurnBox().setVisible(true);
+		}
 		
+			
 
 	}
 
