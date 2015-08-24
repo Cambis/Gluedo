@@ -60,7 +60,7 @@ public class CharacterCard implements Card {
 			imageURL = getClass().getResource("/cluedo/assets/mr_green_card.jpg");
 			break;
 		default:
-			break;
+			throw new RuntimeException();
 		}
 
 		BufferedImage image = null;

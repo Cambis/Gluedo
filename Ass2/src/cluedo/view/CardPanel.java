@@ -33,7 +33,7 @@ public class CardPanel extends JPanel{
 		}
 		
 		//Sets up size and background colour of JPanel
-		this.setPreferredSize(new Dimension(600,200));
+		this.setPreferredSize(new Dimension(600,50));
 		this.setBackground(Color.black);
 	}
 

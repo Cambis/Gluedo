@@ -234,8 +234,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			game.setState(GameState.GENERAL); // changes state to first players
 												// roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of
-													// state change
-			//frame.drawPlayers(game.getPlayers());
+													// state change			
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");
@@ -295,7 +294,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		BufferedImage[] dice = game.getDiceRoll();
 		Set<Card> cards = p.getHand();
 
-		// frame.setCardPanel(cards, dice);
+		//frame.setCardPanel(cards, dice);
 		// then pass information to interaction panel
 	}
 

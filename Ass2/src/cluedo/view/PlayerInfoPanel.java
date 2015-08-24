@@ -2,6 +2,7 @@ package cluedo.view;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -51,6 +52,8 @@ public class PlayerInfoPanel extends JPanel {
 		playerLabel.setHorizontalAlignment(JLabel.CENTER);
 		commandButtons = new JButton[commands.length];
 		buttonGroup = new ButtonGroup();
+		
+		this.setSize(new Dimension(100,526));
 
 		init();
 	}
