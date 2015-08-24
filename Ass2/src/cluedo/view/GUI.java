@@ -76,12 +76,13 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				if(s instanceof CorridorSquare){
 					game.nextPlayer(); // moves to next players turn
 					frame.updateCanvas(GameState.START_TURN);
-					frame.turnBox.changePlayer(game.getCurrentPlayer().getName()); // updates turn box
+					frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
 					game.setState(GameState.START_TURN);
 					frame.getTurnBox().setVisible(true);
 				}
 				
 				else if(s instanceof RoomSquare || s instanceof DoorSquare){
+					//Re-gets the square in case a player clicked on a door square and was randomly allocated a place in the room
 					s = game.getBoard().squareAt(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY());
 					// In centre room so making an accusation
 					if(((RoomSquare)s).getRoom().equals(Room.RoomType.SWIMMING_POOL)){
@@ -92,7 +93,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					else{
 						frame.updateCanvas(GameState.SUGGESTION);
 						game.setState(GameState.SUGGESTION);
-						frame.suggestionBox();
+						frame.suggestionBox(this);
 					}
 				}
 				
@@ -239,6 +240,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			findMoves();
 			System.out.println("Repaint");
 			frame.repaint();
+		}
+		
+		else if(game.getState() == GameState.SUGGESTION){
+			
 		}
 
 	}

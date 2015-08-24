@@ -123,9 +123,7 @@ public class SuggestionBox extends JDialog {
 		panel.add(prompt);
 
 		// Setup buttons
-		for (int i = 0; i < 6; i++) {
-			weaponButtons[i] = new JRadioButton(weapons[i], false);
-			weaponButtons[i].addActionListener(weaponListener);
+		for (int i = 0; i < 6; i++) {			
 			weaponGroup.add(weaponButtons[i]);
 			panel.add(weaponButtons[i]);
 		}
@@ -134,6 +132,17 @@ public class SuggestionBox extends JDialog {
 
 		pack();
 		panel.repaint();
+	}
+	
+	/**
+	 * 
+	 */
+	
+	public void setListener(GUI g){
+		for(int i = 0; i < 6 ; i++){
+		weaponButtons[i] = new JRadioButton(weapons[i], false);
+		weaponButtons[i].addActionListener(weaponListener);
+		}
 	}
 
 	/**
@@ -161,8 +170,8 @@ public class SuggestionBox extends JDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			weaponResponse = ((JRadioButton) e.getSource()).getName();
-			changeToSuspects();
-			repaint();
+			//changeToSuspects();
+			//repaint();
 		}
 
 	};
