@@ -228,6 +228,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know
 				// of state change
 				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
+				frame.createCheckLists(players.size());
 				//frame.repaint();
 
 				System.out.println("Turnbox being created");
