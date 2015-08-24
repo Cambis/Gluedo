@@ -89,7 +89,7 @@ public class CluedoBoardPanel extends JPanel {
 		rooms = new HashSet<Polygon>();
 
 		// Read the title screen image
-		File img = new File("Cluedo.jpg");
+		File img = new File("Cluedo2 (1).jpg");
 		board = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		try {
 			board = ImageIO.read(img);

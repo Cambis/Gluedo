@@ -246,6 +246,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					.toString();					
 
 			new RefutionPopUp(game.suggestion(answers, room));
+			frame.repaint();
 
 			nextTurn();
 
@@ -257,7 +258,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			frame.turnAccOff();
 			String[] answers = frame.getAccusation();						
 
-			new AccusationPopUp(game.accusation(answers));			
+			new AccusationPopUp(game.accusation(answers));		
+			frame.repaint();
 
 			nextTurn();
 
