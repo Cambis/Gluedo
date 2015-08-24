@@ -39,6 +39,9 @@ public class CardPanel extends JPanel {
 			add(diceImages[i]);
 		}
 
+		// Add an empty space
+		add(new JLabel());
+		
 		// Set up cards
 		for (int i = 0; i < size; i++) {
 			cardImages[i] = new JLabel();
@@ -59,7 +62,7 @@ public class CardPanel extends JPanel {
 
 		// Set up cards
 		for (int i = 0; i < cards.length; i++)
-			cardImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(cards[i], 30, 20)));
+			cardImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(cards[i], 200, 300)));
 		
 	}
 
