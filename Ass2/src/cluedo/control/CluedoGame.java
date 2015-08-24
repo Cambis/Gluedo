@@ -241,6 +241,22 @@ public class CluedoGame {
 	public void setState(GameState g) {
 		state = g;
 	}
+	
+	public List<String> suggestion(String[] sugg, String room){
+		List<String> names = new ArrayList<String>();
+		String suspect = sugg[0];
+		String weapon = sugg[0];
+		
+		for(Player p : players){
+			for(Card c : p.getHand()){
+				String card = c.getObject().toString();
+				if(card.equals(room) || card.equals(suspect) || card.equals(weapon)){
+					names.add(p.getName());
+				}
+			}
+		}
+		return names;
+	}
 
 	/**
 	 * Generate a random number between a given min and max. Used to choose the

@@ -245,7 +245,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			System.out.println("Heard suggestion");
 			frame.turnSuggOff();
 			String[] answers = frame.getSuggestion();
-			// change state to what?
+			String room = ((RoomSquare)game.getBoard().squareAt
+					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
+					.toString();					
+					
+			new RefutionPopUp(game.suggestion(answers, room));
 		}
 
 	}
