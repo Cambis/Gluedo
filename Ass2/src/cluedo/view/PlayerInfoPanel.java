@@ -52,7 +52,7 @@ public class PlayerInfoPanel extends JPanel {
 		playerLabel.setHorizontalAlignment(JLabel.CENTER);
 		commandButtons = new JButton[commands.length];
 		buttonGroup = new ButtonGroup();
-		
+
 		this.setSize(new Dimension(100,526));
 
 		init();
@@ -89,10 +89,12 @@ public class PlayerInfoPanel extends JPanel {
 		this.playerImage = playerImage;
 		this.playerName = playerName;
 
-		// Resize image
-		BufferedImage resized = CluedoMainFrame.resizeImage(playerImage, 100, 200);
+		if(playerImage != null){
+			// Resize image
+			BufferedImage resized = CluedoMainFrame.resizeImage(playerImage, 100, 200);
 
-		playerIcon.setIcon(new ImageIcon(resized));
+			playerIcon.setIcon(new ImageIcon(resized));
+		}
 		playerLabel.setText(playerName);
 	}
 
@@ -105,9 +107,9 @@ public class PlayerInfoPanel extends JPanel {
 		JFrame frame = new JFrame();
 		// BufferedImage image = new CharacterCard(new CluedoCharacter(Suspect.MRS_PEACOCK)).getImage();
 		BufferedImage image = ImageIO.read(new File("blue_player_token.png"));
-		
+
 		// BufferedImage img = (BufferedImage) image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-		
+
 		PlayerInfoPanel panel = new PlayerInfoPanel();
 		panel.setPlayer(image, "David");
 		frame.add(panel);

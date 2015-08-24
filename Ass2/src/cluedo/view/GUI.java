@@ -218,6 +218,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 				System.out.println("Turnbox being created");
 				frame.startTurnBox(this, game.getCurrentPlayer().getName());
+				frame.setNextPlayer(null,game.getCurrentPlayer().getName());
 				frame.drawPlayers(newPlayers);
 				frame.repaint();
 			}
@@ -327,6 +328,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
 		game.setState(GameState.START_TURN);
 		frame.getTurnBox().setVisible(true);
+		frame.setNextPlayer(null,game.getCurrentPlayer().getName());
 	}
 
 }

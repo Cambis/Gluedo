@@ -279,5 +279,9 @@ public class CluedoMainFrame extends JFrame {
 	public String[] getAccusation() {
 		return accBox.getAnswers();
 	}
+
+	public void setNextPlayer(BufferedImage playerImage, String playerName) {
+		playerInfoPanel.setPlayer(playerImage, playerName);
+	}
 	
 }
