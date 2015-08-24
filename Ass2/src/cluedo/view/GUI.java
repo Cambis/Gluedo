@@ -250,6 +250,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					.toString();					
 					
 			new RefutionPopUp(game.suggestion(answers, room));
+			
+			frame.updateCanvas(GameState.NOTIFICATION);
+			game.setState(GameState.NOTIFICATION);
 		}
 		
 		else if(game.getState() == GameState.ACCUSATION){
@@ -258,6 +261,16 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			String[] answers = frame.getAccusation();						
 					
 			new AccusationPopUp(game.accusation(answers));
+			frame.updateCanvas(GameState.NOTIFICATION);
+			game.setState(GameState.NOTIFICATION);
+		}
+		
+		else if(game.getState() == GameState.NOTIFICATION){
+			game.nextPlayer(); // moves to next players turn
+			frame.updateCanvas(GameState.START_TURN);
+			frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
+			game.setState(GameState.START_TURN);
+			frame.getTurnBox().setVisible(true);
 		}
 		
 		
