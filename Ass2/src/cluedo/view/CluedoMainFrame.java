@@ -74,7 +74,7 @@ public class CluedoMainFrame extends JFrame {
 		
 		// Add info panel
 		playerInfoPanel = new PlayerInfoPanel();
-		playerInfoPanel.setVisible(true);
+		playerInfoPanel.setVisible(false);
 		add(playerInfoPanel, BorderLayout.EAST);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,13 +176,18 @@ public class CluedoMainFrame extends JFrame {
 	public void repaint() {
 		// System.out.println(state);
 		if (state != GameState.WELCOME) { // turns off the startButton after
-											// title screen
+			playerInfoPanel.setVisible(true);						// title screen
 			startButton.setVisible(false);
 		}
 
-		if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {
+		else if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {			
+			//playerInfoPanel.repaint();
 			cp.repaint();
 		}
+		
+		
+		
+		
 		// start.repaint();
 		board.repaint();
 
