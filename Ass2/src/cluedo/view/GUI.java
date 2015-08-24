@@ -63,7 +63,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {		
+	public void mouseClicked(MouseEvent arg0) {
 		if(game.getState() == GameState.GENERAL){
 			int y = arg0.getX()/frame.getCanvasSquareWidth();
 			int x =  arg0.getY()/frame.getCanvasSquareWidth();
@@ -71,10 +71,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 			System.out.println("X is " + x + " and y is " + y);
 
-			if(frame.isHighlighted(s)){				
-				game.moveTo(s);				
+			if(frame.isHighlighted(s)){
+				game.moveTo(s);
 
-				//update state 
+				//update state
 				if(s instanceof CorridorSquare){
 					nextTurn();
 				}
@@ -228,7 +228,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		}
 
 		else if (game.getState() == GameState.START_TURN) {
-			frame.repaint();			
+			frame.repaint();
 			// turn off dialog
 			frame.getTurnBox().setVisible(false);
 
@@ -236,7 +236,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			game.setState(GameState.GENERAL); // changes state to first players
 			// roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of
-			// state change			
+			// state change
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");
@@ -249,8 +249,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			String[] answers = frame.getSuggestion();
 			String room = ((RoomSquare)game.getBoard().squareAt
 					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
-					.toString();					
-			
+					.toString();
+
 			//frame.repaint();
 			new RefutionPopUp(game.suggestion(answers, room));
 			//frame.repaint();
@@ -263,9 +263,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		else if(game.getState() == GameState.ACCUSATION){
 			System.out.println("Heard accusation");
 			frame.turnAccOff();
-			String[] answers = frame.getAccusation();						
+			String[] answers = frame.getAccusation();
 
-			new AccusationPopUp(game.accusation(answers));		
+			new AccusationPopUp(game.accusation(answers));
 			//frame.repaint();
 
 			nextTurn();
@@ -321,7 +321,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		BufferedImage[] dice = game.getDiceRoll();
 		Set<Card> cards = p.getHand();
 
-		//frame.setCardPanel(cards, dice);
+		frame.setCardPanel(cards, dice);
 		// then pass information to interaction panel
 	}
 
@@ -331,9 +331,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
 		game.setState(GameState.START_TURN);
 		frame.getTurnBox().setVisible(true);
-		
+
 		frame.repaint();
-		
+
 		BufferedImage character = new CharacterCard(new CluedoCharacter(
 				game.getCurrentPlayer().getCharacter())).getImage();
 		frame.setNextPlayer(character,game.getCurrentPlayer().getName());

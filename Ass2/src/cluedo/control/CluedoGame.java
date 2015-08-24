@@ -132,6 +132,15 @@ public class CluedoGame {
 		return players.get(current);
 	}
 
+	/**
+	 * Gets the next player to have a turn
+	 * @return the next player to play
+	 */
+	public final Player getNextPlayer() {
+		int curIndex = players.indexOf(current);
+		return players.get((curIndex + 1) % players.size());
+	}
+
 	public void nextPlayer() {
 		if (current < players.size() - 1) {
 			current++;
@@ -207,7 +216,7 @@ public class CluedoGame {
 		// Number of cards in each player's hand
 		if(deck == null){
 			System.out.println("Deck is null");
-		}		
+		}
 
 		int numOfCards = deck.size() / players.size();
 
@@ -242,12 +251,12 @@ public class CluedoGame {
 	public void setState(GameState g) {
 		state = g;
 	}
-	
+
 	public List<String> suggestion(String[] sugg, String room){
 		List<String> names = new ArrayList<String>();
 		String suspect = sugg[0];
 		String weapon = sugg[0];
-		
+
 		for(Player p : players){
 			for(Card c : p.getHand()){
 				String card = c.getObject().toString();
@@ -274,7 +283,7 @@ public class CluedoGame {
 
 	/**
 	 * Helper method for loading image icons.
-	 * 
+	 *
 	 * @param filename
 	 * @return
 	 */
@@ -293,11 +302,11 @@ public class CluedoGame {
 	public final List<Card> getDeck() {
 		return deck;
 	}
-	
+
 	public final Set<Card> getEnvelope() {
 		return envelope;
 	}
-	
+
 	public void moveTo(Square end) {
 		Player currentP = players.get(current);
 		InhabitableSquare start = ((InhabitableSquare)board.squareAt(currentP.getX(), currentP.getY()));
