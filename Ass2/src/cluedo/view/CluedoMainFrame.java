@@ -176,13 +176,16 @@ public class CluedoMainFrame extends JFrame {
 	public void repaint() {
 		// System.out.println(state);
 		if (state != GameState.WELCOME) { // turns off the startButton after
-			playerInfoPanel.setVisible(true);						// title screen
+			//playerInfoPanel.setVisible(true);						// title screen
 			startButton.setVisible(false);
 		}
 
-		else if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {			
-			//playerInfoPanel.repaint();
-			cp.repaint();
+		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {	
+			System.out.println("Is past set up");
+			playerInfoPanel.setVisible(true);
+		
+			playerInfoPanel.repaint();
+			//cp.repaint();
 		}
 		
 		
