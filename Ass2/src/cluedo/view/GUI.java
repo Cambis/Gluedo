@@ -157,8 +157,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame
 			// know of state
 			// change
-			frame.repaint(); // repaints the frame
+			 // repaints the frame
 			frame.createPlayerSelector(this);
+			frame.repaint();
 		}
 
 		else if (game.getState() == GameState.SETUP_INDIVIDUAL) { // Finish
@@ -217,11 +218,18 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know
 				// of state change
 				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
+				//frame.repaint();
 
 				System.out.println("Turnbox being created");
 				frame.startTurnBox(this, game.getCurrentPlayer().getName());
-				frame.setNextPlayer(null,game.getCurrentPlayer().getName());
-				frame.repaint();
+				//frame.repaint();
+				
+				BufferedImage character = new CharacterCard(new CluedoCharacter(
+						game.getCurrentPlayer().getCharacter())).getImage();
+				frame.setNextPlayer(character,game.getCurrentPlayer().getName());
+				
+				frame.setNextPlayer(character,game.getCurrentPlayer().getName());
+				//frame.repaint();
 				frame.drawPlayers(newPlayers);
 				frame.repaint();
 			}
@@ -246,6 +254,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		else if(game.getState() == GameState.SUGGESTION){
 			System.out.println("Heard suggestion");
 			frame.turnSuggOff();
+			frame.repaint();
 			String[] answers = frame.getSuggestion();
 			String room = ((RoomSquare)game.getBoard().squareAt
 					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
@@ -253,6 +262,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			
 			//frame.repaint();
 			new RefutionPopUp(game.suggestion(answers, room));
+			frame.repaint();
 			//frame.repaint();
 
 			nextTurn();
@@ -321,7 +331,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		BufferedImage[] dice = game.getDiceRoll();
 		Set<Card> cards = p.getHand();
 
-		//frame.setCardPanel(cards, dice);
+		frame.setCardPanel(cards, dice);
 		// then pass information to interaction panel
 	}
 
@@ -332,7 +342,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		game.setState(GameState.START_TURN);
 		frame.getTurnBox().setVisible(true);
 		
-		frame.repaint();
+		//frame.repaint();
 		
 		BufferedImage character = new CharacterCard(new CluedoCharacter(
 				game.getCurrentPlayer().getCharacter())).getImage();
