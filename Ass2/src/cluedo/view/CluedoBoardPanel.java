@@ -176,7 +176,7 @@ public class CluedoBoardPanel extends JPanel {
 	}
 
 	@Override
-	public void paint(Graphics g) {		
+	public void paintComponent(Graphics g) {		
 		if(state.equals(GameState.WELCOME)){
 			paintTitleScreen(g);
 		}
@@ -186,7 +186,8 @@ public class CluedoBoardPanel extends JPanel {
 			drawPlayers(players,g);
 			paintLandingSquares(g);
 		}
-		else{		
+		else{	
+		System.out.println("Painting board");	
 		paintBoard(g);
 		if(!state.equals(GameState.SETUP_INDIVIDUAL)){
 		drawPlayers(players,g);

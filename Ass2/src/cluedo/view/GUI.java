@@ -84,6 +84,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					if(((RoomSquare)s).getRoom().equals(Room.RoomType.SWIMMING_POOL)){
 						frame.updateCanvas(GameState.ACCUSATION);
 						game.setState(GameState.ACCUSATION);
+						frame.accusationBox(this);
 					}
 					// In an outer room so making a suggestion
 					else{
@@ -223,6 +224,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		}
 
 		else if (game.getState() == GameState.START_TURN) {
+			frame.repaint();			
 			// turn off dialog
 			frame.getTurnBox().setVisible(false);
 
@@ -244,9 +246,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			String room = ((RoomSquare)game.getBoard().squareAt
 					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
 					.toString();					
-
+			
+			//frame.repaint();
 			new RefutionPopUp(game.suggestion(answers, room));
-			frame.repaint();
+			//frame.repaint();
 
 			nextTurn();
 
@@ -259,14 +262,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			String[] answers = frame.getAccusation();						
 
 			new AccusationPopUp(game.accusation(answers));		
-			frame.repaint();
+			//frame.repaint();
 
 			nextTurn();
 
 			frame.repaint();
 		}
 
-
+		frame.repaint();
 
 	}
 
