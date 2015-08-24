@@ -64,10 +64,10 @@ public class CluedoGame {
 	private int numOfPlayers;
 
 	// Solution cards
-	private Set<Card> enevelope;
+	private Set<Card> envelope;
 
 	// Cards that are in player's hands
-	private Set<Card> deck;
+	private List<Card> deck;
 
 	// All players in the game
 	private List<Player> players;
@@ -186,12 +186,12 @@ public class CluedoGame {
 		envelope.add(weapons.remove(randomNumber(0, 5)));
 
 		// Add remaining cards to the deck
-		deck = new HashSet<Card>();
+		deck = new ArrayList<Card>();
 		deck.addAll(suspects);
 		deck.addAll(rooms);
 		deck.addAll(weapons);
 
-		//Collections.shuffle(deck);
+		Collections.shuffle(deck);
 
 		// List<List<Card>> cards = new ArrayList<List<Card>>();
 		// cards.add(deck);
@@ -289,6 +289,14 @@ public class CluedoGame {
 		return players;
 	}
 
+	public final List<Card> getDeck() {
+		return deck;
+	}
+	
+	public final Set<Card> getEnvelope() {
+		return envelope;
+	}
+	
 	public void moveTo(Square end) {
 		Player currentP = players.get(current);
 		InhabitableSquare start = ((InhabitableSquare)board.squareAt(currentP.getX(), currentP.getY()));
