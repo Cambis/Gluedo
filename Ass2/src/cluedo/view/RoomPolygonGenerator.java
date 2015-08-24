@@ -150,7 +150,7 @@ public class RoomPolygonGenerator {
 			return diningRoom;
 		case "KITCHEN":
 			return kitchen;
-		case "SWIMMING_POLL":
+		case "SWIMMING_POOL":
 			return swimmingPool;
 		case "BILLIARD_ROOM":
 			return billiardsRoom;
