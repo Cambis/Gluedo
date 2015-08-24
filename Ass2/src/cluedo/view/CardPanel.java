@@ -2,19 +2,14 @@ package cluedo.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import cluedo.control.CluedoGame;
 import cluedo.model.cards.Card;
 import cluedo.model.cards.CharacterCard;
 import cluedo.model.gameObjects.CluedoCharacter;
@@ -62,7 +57,7 @@ public class CardPanel extends JPanel {
 
 		// Set up cards
 		for (int i = 0; i < cards.length; i++)
-			cardImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(cards[i], 200, 300)));
+			cardImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(cards[i], 500, 300)));
 		
 	}
 
@@ -91,7 +86,7 @@ public class CardPanel extends JPanel {
 		BufferedImage[] dice = new BufferedImage[] {die1.getRollImage(), die2.getRollImage()
 				};
 		
-		CardPanel panel = new CardPanel(6);
+		CardPanel panel = new CardPanel(2);
 		panel.setCards(dice, testCards);
 		
 		frame.add(panel);
