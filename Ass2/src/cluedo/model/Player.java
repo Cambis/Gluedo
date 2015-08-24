@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import cluedo.control.CluedoGame;
 import cluedo.model.cards.Card;
@@ -18,7 +22,7 @@ import cluedo.model.gameObjects.CluedoCharacter.Suspect;
  * @author Cameron Bryers, Hannah Craighead.
  *
  */
-public class Player implements KeyListener{
+public class Player {
 
 	// Cards in the players hand
 	private Set<Card> hand;
@@ -87,8 +91,11 @@ public class Player implements KeyListener{
 
 	/**
 	 * Moves a player's coordinates to the x and y coordinates given
-	 * @param x is the x coordinate
-	 * @param y is the y coordinate
+	 * 
+	 * @param x
+	 *            is the x coordinate
+	 * @param y
+	 *            is the y coordinate
 	 */
 	public void move(int x, int y) {
 		m_x = x;
@@ -97,7 +104,9 @@ public class Player implements KeyListener{
 
 	/**
 	 * setHand givens a collection of cards that belong to the player
-	 * @param hand is a set of the player's cards
+	 * 
+	 * @param hand
+	 *            is a set of the player's cards
 	 */
 
 	public void setHand(Set<Card> hand) {
@@ -122,6 +131,7 @@ public class Player implements KeyListener{
 
 	/**
 	 * Gets the players hand of cards
+	 * 
 	 * @return the player's hand
 	 */
 
@@ -129,26 +139,46 @@ public class Player implements KeyListener{
 		return hand;
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public BufferedImage getImage() {
 
+		java.net.URL imageURL = null;
+
+		switch (m_character) {
+		case COLONEL_MUSTARD:
+			imageURL = getClass().getResource("/cluedo/assets/col_mustard_token.png");
+			break;
+		case MISS_SCARLET:
+			imageURL = getClass().getResource("/cluedo/assets/miss_scarlet_token.png");
+			break;
+		case MRS_PEACOCK:
+			imageURL = getClass().getResource("/cluedo/assets/mrs_peacock_token.png");
+			break;
+		case MRS_WHITE:
+			imageURL = getClass().getResource("/cluedo/assets/mrs_white_token.png");
+			break;
+		case PROFESSOR_PLUM:
+			imageURL = getClass().getResource("/cluedo/assets/pro_plum_token.png");
+			break;
+		case THE_REVEREND_GREEN:
+			imageURL = getClass().getResource("/cluedo/assets/mr_green_token.png");
+			break;
+		default:
+			throw new RuntimeException();
+		}
+
+		BufferedImage image = null;
+
+		try {
+			image = ImageIO.read(imageURL);
+		} catch (IOException e) {
+
+		}
+
+		return image;
 	}
 
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		// Use for entering name and what not
-	}
-	
-	public void draw(Graphics g){
-		switch(m_character){
+	public void draw(Graphics g) {
+		switch (m_character) {
 		case COLONEL_MUSTARD:
 			g.setColor(Color.yellow);
 			break;
@@ -169,9 +199,9 @@ public class Player implements KeyListener{
 			break;
 		default:
 			break;
-		
+
 		}
-		g.fillOval(m_y *21, m_x*21, 21, 21);
+		g.fillOval(m_y * 21, m_x * 21, 21, 21);
 	}
 
 }

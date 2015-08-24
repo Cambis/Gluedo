@@ -54,7 +54,7 @@ public class CharacterCard implements Card {
 			imageURL = getClass().getResource("/cluedo/assets/mrs_white_card.jpg");
 			break;
 		case PROFESSOR_PLUM:
-			imageURL = getClass().getResource("/cluedo/assets/pro_plum_card.jpg");
+			imageURL = getClass().getResource("/cluedo/assets/pro_pum_card.jpg");
 			break;
 		case THE_REVEREND_GREEN:
 			imageURL = getClass().getResource("/cluedo/assets/mr_green_card.jpg");
