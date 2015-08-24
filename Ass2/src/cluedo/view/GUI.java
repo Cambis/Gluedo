@@ -66,21 +66,17 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			int y = arg0.getX()/frame.getCanvasSquareWidth();
 			int x =  arg0.getY()/frame.getCanvasSquareWidth();
 			Square s = game.getBoard().squareAt(x, y);	// gets the square related to this click
-			
+
 			System.out.println("X is " + x + " and y is " + y);
-			
+
 			if(frame.isHighlighted(s)){				
 				game.moveTo(s);				
-				
+
 				//update state 
 				if(s instanceof CorridorSquare){
-					game.nextPlayer(); // moves to next players turn
-					frame.updateCanvas(GameState.START_TURN);
-					frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
-					game.setState(GameState.START_TURN);
-					frame.getTurnBox().setVisible(true);
+					nextTurn();
 				}
-				
+
 				else if(s instanceof RoomSquare || s instanceof DoorSquare){
 					//Re-gets the square in case a player clicked on a door square and was randomly allocated a place in the room
 					s = game.getBoard().squareAt(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY());
@@ -96,7 +92,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 						frame.suggestionBox(this);
 					}
 				}
-				
+
 				frame.repaint();
 			}
 			// otherwise do nothing
@@ -153,18 +149,18 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		if (game.getState() == GameState.WELCOME) {
 			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to
-														// select number of
-														// player
+			// select number of
+			// player
 			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame
-															// know of state
-															// change
+			// know of state
+			// change
 			frame.repaint(); // repaints the frame
 			frame.createPlayerSelector(this);
 		}
 
 		else if (game.getState() == GameState.SETUP_INDIVIDUAL) { // Finish
-																	// button
-																	// pressed
+			// button
+			// pressed
 			PlayerInitBox playerFrame = frame.getSetup();
 			// Map<String,Player> players = playerFrame.getPlayers();
 
@@ -181,7 +177,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 						suspect = s;
 						break;
 					}
-				
+
 				newPlayers.add(new Player(playerName, suspect));
 			}
 
@@ -214,9 +210,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				game.setUp();
 
 				game.setState(GameState.START_TURN); // changes state to first
-														// players roll
+				// players roll
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know
-															// of state change
+				// of state change
 				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
 
 				System.out.println("Turnbox being created");
@@ -232,15 +228,15 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 			runTurn(); // rolls the dice
 			game.setState(GameState.GENERAL); // changes state to first players
-												// roll
+			// roll
 			frame.updateCanvas(GameState.GENERAL); // lets the frame know of
-													// state change			
+			// state change			
 			System.out.println("Finding moves");
 			findMoves();
 			System.out.println("Repaint");
 			frame.repaint();
 		}
-		
+
 		else if(game.getState() == GameState.SUGGESTION){
 			System.out.println("Heard suggestion");
 			frame.turnSuggOff();
@@ -248,31 +244,27 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			String room = ((RoomSquare)game.getBoard().squareAt
 					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
 					.toString();					
-					
+
 			new RefutionPopUp(game.suggestion(answers, room));
-			
-			game.nextPlayer(); // moves to next players turn
-			frame.updateCanvas(GameState.START_TURN);
-			frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
-			game.setState(GameState.START_TURN);
-			frame.getTurnBox().setVisible(true);
+
+			nextTurn();
+
+			frame.repaint();
 		}
-		
+
 		else if(game.getState() == GameState.ACCUSATION){
 			System.out.println("Heard accusation");
 			frame.turnAccOff();
 			String[] answers = frame.getAccusation();						
-					
+
 			new AccusationPopUp(game.accusation(answers));			
-			
-			game.nextPlayer(); // moves to next players turn
-			frame.updateCanvas(GameState.START_TURN);
-			frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
-			game.setState(GameState.START_TURN);
-			frame.getTurnBox().setVisible(true);
+
+			nextTurn();
+
+			frame.repaint();
 		}
-		
-			
+
+
 
 	}
 
@@ -282,9 +274,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		Board b = game.getBoard(); // gets board to find possible move
 		Player current = game.getCurrentPlayer(); // gets current player
 		Square start = b.squareAt(current.getX(), current.getY()); // gets
-																	// current
-																	// player's
-																	// location
+		// current
+		// player's
+		// location
 
 		System.out.println("Starting square is " + current.getX() + " " + current.getY() + " and is a "
 				+ start.getClass().toString() + " and is occupied " + ((InhabitableSquare) start).isOccupied());
@@ -322,6 +314,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		//frame.setCardPanel(cards, dice);
 		// then pass information to interaction panel
+	}
+
+	public void nextTurn(){
+		game.nextPlayer(); // moves to next players turn
+		frame.updateCanvas(GameState.START_TURN);
+		frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
+		game.setState(GameState.START_TURN);
+		frame.getTurnBox().setVisible(true);
 	}
 
 }
