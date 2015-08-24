@@ -141,7 +141,7 @@ public class SuggestionBox extends JDialog {
 	public void setListener(GUI g){
 		for(int i = 0; i < 6 ; i++){
 		weaponButtons[i] = new JRadioButton(weapons[i], false);
-		weaponButtons[i].addActionListener(weaponListener);
+		weaponButtons[i].addActionListener(g);
 		}
 	}
 

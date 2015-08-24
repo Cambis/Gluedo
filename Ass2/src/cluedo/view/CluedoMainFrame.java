@@ -249,5 +249,14 @@ public class CluedoMainFrame extends JFrame {
 		}
 		accBox.setVisible(true);
 	}
+
+	public String[] getSuggestion() {
+		return suggBox.getAnswers();
+	}
+
+	public void turnSuggOff() {
+		suggBox.setVisible(false);
+		
+	}
 	
 }

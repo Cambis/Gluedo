@@ -243,7 +243,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		}
 		
 		else if(game.getState() == GameState.SUGGESTION){
-			
+			System.out.println("Heard suggestion");
+			frame.turnSuggOff();
+			String[] answers = frame.getSuggestion();
 		}
 
 	}
