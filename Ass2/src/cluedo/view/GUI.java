@@ -35,6 +35,8 @@ import cluedo.model.board.InhabitableSquare;
 import cluedo.model.board.RoomSquare;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
+import cluedo.model.cards.CharacterCard;
+import cluedo.model.gameObjects.CluedoCharacter;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 import cluedo.model.gameObjects.Room;
 
@@ -328,7 +330,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
 		game.setState(GameState.START_TURN);
 		frame.getTurnBox().setVisible(true);
-		frame.setNextPlayer(null,game.getCurrentPlayer().getName());
+		
+		BufferedImage character = new CharacterCard(new CluedoCharacter(
+				game.getCurrentPlayer().getCharacter())).getImage();
+		frame.setNextPlayer(character,game.getCurrentPlayer().getName());
 	}
 
 }

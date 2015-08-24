@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 
 import cluedo.control.CluedoGame;
 import cluedo.model.cards.Card;
+import cluedo.model.gameObjects.CluedoCharacter;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
 
 /**

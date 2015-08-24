@@ -28,6 +28,7 @@ import cluedo.model.gameObjects.CluedoCharacter.Suspect;
  * @author Cameron Bryers and Hannah Craighead
  *
  */
+
 public class PlayerInfoPanel extends JPanel {
 
 	// Image of the player's character
