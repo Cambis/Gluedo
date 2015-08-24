@@ -45,15 +45,9 @@ public class CardPanel extends JPanel {
 			cardImages[i].setHorizontalAlignment(JLabel.CENTER);
 			add(cardImages[i]);
 		}
-<<<<<<< HEAD
 
-		// Sets up size and background colour of JPanel
-		this.setPreferredSize(new Dimension(600, 200));
-=======
-		
 		//Sets up size and background colour of JPanel
 		this.setPreferredSize(new Dimension(600,50));
->>>>>>> branch 'master' of git@github.com:Cambis/Gluedo.git
 		this.setBackground(Color.black);
 	}
 
