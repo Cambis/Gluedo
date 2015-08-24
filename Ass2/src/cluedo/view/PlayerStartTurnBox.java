@@ -30,6 +30,8 @@ public class PlayerStartTurnBox extends JDialog {
 
 	public PlayerStartTurnBox() {
 
+		this.setName("Start Turn");
+
 		panel = new JPanel(new GridLayout(2, 1));
 		next = new JButton("Yes");
 		prompt = new JLabel();
@@ -65,6 +67,7 @@ public class PlayerStartTurnBox extends JDialog {
 		PlayerStartTurnBox frame = new PlayerStartTurnBox();
 		frame.changePlayer("Dave");
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public void addListener(GUI g) {
