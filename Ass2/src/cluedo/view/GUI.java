@@ -149,6 +149,16 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		// In the welcome state:
 		// The start new game button has been pressed
+		
+		if(e.getActionCommand().equals("Show Checklist")){
+			boolean on = frame.getChecklistStatus();
+			if(on){
+				frame.turnOffChecklist();
+			}
+			else{
+				frame.turnOnChecklist();
+			}
+		}
 
 		if (game.getState() == GameState.WELCOME) {
 			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to
