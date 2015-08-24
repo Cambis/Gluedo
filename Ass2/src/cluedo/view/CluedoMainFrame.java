@@ -263,8 +263,21 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public void turnSuggOff() {
+		//reset for next time
+		suggBox.changeToSuspects();
 		suggBox.setVisible(false);
 		
+	}
+
+	public void turnAccOff() {
+		//reset for next time
+		accBox.changeToSuspects();
+		accBox.setVisible(false);
+		
+	}
+
+	public String[] getAccusation() {
+		return accBox.getAnswers();
 	}
 	
 }

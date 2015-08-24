@@ -251,6 +251,16 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 					
 			new RefutionPopUp(game.suggestion(answers, room));
 		}
+		
+		else if(game.getState() == GameState.ACCUSATION){
+			System.out.println("Heard accusation");
+			frame.turnAccOff();
+			String[] answers = frame.getAccusation();						
+					
+			new AccusationPopUp(game.accusation(answers));
+		}
+		
+		
 
 	}
 

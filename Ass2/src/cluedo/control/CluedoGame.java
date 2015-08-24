@@ -311,4 +311,17 @@ public class CluedoGame {
 		}
 	}
 
+	public boolean accusation(String[] answers) {
+		String suspect = answers[0];
+		String weapon = answers[1];
+		String room = answers[2];
+		for(Card c : envelope){
+			String card = c.getObject().toString();
+			if(!card.equals(suspect) && !card.equals(weapon) && !card.equals(room)){
+				return false;
+			}
+		}
+		return true;
+	}
+
 }
