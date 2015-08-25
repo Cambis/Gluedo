@@ -84,6 +84,7 @@ public class CluedoBoardPanel extends JPanel {
 	private void init() {
 		height =  700;
 		width = 700; 
+		this.setBackground(Color.BLACK);
 		
 		landSquares = new HashSet<Square>();
 		rooms = new HashSet<Polygon>();
