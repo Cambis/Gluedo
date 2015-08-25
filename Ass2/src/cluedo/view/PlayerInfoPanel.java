@@ -44,8 +44,7 @@ public class PlayerInfoPanel extends JPanel {
 	private BufferedImage playerImage;
 	private String playerName;
 
-	public PlayerInfoPanel(GUI g) {
-		
+	public PlayerInfoPanel(GUI g) {		
 
 		playerIcon = new JLabel();
 		playerIcon.setHorizontalAlignment(JLabel.CENTER);
@@ -54,11 +53,15 @@ public class PlayerInfoPanel extends JPanel {
 		commandButtons = new JButton[commands.length];
 		buttonGroup = new ButtonGroup();
 
-//		this.setSize(new Dimension(20,526));
 		this.setMaximumSize(new Dimension(100, 526));
 
 		init(g);
 	}
+	
+	/**
+	 * Initialises the player info panel
+	 * @param g is the GUI that listens to the info panel
+	 */
 
 	private void init(GUI g) {
 
@@ -76,9 +79,7 @@ public class PlayerInfoPanel extends JPanel {
 			commandButtons[i].addActionListener(g);
 			commandButtons[i].setBackground(Color.GRAY);
 			add(commandButtons[i]);
-		}
-
-		// TODO setup button listeners
+		}		
 
 		add(new JLabel("<html>Cameron Bryers and<br>Hannah Craighead MMXV</html>", JLabel.CENTER));
 		setVisible(true);
@@ -98,7 +99,6 @@ public class PlayerInfoPanel extends JPanel {
 		if(playerImage != null){
 			// Resize image
 			BufferedImage resized = CluedoMainFrame.resizeImage(playerImage, 0.1, 0.1);
-
 			playerIcon.setIcon(new ImageIcon(resized));
 		}
 		playerLabel.setText(playerName);

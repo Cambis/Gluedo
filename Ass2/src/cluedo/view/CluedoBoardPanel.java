@@ -148,8 +148,7 @@ public class CluedoBoardPanel extends JPanel {
 		landSquares = ls;
 		for (String s : rooms) {
 			this.rooms.add(roomOutlines.getRoom(s));
-		}
-		System.out.println("Panel has " + this.rooms.size() + " rooms polygons to draw");
+		}		
 	}
 
 	public void paintTitleScreen(Graphics g) {
@@ -190,8 +189,7 @@ public class CluedoBoardPanel extends JPanel {
 		for (Square s : landSquares) {
 			g.drawRect(s.getY() * y, s.getX() * x, y, x);
 		}
-		for (Polygon p : rooms) {
-			System.out.println("Drawing room");
+		for (Polygon p : rooms) {			
 			g.drawPolygon(p);
 		}
 	}
@@ -211,8 +209,7 @@ public class CluedoBoardPanel extends JPanel {
 			paintBoard(g);
 			drawPlayers(players, g);
 			paintLandingSquares(g);
-		} else {
-			System.out.println("Painting board");
+		} else {			
 			paintBoard(g);
 			if (!state.equals(GameState.SETUP_INDIVIDUAL)) {
 				drawPlayers(players, g);
@@ -270,10 +267,8 @@ public class CluedoBoardPanel extends JPanel {
 			return true;
 		} else {
 			Point click = new Point(s.getY() * y, s.getX() * x);
-			for (Polygon room : rooms) {
-				System.out.println("Checking room");
-				if (room.contains(click)) {
-					System.out.println("Found room");
+			for (Polygon room : rooms) {				
+				if (room.contains(click)) {					
 					return true;
 				}
 			}

@@ -56,19 +56,23 @@ public class PlayerStartTurnBox extends JDialog {
 	public void changePlayer(String playerName) {
 
 		this.playerName = playerName;
-
 		prompt.setText(playerName + message);
 		pack();
 	}
 
+	/**
+	 * Allows the GUI to listen 
+	 * @param g is the GUI
+	 */
+
+	public void addListener(GUI g) {
+		next.addActionListener(g);
+	}
+	
 	public static void main(String args[]) {
 		PlayerStartTurnBox frame = new PlayerStartTurnBox();
 		frame.changePlayer("Dave");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-	}
-
-	public void addListener(GUI g) {
-		next.addActionListener(g);
 	}
 }
