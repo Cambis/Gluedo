@@ -86,6 +86,7 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 
 		// Sets opening mode to welcome
 		updateCanvas(GameState.WELCOME);
+		this.setBackground(Color.BLACK);
 
 		// Adds start button to panel
 		createStartButton();
