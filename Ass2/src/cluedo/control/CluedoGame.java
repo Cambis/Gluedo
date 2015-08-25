@@ -72,6 +72,9 @@ public class CluedoGame {
 
 	// All players in the game
 	private List<Player> players;
+	
+	// All players (may have been removed)
+	private List<Player> allPlayers;
 
 	// Current player index
 	private int current;
@@ -111,6 +114,7 @@ public class CluedoGame {
 	 */
 	public void addPlayers(List<Player> players) {
 		this.players = players;
+		allPlayers = players;
 	}
 
 	/**
@@ -188,7 +192,7 @@ public class CluedoGame {
 		for (WeaponType w : WeaponType.values())
 			weapons.add(new WeaponCard(new Weapon(w)));
 
-		List<Card> envelope = new ArrayList<Card>();
+		envelope = new HashSet<Card>();
 
 		// Generate random criminals
 		envelope.add(suspects.remove(randomNumber(0, 5)));
@@ -259,7 +263,7 @@ public class CluedoGame {
 		
 		System.out.println(suspect + " " + weapon + " " + room);
 
-		for(Player p : players){
+		for(Player p : allPlayers){
 			for(Card c : p.getHand()){
 				String card = c.getObject().getName();
 				System.out.println(card);
@@ -328,6 +332,9 @@ public class CluedoGame {
 		String suspect = answers[0];
 		String weapon = answers[1];
 		String room = answers[2];
+		if(envelope == null){
+			System.out.println("Envelope is null");
+		}
 		for(Card c : envelope){
 			String card = c.getObject().toString();
 			if(!card.equals(suspect) && !card.equals(weapon) && !card.equals(room)){
@@ -335,6 +342,16 @@ public class CluedoGame {
 			}
 		}
 		return true;
+	}
+	
+	public void removePlayer(){
+		players.remove(current);
+		if(current > 0){
+			current--;
+		}
+		else{
+			current = players.size()-1;
+		}
 	}
 
 }

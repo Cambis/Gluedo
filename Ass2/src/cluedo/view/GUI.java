@@ -21,6 +21,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -54,8 +55,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	CluedoGame game;
 
 	// Used for setting up players
-	String name;
-	Character c;
+	//	String name;
+	//	Character c;
 
 	public GUI(CluedoGame game) {
 		this.game = game;
@@ -128,7 +129,20 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		System.out.println(arg0.getKeyChar());
+		if(arg0.isControlDown() && arg0.getKeyChar() == 'C'){
+			if(game.getState() != GameState.WELCOME && game.getState() != GameState.SETUP_INDIVIDUAL
+					&& game.getState() != GameState.START_TURN){
+				frame.seeChecklist();
+			}
+		}
+		
+		if(arg0.isControlDown() && arg0.getKeyChar() == 'N'){
+			if(game.getState() != GameState.WELCOME && game.getState() != GameState.SETUP_INDIVIDUAL){
+				newGamePopUp("NEW GAME");
+				frame.repaint();
+			}
+		}
 
 	}
 
@@ -150,14 +164,12 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		// In the welcome state:
 		// The start new game button has been pressed
 		
+		if(e.getActionCommand().equals("New Game")){
+			newGamePopUp("NEW GAME");
+		}
+
 		if(e.getActionCommand().equals("Show Checklist")){			
-			boolean on = frame.getChecklistStatus();
-			if(on){
-				frame.turnOffChecklist();
-			}
-			else{
-				frame.turnOnChecklist();
-			}
+			frame.seeChecklist();
 		}
 
 		if (game.getState() == GameState.WELCOME) {
@@ -167,7 +179,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			frame.updateCanvas(GameState.SETUP_INDIVIDUAL); // lets the frame
 			// know of state
 			// change
-			 // repaints the frame
+			// repaints the frame
 			frame.createPlayerSelector(this);
 			frame.repaint();
 		}
@@ -234,11 +246,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				System.out.println("Turnbox being created");
 				frame.startTurnBox(this, game.getCurrentPlayer().getName());
 				//frame.repaint();
-				
+
 				BufferedImage character = new CharacterCard(new CluedoCharacter(
 						game.getCurrentPlayer().getCharacter())).getImage();
 				frame.setNextPlayer(character,game.getCurrentPlayer().getName());
-				
+
 				frame.setNextPlayer(character,game.getCurrentPlayer().getName());
 				//frame.repaint();
 				frame.drawPlayers(newPlayers);
@@ -264,12 +276,12 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		else if(game.getState() == GameState.SUGGESTION){
 			System.out.println("Heard suggestion");
-			frame.turnSuggOff();
+			frame.turnSuggOff(e);
 			frame.repaint();
 			String[] answers = frame.getSuggestion();
 			String room = ((RoomSquare)game.getBoard().squareAt
 					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
-				.getRoom().toString();
+					.getRoom().toString();
 
 			//frame.repaint();
 			new RefutionPopUp(game.suggestion(answers, room));
@@ -283,14 +295,28 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		else if(game.getState() == GameState.ACCUSATION){
 			System.out.println("Heard accusation");
-			frame.turnAccOff();
+			frame.turnAccOff(e);
 			String[] answers = frame.getAccusation();
 
-			new AccusationPopUp(game.accusation(answers));
+			boolean correct = game.accusation(answers);
+
+			new AccusationPopUp(correct);
 			//frame.repaint();
 
-			nextTurn();
-
+			if(correct){
+				frame.updateCanvas(GameState.GAME_WIN);
+				game.setState(GameState.GAME_WIN);
+				newGamePopUp("CONGRATULATIONS YOU HAVE WON");
+			}
+			else if (game.getNumOfPlayers() > 1){
+				game.removePlayer();
+				nextTurn();
+			}
+			else{
+				frame.updateCanvas(GameState.GAME_OVER);
+				game.setState(GameState.GAME_OVER);
+				newGamePopUp("GAME OVER");
+			}
 			frame.repaint();
 		}
 
@@ -359,6 +385,30 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		BufferedImage character = new CharacterCard(new CluedoCharacter(
 				game.getCurrentPlayer().getCharacter())).getImage();
 		frame.setNextPlayer(character,game.getCurrentPlayer().getName());
+	}
+
+	public void newGame(){
+		game = new CluedoGame();
+		frame.setVisible(false);
+		frame = new CluedoMainFrame(this);
+		frame.repaint();
+	}
+	
+	public void newGamePopUp(String title){
+		int reply = JOptionPane.showConfirmDialog(null, "Would you like to start a new game?", title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+         	newGame();
+        }
+        else {        	
+        	if(game.getState() == GameState.GAME_OVER || game.getState() == GameState.GAME_WIN){
+           JOptionPane.showMessageDialog(null, "GOODBYE");
+           System.exit(0);
+        	}
+        	else{
+        		frame.repaint();// Otherwise do nothing
+        	}
+        }
+        
 	}
 
 }

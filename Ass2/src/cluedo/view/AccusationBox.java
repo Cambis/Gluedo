@@ -51,6 +51,36 @@ public class AccusationBox extends SuggestionBox {
 
 		};
 	}
+	
+	/**
+	 * Change the panel to show rooms
+	 */
+	@Override
+	protected void changeToWeapons() {
+
+		panel.removeAll();
+		panel.revalidate();
+		panel.setLayout(new GridLayout(11, 1));
+
+		// Set label
+		prompt.setText("Please choose a weapon");
+		prompt.setHorizontalAlignment(JLabel.CENTER);
+		panel.add(prompt);
+
+		// Setup buttons
+		for (int i = 0; i < 6; i++) {			
+			weaponButtons[i] = new JRadioButton(weapons[i], false);
+			weaponGroup.add(weaponButtons[i]);
+			weaponButtons[i].addActionListener(weaponListener);
+			panel.add(weaponButtons[i]);
+		}
+
+		panel.add(cancel);
+
+		pack();
+		panel.repaint();
+	}
+	
 
 	/**
 	 * Change the panel to show rooms
@@ -83,14 +113,29 @@ public class AccusationBox extends SuggestionBox {
 	public void setListener(GUI g){
 		for(int i = 0; i < 9; i++){
 		roomButtons[i] = new JRadioButton(rooms[i], false);
+		//roomButtons[i].addActionListener(roomListener);
 		roomButtons[i].addActionListener(g);
+		
 		}
+	}
+	
+	public void setRoom(ActionEvent e){
+		roomResponse =  ((JRadioButton) e.getSource()).getText();
 	}
 
 	@Override
 	public String[] getAnswers() {
 		return new String[] { suspectResponse, weaponResponse, roomResponse };
 	}
+	
+	private ActionListener weaponListener = new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		weaponResponse =  ((JRadioButton) e.getSource()).getText();
+		changeToRooms();
+		repaint();
+	}
+};
 
 	private ActionListener roomListener = new ActionListener() {
 

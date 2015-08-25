@@ -58,7 +58,7 @@ public class CluedoMainFrame extends JFrame {
 
 	private List<PlayerCheckList> checklists;
 	private int currentCheck = 0;
-
+	
 	private boolean checkListOn;
 
 	public CluedoMainFrame(GUI g) {
@@ -67,7 +67,7 @@ public class CluedoMainFrame extends JFrame {
 		super("Cluedo");
 		setLayout(new BorderLayout()); // use border layour
 		this.setSize(700, 700); // sets size
-		setJMenuBar(createMenu()); // creates menu bar
+		setJMenuBar(createMenu(g)); // creates menu bar
 
 		board = new CluedoBoardPanel();
 		board.addMouseListener(g);
@@ -168,7 +168,7 @@ public class CluedoMainFrame extends JFrame {
 		cp.setCards(d, c);
 	}
 
-	private JMenuBar createMenu() {
+	private JMenuBar createMenu(GUI g) {
 		menuBar = new JMenuBar(); // creates menu bar
 
 		menu = new JMenu("Game"); // creates first menu item
@@ -178,6 +178,7 @@ public class CluedoMainFrame extends JFrame {
 		menuBar.add(menu); // adds to menu bar
 
 		JMenuItem menuItem = new JMenuItem("New Game");
+		menuItem.addActionListener(g);
 		menu.add(menuItem);
 
 		return menuBar;
@@ -306,15 +307,17 @@ public class CluedoMainFrame extends JFrame {
 		return suggBox.getAnswers();
 	}
 
-	public void turnSuggOff() {
+	public void turnSuggOff(ActionEvent e) {
 		// reset for next time
+		suggBox.setWeapon(e);
 		suggBox.changeToSuspects();
 		suggBox.setVisible(false);
 
 	}
 
-	public void turnAccOff() {
+	public void turnAccOff(ActionEvent e) {
 		// reset for next time
+		accBox.setRoom(e);
 		accBox.changeToSuspects();
 		accBox.setVisible(false);
 
@@ -325,7 +328,7 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public void setNextPlayer(BufferedImage playerImage, String playerName) {
-		turnOffChecklist();
+		checklists.get(currentCheck).setVisible(false);
 		playerInfoPanel.setPlayer(playerImage, playerName);
 		if (currentCheck == checklists.size() - 1) {
 			currentCheck = 0;
@@ -351,10 +354,9 @@ public class CluedoMainFrame extends JFrame {
 		checklists.get(currentCheck).setVisible(false);
 		checkListOn = false;
 		repaint();
-	}
+	}	
 
 	public boolean getChecklistStatus() {
 		return checkListOn;
-	}
-
+	}	
 }
