@@ -129,7 +129,20 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+		System.out.println(arg0.getKeyChar());
+		if(arg0.isControlDown() && arg0.getKeyChar() == 'C'){
+			if(game.getState() != GameState.WELCOME && game.getState() != GameState.SETUP_INDIVIDUAL
+					&& game.getState() != GameState.START_TURN){
+				frame.seeChecklist();
+			}
+		}
+		
+		if(arg0.isControlDown() && arg0.getKeyChar() == 'N'){
+			if(game.getState() != GameState.WELCOME && game.getState() != GameState.SETUP_INDIVIDUAL){
+				newGamePopUp("NEW GAME");
+				frame.repaint();
+			}
+		}
 
 	}
 
@@ -156,13 +169,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		}
 
 		if(e.getActionCommand().equals("Show Checklist")){			
-			boolean on = frame.getChecklistStatus();
-			if(on){
-				frame.turnOffChecklist();
-			}
-			else{
-				frame.turnOnChecklist();
-			}
+			frame.seeChecklist();
 		}
 
 		if (game.getState() == GameState.WELCOME) {
@@ -288,7 +295,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		else if(game.getState() == GameState.ACCUSATION){
 			System.out.println("Heard accusation");
-			frame.turnAccOff();
+			frame.turnAccOff(e);
 			String[] answers = frame.getAccusation();
 
 			boolean correct = game.accusation(answers);

@@ -88,6 +88,6 @@ public class PlayerCheckList extends JDialog {
 	public static void main(String args[]) {
 		PlayerCheckList list = new PlayerCheckList();
 		list.setVisible(true);
-		list.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		list.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 	}
 }

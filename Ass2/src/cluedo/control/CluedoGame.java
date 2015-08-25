@@ -192,7 +192,7 @@ public class CluedoGame {
 		for (WeaponType w : WeaponType.values())
 			weapons.add(new WeaponCard(new Weapon(w)));
 
-		List<Card> envelope = new ArrayList<Card>();
+		envelope = new HashSet<Card>();
 
 		// Generate random criminals
 		envelope.add(suspects.remove(randomNumber(0, 5)));
@@ -332,6 +332,9 @@ public class CluedoGame {
 		String suspect = answers[0];
 		String weapon = answers[1];
 		String room = answers[2];
+		if(envelope == null){
+			System.out.println("Envelope is null");
+		}
 		for(Card c : envelope){
 			String card = c.getObject().toString();
 			if(!card.equals(suspect) && !card.equals(weapon) && !card.equals(room)){

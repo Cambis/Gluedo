@@ -113,10 +113,14 @@ public class AccusationBox extends SuggestionBox {
 	public void setListener(GUI g){
 		for(int i = 0; i < 9; i++){
 		roomButtons[i] = new JRadioButton(rooms[i], false);
-		roomButtons[i].addActionListener(roomListener);
+		//roomButtons[i].addActionListener(roomListener);
 		roomButtons[i].addActionListener(g);
 		
 		}
+	}
+	
+	public void setRoom(ActionEvent e){
+		roomResponse =  ((JRadioButton) e.getSource()).getText();
 	}
 
 	@Override
