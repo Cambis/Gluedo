@@ -79,7 +79,7 @@ public class CluedoMainFrame extends JFrame {
 		// startButton.setVisible(true);
 
 		// Add info panel
-		playerInfoPanel = new PlayerInfoPanel();
+		playerInfoPanel = new PlayerInfoPanel(g);
 		playerInfoPanel.setVisible(false);
 		add(playerInfoPanel, BorderLayout.EAST);
 
@@ -297,7 +297,7 @@ public class CluedoMainFrame extends JFrame {
 		}
 	}
 	
-	public void createCheckLists(int n){
+	public void createCheckLists(int n, GUI gui){
 		checklists = new ArrayList<PlayerCheckList>();
 		for(int i = 0; i < n; i++){
 			checklists.add(new PlayerCheckList());
