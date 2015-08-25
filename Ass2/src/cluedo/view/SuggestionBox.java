@@ -158,7 +158,7 @@ public class SuggestionBox extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			suspectResponse = ((JRadioButton) e.getSource()).getName();
+			suspectResponse = ((JRadioButton) e.getSource()).getText();
 			changeToWeapons();
 			repaint();
 		}
@@ -169,7 +169,7 @@ public class SuggestionBox extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			weaponResponse = ((JRadioButton) e.getSource()).getName();
+			weaponResponse = ((JRadioButton) e.getSource()).getText();
 			//changeToSuspects();
 			//repaint();
 		}

@@ -211,7 +211,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 			});
 
-			if (players.size() >= 3) {
+			if (players.size() >= 3) {				
 				game.setNumOfPlayers(newPlayers.size());
 				// List<Player> p = new ArrayList<Player>();
 				// p.addAll(players.values());
@@ -269,7 +269,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			String[] answers = frame.getSuggestion();
 			String room = ((RoomSquare)game.getBoard().squareAt
 					(game.getCurrentPlayer().getX(), game.getCurrentPlayer().getY()))
-					.toString();
+				.getRoom().toString();
 
 			//frame.repaint();
 			new RefutionPopUp(game.suggestion(answers, room));

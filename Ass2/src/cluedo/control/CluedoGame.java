@@ -255,11 +255,14 @@ public class CluedoGame {
 	public List<String> suggestion(String[] sugg, String room){
 		List<String> names = new ArrayList<String>();
 		String suspect = sugg[0];
-		String weapon = sugg[0];
+		String weapon = sugg[1];
+		
+		System.out.println(suspect + " " + weapon + " " + room);
 
 		for(Player p : players){
 			for(Card c : p.getHand()){
-				String card = c.getObject().toString();
+				String card = c.getObject().getName();
+				System.out.println(card);
 				if(card.equals(room) || card.equals(suspect) || card.equals(weapon)){
 					names.add(p.getName());
 				}
