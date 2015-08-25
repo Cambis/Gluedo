@@ -136,8 +136,6 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(game.getState());
-
 		// A new game has been selected on the menu
 
 		if(e.getActionCommand().equals("New Game")){
@@ -195,8 +193,6 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 				// Add players to the game
 				game.addPlayers(newPlayers);
-
-				System.out.println("Done");
 				game.setUp();
 
 				game.setState(GameState.START_TURN); // changes state to first players roll

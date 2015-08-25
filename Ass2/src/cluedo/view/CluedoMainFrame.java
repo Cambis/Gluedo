@@ -235,10 +235,8 @@ public class CluedoMainFrame extends JFrame{
 			startButton.setVisible(false);
 		}
 
-		if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {
-			System.out.println("Is past set up");
+		if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {			
 			playerInfoPanel.setVisible(true);
-
 			playerInfoPanel.repaint();
 			cp.repaint();
 		}
