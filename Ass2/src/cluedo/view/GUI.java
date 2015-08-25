@@ -61,8 +61,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	public GUI(CluedoGame game) {
 		this.game = game;
 		frame = new CluedoMainFrame(this);
-		JPanel panel = new JPanel();
-		panel.addKeyListener(this);
+		frame.addKeyListener(this);
 	}
 
 	@Override
