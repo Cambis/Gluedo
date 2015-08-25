@@ -9,6 +9,7 @@ import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Stroke;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,9 @@ import java.util.List;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cluedo.control.CluedoGame.GameState;
@@ -28,7 +31,8 @@ import cluedo.model.board.Square;
 
 /**
  * Testing drawing the board as a JPanel, I think we should use this instead of
- * CluedoCanvas as we shouldn't be mixing awt and swing. Methods are taken from CluedoCanvas
+ * CluedoCanvas as we shouldn't be mixing awt and swing. Methods are taken from
+ * CluedoCanvas
  *
  * @author Cameron Bryers and Hannah Craighead
  *
@@ -39,15 +43,17 @@ public class CluedoBoardPanel extends JPanel {
 	private RoomPolygonGenerator roomOutlines;
 	private int width, height;
 	private GameState state;
-	
+
+	private JLabel[] playerIcons;
+
 	private Set<Square> landSquares;
 	private Set<Polygon> rooms;
 	private List<Player> players;
-	
+
 	int x = 21;
 	int y = 21;
-	
-	public int getSquareWidth(){
+
+	public int getSquareWidth() {
 		return x;
 	}
 
@@ -58,7 +64,7 @@ public class CluedoBoardPanel extends JPanel {
 	public CluedoBoardPanel(LayoutManager layout) {
 		super(layout);
 		init();
-	} 
+	}
 
 	public CluedoBoardPanel(boolean isDoubleBuffered) {
 		super(isDoubleBuffered);
@@ -69,12 +75,14 @@ public class CluedoBoardPanel extends JPanel {
 		super(layout, isDoubleBuffered);
 		init();
 	}
+
 	/**
 	 * Updates the canvas so it knows the state of the game
+	 * 
 	 * @param g
 	 */
 
-	public void updateState(GameState g){
+	public void updateState(GameState g) {
 		state = g;
 	}
 
@@ -82,10 +90,11 @@ public class CluedoBoardPanel extends JPanel {
 	 * Set up the board
 	 */
 	private void init() {
-		height =  700;
-		width = 700; 
+
+		height = 700;
+		width = 700;
 		this.setBackground(Color.BLACK);
-		
+
 		landSquares = new HashSet<Square>();
 		rooms = new HashSet<Polygon>();
 
@@ -106,41 +115,40 @@ public class CluedoBoardPanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		// Generates rooms
 		roomOutlines = new RoomPolygonGenerator(x);
 
 		Dimension maxSize = new Dimension(height, width);
 		setPreferredSize(maxSize);
+		this.addMouseListener(new MouseHandler());
 	}
 
-	public void paintBoard(Graphics g){
+	public void paintBoard(Graphics g) {
 		// Draw the board image
-		g.drawImage(board, 0, 0, 526, 526, 0, 0, board.getWidth(),
-				board.getHeight(), null);
+		g.drawImage(board, 0, 0, 526, 526, 0, 0, board.getWidth(), board.getHeight(), null);
 	}
-	
-	public void setLandingSquares(Set<Square> ls, Set<String> rooms){
+
+	public void setLandingSquares(Set<Square> ls, Set<String> rooms) {
 		// Clear previous entries from earlier turn
 		landSquares.clear();
 		this.rooms.clear();
-		
+
 		landSquares = ls;
-		for(String s : rooms){
+		for (String s : rooms) {
 			this.rooms.add(roomOutlines.getRoom(s));
 		}
 		System.out.println("Panel has " + this.rooms.size() + " rooms polygons to draw");
 	}
 
-	public void paintTitleScreen(Graphics g){
+	public void paintTitleScreen(Graphics g) {
 		// Draw the board image
-		g.drawImage(titleScreen, 0, 0, width, height, 0, 0, titleScreen.getWidth(),
-				titleScreen.getHeight(), null);	
-		this.setPreferredSize(new Dimension(526,526));
+		g.drawImage(titleScreen, 0, 0, width, height, 0, 0, titleScreen.getWidth(), titleScreen.getHeight(), null);
+		this.setPreferredSize(new Dimension(526, 526));
 
 	}
 
-	public void paintGrid(Graphics g){
+	public void paintGrid(Graphics g) {
 		// Draw the grid
 		g.setColor(Color.red);
 		for (int i = 0; i < 25; i++) {
@@ -149,10 +157,10 @@ public class CluedoBoardPanel extends JPanel {
 			}
 		}
 	}
-	
-	public void testRoomOutlines(Graphics g){
+
+	public void testRoomOutlines(Graphics g) {
 		g.setColor(Color.CYAN);
-		((Graphics2D)g).setStroke(new BasicStroke(5f));
+		((Graphics2D) g).setStroke(new BasicStroke(5f));
 		g.drawPolygon(roomOutlines.getKitchen());
 		g.drawPolygon(roomOutlines.getBallRoom());
 		g.drawPolygon(roomOutlines.getConservatory());
@@ -165,74 +173,98 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawPolygon(roomOutlines.getSwimmingPool());
 	}
 
-	public void paintLandingSquares(Graphics g){		
+	public void paintLandingSquares(Graphics g) {
 		g.setColor(Color.CYAN);
-		((Graphics2D)g).setStroke(new BasicStroke(5f));
-		for(Square s : landSquares){
-			g.drawRect(s.getY()*y, s.getX()*x, y, x);
+		((Graphics2D) g).setStroke(new BasicStroke(5f));
+		for (Square s : landSquares) {
+			g.drawRect(s.getY() * y, s.getX() * x, y, x);
 		}
-		for(Polygon p : rooms){
+		for (Polygon p : rooms) {
 			System.out.println("Drawing room");
 			g.drawPolygon(p);
 		}
 	}
 
 	@Override
-	public void paintComponent(Graphics g) {		
-		if(state.equals(GameState.WELCOME)){
+	public void paintComponent(Graphics g) {
+		if (state.equals(GameState.WELCOME)) {
 			paintTitleScreen(g);
 		}
-		
-		else if(state.equals(GameState.GENERAL)){
+
+		else if (state.equals(GameState.GENERAL)) {
 			paintBoard(g);
-			drawPlayers(players,g);
+			drawPlayers(players, g);
 			paintLandingSquares(g);
+		} else {
+			System.out.println("Painting board");
+			paintBoard(g);
+			if (!state.equals(GameState.SETUP_INDIVIDUAL)) {
+				drawPlayers(players, g);
+			}
+			// testRoomOutlines(g);
+			// paintGrid(g);
 		}
-		else{	
-		System.out.println("Painting board");	
-		paintBoard(g);
-		if(!state.equals(GameState.SETUP_INDIVIDUAL)){
-		drawPlayers(players,g);
-		}
-		//testRoomOutlines(g);
-		//paintGrid(g);
-		}
-	}	
-	
-	public static void main(String args[]){
-		JFrame j = new JFrame();		
+	}
+
+	public static void main(String args[]) {
+		JFrame j = new JFrame();
 		j.setSize(550, 550);
 		j.add(new CluedoBoardPanel());
 		j.setVisible(true);
-	}	
+	}
 
 	public void drawPlayers(List<Player> players, Graphics g) {
-		for(Player p : players){
+		for (Player p : players) {
 			p.draw(g);
-			g.drawImage(p.getImage(), p.getY() * 21, p.getX() * 20, null);
+			// g.drawImage(p.getImage(), p.getY() * 21, p.getX() * 20, null);
+		}
+
+		for (int i = 0; i < players.size(); i++) {
+			playerIcons[i].getIcon().paintIcon(this, g, players.get(i).getY() * 21, players.get(i).getX() * 20);
 		}
 	}
 
 	public void setPlayerPositions(List<Player> players2) {
-		players = players2;		
+		players = players2;
+		playerIcons = new JLabel[players2.size()];
+
+		for (int i = 0; i < playerIcons.length; i++) {
+			playerIcons[i] = new JLabel();
+			playerIcons[i].setHorizontalAlignment(JLabel.CENTER);
+			playerIcons[i].setIcon(new ImageIcon(players.get(i).getImage()));
+			// playerIcons[i].addMouseListener(new MouseHandler());
+		}
 	}
 
 	public boolean isHighlighted(Square s) {
-		if(landSquares.contains(s)){
+		if (landSquares.contains(s)) {
 			return true;
-		}
-		else{
-			Point click = new Point(s.getY()*y, s.getX()*x);
-			for(Polygon room : rooms){	
+		} else {
+			Point click = new Point(s.getY() * y, s.getX() * x);
+			for (Polygon room : rooms) {
 				System.out.println("Checking room");
-				if(room.contains(click)){
+				if (room.contains(click)) {
 					System.out.println("Found room");
 					return true;
 				}
 			}
-		}		
-		
+		}
+
 		return false;
 	}
-}
 
+	private class MouseHandler extends MouseAdapter {
+
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			System.out.println("IN HERE");
+			System.out.println(e.getY() + " " + e.getX());
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+
+		}
+	}
+}
