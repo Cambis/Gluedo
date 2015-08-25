@@ -1,6 +1,8 @@
 package cluedo.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -50,7 +52,7 @@ public class CluedoMainFrame extends JFrame {
 	private GameState state;
 
 	private AccusationBox accBox;
-	
+
 	private List<PlayerCheckList> checklists;
 	private int currentCheck = 0;
 
@@ -221,7 +223,12 @@ public class CluedoMainFrame extends JFrame {
 	public static BufferedImage resizeImage(BufferedImage image, int scaleX, int scaleY) {
 		Image img = image.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
 		BufferedImage resized = new BufferedImage(scaleX, scaleY, Image.SCALE_SMOOTH);
-		resized.getGraphics().drawImage(img, 0, 0, null);
+
+		Graphics g = resized.createGraphics();
+		g.drawImage(image, 0, 0, scaleX, scaleY, Color.BLACK, null);
+		// resized.getGraphics().drawImage(img, 0, 0, null);
+//		image.getGraphics().drawImage(image, 0, 0, scaleX, scaleY, 0, 0, image.getWidth(),
+//				image.getHeight(), null);
 		return resized;
 	}
 
@@ -297,20 +304,20 @@ public class CluedoMainFrame extends JFrame {
 			currentCheck++;
 		}
 	}
-	
+
 	public void createCheckLists(int n, GUI gui){
 		checklists = new ArrayList<PlayerCheckList>();
 		for(int i = 0; i < n; i++){
 			checklists.add(new PlayerCheckList());
 		}
 	}
-	
+
 	public void turnOnChecklist(){
 		checklists.get(currentCheck).setVisible(true);
 		checkListOn = true;
 		repaint();
 	}
-	
+
 	public void turnOffChecklist(){
 		checklists.get(currentCheck).setVisible(false);
 		checkListOn = false;
@@ -320,6 +327,6 @@ public class CluedoMainFrame extends JFrame {
 	public boolean getChecklistStatus() {
 		return checkListOn;
 	}
-	
-	
+
+
 }

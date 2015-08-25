@@ -83,7 +83,7 @@ public class SuggestionBox extends JDialog {
 	/**
 	 * Changes the panel to show suspects
 	 */
-	protected void changeToSuspects() {
+	protected void changeToSuspects() { 
 
 		panel.removeAll();
 		panel.revalidate();
@@ -158,7 +158,7 @@ public class SuggestionBox extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			suspectResponse = ((JRadioButton) e.getSource()).getText();
+			suspectResponse = ((JRadioButton) e.getSource()).getName();
 			changeToWeapons();
 			repaint();
 		}
@@ -169,7 +169,7 @@ public class SuggestionBox extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			weaponResponse = ((JRadioButton) e.getSource()).getText();
+			weaponResponse = ((JRadioButton) e.getSource()).getName();
 			//changeToSuspects();
 			//repaint();
 		}

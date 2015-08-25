@@ -58,7 +58,7 @@ public class CluedoBoardPanel extends JPanel {
 	public CluedoBoardPanel(LayoutManager layout) {
 		super(layout);
 		init();
-	}
+	} 
 
 	public CluedoBoardPanel(boolean isDoubleBuffered) {
 		super(isDoubleBuffered);
@@ -83,7 +83,7 @@ public class CluedoBoardPanel extends JPanel {
 	 */
 	private void init() {
 		height =  526;
-		width = 526;
+		width = 526; 
 		
 		landSquares = new HashSet<Square>();
 		rooms = new HashSet<Polygon>();
