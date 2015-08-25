@@ -2,10 +2,12 @@ package cluedo.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Stroke;
@@ -41,15 +43,15 @@ public class CluedoBoardPanel extends JPanel {
 
 	private JLabel[] playerIcons;
 
-	private BufferedImage board, titleScreen; // images for the board and welcome screen
+	private BufferedImage board, titleScreen; // images for the board and
+												// welcome screen
 	private RoomPolygonGenerator roomOutlines; // contains room outlines
-	private int width, height; 
+	private int width, height;
 	private GameState state; // state the game is in
 
 	private Set<Square> landSquares;
 	private Set<Polygon> rooms;
 	private List<Player> players;
-
 
 	int x = 21; // square width
 	int y = 21; // square height
@@ -130,12 +132,13 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawImage(board, 0, 0, 526, 526, 0, 0, board.getWidth(), board.getHeight(), null);
 	}
 
-	
 	/**
-	 * Updates the canvas so it knows which squares on the board to 
-	 * highlight
-	 * @param ls is the set of corridor squares a player can move to
-	 * @param rooms is the set of room names a player can move to
+	 * Updates the canvas so it knows which squares on the board to highlight
+	 * 
+	 * @param ls
+	 *            is the set of corridor squares a player can move to
+	 * @param rooms
+	 *            is the set of room names a player can move to
 	 */
 	public void setLandingSquares(Set<Square> ls, Set<String> rooms) {
 		// Clear previous entries from earlier turn
@@ -193,9 +196,9 @@ public class CluedoBoardPanel extends JPanel {
 		}
 	}
 
-
 	/**
 	 * Chooses what to paint, depending on the game state
+	 * 
 	 * @param g
 	 */
 	@Override
@@ -226,13 +229,19 @@ public class CluedoBoardPanel extends JPanel {
 		}
 
 		for (int i = 0; i < players.size(); i++) {
+			playerIcons[i].repaint(players.get(i).getY() * 21, players.get(i).getX() * 20,
+					playerIcons[i].getIcon().getIconWidth(), playerIcons[i].getIcon().getIconHeight());
+
 			playerIcons[i].getIcon().paintIcon(this, g, players.get(i).getY() * 21, players.get(i).getX() * 20);
+			// playerIcons[i].rep
 		}
 	}
 
 	/**
 	 * Stores the players currently on the board
-	 * @param players2 are the players on the board
+	 * 
+	 * @param players2
+	 *            are the players on the board
 	 */
 	public void setPlayerPositions(List<Player> players2) {
 		players = players2;
@@ -242,15 +251,17 @@ public class CluedoBoardPanel extends JPanel {
 			playerIcons[i] = new JLabel();
 			playerIcons[i].setHorizontalAlignment(JLabel.CENTER);
 			playerIcons[i].setIcon(new ImageIcon(players.get(i).getImage()));
-			// playerIcons[i].addMouseListener(new MouseHandler());
+			playerIcons[i].addMouseListener(new MouseHandler());
 		}
+
 	}
 
-/**
-	 * Checks to see if a given square is highlighted.
-	 * Essentially checks if a square is valid to move to
+	/**
+	 * Checks to see if a given square is highlighted. Essentially checks if a
+	 * square is valid to move to
 	 * 
-	 * @param s is the square selected
+	 * @param s
+	 *            is the square selected
 	 * @return a boolean indicating if the move is valid
 	 */
 
@@ -273,16 +284,42 @@ public class CluedoBoardPanel extends JPanel {
 
 	private class MouseHandler extends MouseAdapter {
 
+		private boolean inside = false;
+		private MouseThread mouse = new MouseThread();
 		
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			System.out.println("IN HERE");
-			System.out.println(e.getY() + " " + e.getX());
+			inside = true;
+			mouse.run();
+			System.out.println("In here");
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			System.out.println("In here");
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
+			inside = false;
+			if (mouse.isAlive())
+				mouse.stop();
+		}
+	}
 
+	private class MouseThread extends Thread {
+
+		private Point mousePos;
+		
+		public Point getMouseLocation() {
+			return mousePos;
+		}
+
+		public void run() {
+			while (true) {
+			mousePos = MouseInfo.getPointerInfo().getLocation();
+			System.out.println(mousePos.toString());
+			}
 		}
 	}
 }
