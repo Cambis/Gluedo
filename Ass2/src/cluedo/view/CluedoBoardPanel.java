@@ -286,12 +286,12 @@ public class CluedoBoardPanel extends JPanel {
 		public void mouseEntered(MouseEvent e) {
 			inside = true;
 			mouse.run();
-			System.out.println("In here");
+			// System.out.println("In here");
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			System.out.println("In here");
+			// System.out.println("In here");
 		}
 
 		@Override
@@ -311,10 +311,10 @@ public class CluedoBoardPanel extends JPanel {
 		}
 
 		public void run() {
-			while (true) {
+			// while (true) {
 			mousePos = MouseInfo.getPointerInfo().getLocation();
 			System.out.println(mousePos.toString());
-			}
+			// }
 		}
 	}
 }
