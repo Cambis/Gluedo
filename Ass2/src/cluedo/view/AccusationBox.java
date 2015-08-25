@@ -68,8 +68,7 @@ public class AccusationBox extends SuggestionBox {
 
 		// Setup buttons
 		for (int i = 0; i < 9; i++) {
-			roomButtons[i] = new JRadioButton(rooms[i], false);
-			roomButtons[i].addActionListener(roomListener);
+			
 			roomGroup.add(roomButtons[i]);
 			panel.add(roomButtons[i]);
 		}
@@ -78,6 +77,14 @@ public class AccusationBox extends SuggestionBox {
 
 		pack();
 		panel.repaint();
+	}
+	
+	@Override
+	public void setListener(GUI g){
+		for(int i = 0; i < 9; i++){
+		roomButtons[i] = new JRadioButton(rooms[i], false);
+		roomButtons[i].addActionListener(g);
+		}
 	}
 
 	@Override
@@ -89,9 +96,9 @@ public class AccusationBox extends SuggestionBox {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			roomResponse = ((JRadioButton) e.getSource()).getName();
-			changeToSuspects();
-			repaint();
+			roomResponse = ((JRadioButton) e.getSource()).getText();
+			//changeToSuspects();
+			//repaint();
 		}
 
 	};

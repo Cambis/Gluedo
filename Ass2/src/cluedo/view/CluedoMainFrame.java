@@ -261,6 +261,7 @@ public class CluedoMainFrame extends JFrame {
 		if(accBox == null){
 			accBox = new AccusationBox();
 		}
+		accBox.setListener(g);
 		accBox.setVisible(true);
 	}
 
