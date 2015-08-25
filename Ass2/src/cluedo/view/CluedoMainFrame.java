@@ -32,86 +32,72 @@ import cluedo.model.Player;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
-public class CluedoMainFrame extends JFrame implements KeyListener{
+public class CluedoMainFrame extends JFrame{
 
 	private static final long serialVersionUID = 6909931835454164833L;
-	
-	GUI g;
 
-	private CluedoCanvas canvas;
+	// Consistent components on the frame
 	private CluedoBoardPanel board;
 	private CardPanel cp;
 	private JMenuBar menuBar;
 	private JMenu menu;
 	private JButton startButton;
-
 	private PlayerInfoPanel playerInfoPanel;
 
+	// Toggled components on the frame
 	private PlayerStartTurnBox turnBox;
-
-	private SuggestionBox suggBox;
-
-	// Asks for the number of players
-	NewGameFrame start;
+	private SuggestionBox suggBox;	
+	private AccusationBox accBox;
 	PlayerInitBox nameAsker;
 
-	private CluedoGame game;
+	// Current game state
+	private GameState state;	
 
-	private GameState state;
-
-	private AccusationBox accBox;
-
+	// Players checklists
 	private List<PlayerCheckList> checklists;
-	
-	// Player names to their respective card panels
-	private Map<String, CardPanel> cardPanels = new HashMap<String, CardPanel>();
-	private String currentPanel;
-	
-	private int currentCheck = 0;
-	
-	public CluedoMainFrame(GUI g) {
 
+	// Index for currently used checklist
+	private int currentCheck = 0;
+
+	public CluedoMainFrame(GUI g) {
 		// Creates frame
 		super("Cluedo");
 		setLayout(new BorderLayout()); // use border layour
 		this.setSize(700, 700); // sets size
 		setJMenuBar(createMenu(g)); // creates menu bar
-		
-		this.g = g;
+		this.setBackground(Color.BLACK); // sets backgrounnd to black
 
+		// Adds board panel
 		board = new CluedoBoardPanel();
-		board.addMouseListener(g);
-		board.updateState(GameState.WELCOME);
+		board.addMouseListener(g);		
 		add(board, BorderLayout.CENTER);
 
 		// Sets opening mode to welcome
-		updateCanvas(GameState.WELCOME);
-		this.setBackground(Color.BLACK);
+		updateCanvas(GameState.WELCOME);		
 
 		// Adds start button to panel
 		createStartButton();
 		startButton.addActionListener(g);
-		add(startButton, BorderLayout.SOUTH);
-		// startButton.setVisible(true);
+		add(startButton, BorderLayout.SOUTH);		
 
 		// Add info panel
 		playerInfoPanel = new PlayerInfoPanel(g);
 		playerInfoPanel.setVisible(false);
 		add(playerInfoPanel, BorderLayout.EAST);
 
+		//Sets frame to close on exit
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// pack(); // pack components tightly together
+		// Sets frame to visible
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
-		repaint();
-		
-		// Sets up player frame and links to gui
-		// start = new NewGameFrame(g);
-		// start.setVisible(false);
-
+		repaint();		
 	}
 
+	/**
+	 * Gets the player initialiser
+	 * @return player initiliaser box
+	 */
 	public PlayerInitBox getSetup() {
 		return nameAsker;
 	}
@@ -143,28 +129,50 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		nameAsker.addListener(g);
 	}
 
+	/**
+	 * Creates the card panel and adds to frame
+	 * @param cards is the number of cards a player can have
+	 */
 	public void createCardPanel(int cards) {
 		cp = new CardPanel(cards);
 		add(cp, BorderLayout.SOUTH);
-		cp.setVisible(true);
-		// pack();
+		cp.setVisible(true);		
 	}
 
+	/**
+	 * Adds a player and their cards to the card panel
+	 * @param name of the player
+	 * @param cards in the players hand
+	 */
 	public void addPlayerToCardPanel(String name, Set<Card> cards) {
 		cp.addCards(name, cards);
 	}
-	
+
+	/**
+	 * Sets the dice roll for a player
+	 * @param name
+	 * @param dice
+	 */
+
 	public void setCardPanel(String name, BufferedImage[] dice) {
 		cp.setPlayer(name, dice);
 	}
-	
+
+	/**
+	 * Toggles card display on and off
+	 */
+
 	public void showCards() {
 		cp.toggleCards();
 	}
-	
+
+	/**
+	 * Hides card display
+	 */
 	public void hideCards() {
 		cp.hideCards();
 	}
+
 	/**
 	 * This updates the panel to hold a given set of cards and dice rolls
 	 *
@@ -190,10 +198,16 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		for (Card card : cards) {
 			c[count++] = card.getImage();
 		}
-
-		// cp.setCardsAndDice(d, c);
 	}
 
+	/**
+	 * Creates menu 
+	 * 
+	 * @param g is the GUI class which listens to see
+	 * if the menu is selected
+	 * 
+	 * @return menu
+	 */
 	private JMenuBar createMenu(GUI g) {
 		menuBar = new JMenuBar(); // creates menu bar
 
@@ -209,12 +223,15 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 
 		return menuBar;
 	}
+	
+	/**
+	 * Repaints the various components on the frame
+	 */
 
 	@Override
 	public void repaint() {
-		// System.out.println(state);
-		if (state != GameState.WELCOME) { // turns off the startButton after
-			// playerInfoPanel.setVisible(true); // title screen
+		
+		if (state != GameState.WELCOME) { // turns off the startButton after title screen			
 			startButton.setVisible(false);
 		}
 
@@ -223,18 +240,26 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 			playerInfoPanel.setVisible(true);
 
 			playerInfoPanel.repaint();
-			// cp.repaint();
+			cp.repaint();
 		}
-
-		// start.repaint();
+		
 		board.repaint();
-
 	}
-
+	
+	/**
+	 * Returns the width of a canvas square
+	 * @return canvas square width
+	 */
+	
 	public int getCanvasSquareWidth() {
 		return board.getSquareWidth();
 	}
-
+	
+	/**
+	 * Updates the state in the frame and board panel
+	 * @param state to update to
+	 */
+	
 	public void updateCanvas(GameState state) {
 		this.state = state;
 		board.updateState(state);
@@ -252,7 +277,7 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 
 		BufferedImage resized = new BufferedImage((int) (image.getWidth(null) * scaleX),
 				(int) (image.getHeight(null) * scaleY), BufferedImage.TYPE_INT_ARGB);
-		
+
 		Graphics2D g = (Graphics2D) resized.getGraphics();
 
 		g.scale(scaleX, scaleY);
@@ -262,29 +287,53 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		return resized;
 	}
 
-	public static void main(String args[]) {
-		new CluedoMainFrame(new GUI(new CluedoGame()));
-	}
+	/**
+	 * Returns the start turn box
+	 * @return start turn box
+	 */
 
 	public PlayerStartTurnBox getTurnBox() {
 		return turnBox;
 	}
-
+	
+	/**
+	 * Creates a new start turn box 
+	 * @param g is the GUI class which listens to the turn box
+	 * @param playerName
+	 */
+	
 	public void startTurnBox(GUI g, String playerName) {
 		turnBox = new PlayerStartTurnBox();
 		turnBox.addListener(g);
 		turnBox.changePlayer(playerName);
 		turnBox.setVisible(true);
 	}
-
+	
+	/**
+	 * Calls draw players on the board panel
+	 * @param players
+	 */
+	
 	public void drawPlayers(List<Player> players) {
 		board.setPlayerPositions(players);
 	}
-
+	
+	/**
+	 * Checks if a square is highlighted on the board panel
+	 * @param s is the given square
+	 * @return boolean indicating if the square is highlighted
+	 */
+	
 	public boolean isHighlighted(Square s) {
 		return board.isHighlighted(s);
 	}
 
+	/**
+	 * Makes a new suggestion box, or
+	 * sets the old one visible
+	 * @param g is the GUI class which listens to it
+	 */
+	
 	public void suggestionBox(GUI g) {
 		if (suggBox == null) {
 			suggBox = new SuggestionBox();
@@ -292,7 +341,13 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		suggBox.setListener(g);
 		suggBox.setVisible(true);
 	}
-
+ 
+	/**
+	 * Makes a new accusation box, or
+	 * sets the old one visible
+	 * @param g is the GUI class which listens to it
+	 */
+	
 	public void accusationBox(GUI g) {
 		if (accBox == null) {
 			accBox = new AccusationBox();
@@ -300,10 +355,21 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		accBox.setListener(g);
 		accBox.setVisible(true);
 	}
+	
+	/**
+	 * Returns a player suggestion
+	 * @return player suggestion
+	 */
 
 	public String[] getSuggestion() {
 		return suggBox.getAnswers();
 	}
+	
+	/**
+	 * Turns the suggestion box off
+	 * Also resets it for next time
+	 * @param e is the action event that ended its use
+	 */
 
 	public void turnSuggOff(ActionEvent e) {
 		// reset for next time
@@ -312,6 +378,12 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		suggBox.setVisible(false);
 
 	}
+	
+	/**
+	 * Turns the accusation box off
+	 * Also resets it for next time
+	 * @param e is the action event that ended its use
+	 */
 
 	public void turnAccOff(ActionEvent e) {
 		// reset for next time
@@ -320,10 +392,24 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		accBox.setVisible(false);
 
 	}
+	
+	/**
+	 * Gets accusation made by a player
+	 * @return accusation
+	 */
 
 	public String[] getAccusation() {
 		return accBox.getAnswers();
 	}
+	
+	/**
+	 * Sets next players related graphics.
+	 * This includes images for their card panel
+	 * and their own checklist
+	 * 
+	 * @param playerImage is their image
+	 * @param playerName is their name
+	 */
 
 	public void setNextPlayer(BufferedImage playerImage, String playerName) {
 		checklists.get(currentCheck).setVisible(false);
@@ -334,6 +420,12 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 			currentCheck++;
 		}
 	}
+	
+	/**
+	 * Creates a checklist for each player
+	 * @param n is the number of players
+	 * @param gui 
+	 */
 
 	public void createCheckLists(int n, GUI gui) {
 		checklists = new ArrayList<PlayerCheckList>();
@@ -342,33 +434,27 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 		}
 	}
 
+	/**
+	 * Turns off the current checklist
+	 */
 	
 	public void turnOffChecklist() {
 		checklists.get(currentCheck).setVisible(false);	
 		repaint();
 	}	
 
+	/**
+	 * Toggles on/off the current players checklist
+	 */
 	
 	public void seeChecklist() {
 		boolean on = checklists.get(currentCheck).isVisible();
 		checklists.get(currentCheck).setVisible(!on);
 		repaint();
-		
-	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		g.keyPressed(arg0);	
 	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-			
+	
+	public static void main(String args[]) {
+		new CluedoMainFrame(new GUI(new CluedoGame()));
 	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}	
 }
