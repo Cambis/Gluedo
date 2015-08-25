@@ -25,6 +25,8 @@ public class CardPanel extends JPanel {
 	
 	public CardPanel(int size) {
 		this.size = size;
+		cardImages = new JLabel[size];
+		diceImages = new JLabel[2];
 		init();
 	}
 	
