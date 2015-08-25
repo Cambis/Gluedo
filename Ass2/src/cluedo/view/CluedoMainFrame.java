@@ -64,7 +64,7 @@ public class CluedoMainFrame extends JFrame {
 		super("Cluedo");
 		setLayout(new BorderLayout()); // use border layour
 		this.setSize(700, 700); // sets size
-		setJMenuBar(createMenu()); // creates menu bar
+		setJMenuBar(createMenu(g)); // creates menu bar
 
 		board = new CluedoBoardPanel();
 		board.addMouseListener(g);
@@ -165,7 +165,7 @@ public class CluedoMainFrame extends JFrame {
 		cp.setCards(d, c);
 	}
 
-	private JMenuBar createMenu() {
+	private JMenuBar createMenu(GUI g) {
 		menuBar = new JMenuBar(); // creates menu bar
 
 		menu = new JMenu("Game"); // creates first menu item
@@ -175,6 +175,7 @@ public class CluedoMainFrame extends JFrame {
 		menuBar.add(menu); // adds to menu bar
 
 		JMenuItem menuItem = new JMenuItem("New Game");
+		menuItem.addActionListener(g);
 		menu.add(menuItem);
 
 		return menuBar;

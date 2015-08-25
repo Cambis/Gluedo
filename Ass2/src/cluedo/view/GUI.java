@@ -21,6 +21,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -149,6 +150,10 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		// In the welcome state:
 		// The start new game button has been pressed
+		
+		if(e.getActionCommand().equals("New Game")){
+			newGamePopUp("NEW GAME");
+		}
 
 		if(e.getActionCommand().equals("Show Checklist")){			
 			boolean on = frame.getChecklistStatus();
@@ -294,11 +299,16 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 			if(correct){
 				frame.updateCanvas(GameState.GAME_WIN);
 				game.setState(GameState.GAME_WIN);
-				// put a new game popup?
+				newGamePopUp("CONGRATULATIONS YOU HAVE WON");
 			}
-			else{
+			else if (game.getNumOfPlayers() > 1){
 				game.removePlayer();
 				nextTurn();
+			}
+			else{
+				frame.updateCanvas(GameState.GAME_OVER);
+				game.setState(GameState.GAME_OVER);
+				newGamePopUp("GAME OVER");
 			}
 			frame.repaint();
 		}
@@ -374,6 +384,21 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		game = new CluedoGame();
 		frame = new CluedoMainFrame(this);
 		frame.repaint();
+	}
+	
+	public void newGamePopUp(String title){
+		int reply = JOptionPane.showConfirmDialog(null, "Would you like to start a new game?", title, JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+         	newGame();
+        }
+        else {        	
+        	if(game.getState() == GameState.GAME_OVER || game.getState() == GameState.GAME_WIN){
+           JOptionPane.showMessageDialog(null, "GOODBYE");
+           System.exit(0);
+        	}
+        	// Otherwise do nothing
+        }
+        frame.repaint();
 	}
 
 }
