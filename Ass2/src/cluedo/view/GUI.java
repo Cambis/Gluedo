@@ -137,7 +137,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				frame.seeChecklist();
 			}
 		}
-		
+
 		if(arg0.isControlDown() && arg0.getKeyChar() == 'N'){
 			if(game.getState() != GameState.WELCOME && game.getState() != GameState.SETUP_INDIVIDUAL){
 				newGamePopUp("NEW GAME");
@@ -164,13 +164,23 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		// In the welcome state:
 		// The start new game button has been pressed
-		
+
 		if(e.getActionCommand().equals("New Game")){
 			newGamePopUp("NEW GAME");
 		}
 
-		if(e.getActionCommand().equals("Show Checklist")){			
-			frame.seeChecklist();
+		if(e.getActionCommand().equals("Show Checklist")){
+			if(game.getState() != GameState.START_TURN){
+				frame.seeChecklist();
+				frame.repaint();
+			}
+		}
+
+		if(e.getActionCommand().equals("Show Cards")){		
+			if(game.getState() != GameState.START_TURN){
+				frame.showCards();
+				frame.repaint();
+			}
 		}
 
 		if (game.getState() == GameState.WELCOME) {
@@ -240,15 +250,15 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				// players roll
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know
 				// of state change
-				
+
 				// Create card panels
 				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
-//				Map<String, Set<Card>> cards = new HashMap<String, Set<Card>>();
+				//				Map<String, Set<Card>> cards = new HashMap<String, Set<Card>>();
 				for (Player p : newPlayers)
 					frame.addPlayerToCardPanel(p.getName(), p.getHand());
-				
-//				frame.setUpCardPanels((int) Math.ceil(18 / newPlayers.size()), cards);
-				
+
+				//				frame.setUpCardPanels((int) Math.ceil(18 / newPlayers.size()), cards);
+
 				// Create checklists
 				frame.createCheckLists(players.size(), this);
 				//frame.repaint();
@@ -406,22 +416,22 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		frame = new CluedoMainFrame(this);
 		frame.repaint();
 	}
-	
+
 	public void newGamePopUp(String title){
 		int reply = JOptionPane.showConfirmDialog(null, "Would you like to start a new game?", title, JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.YES_OPTION) {
-         	newGame();
-        }
-        else {        	
-        	if(game.getState() == GameState.GAME_OVER || game.getState() == GameState.GAME_WIN){
-           JOptionPane.showMessageDialog(null, "GOODBYE");
-           System.exit(0);
-        	}
-        	else{
-        		frame.repaint();// Otherwise do nothing
-        	}
-        }
-        
+		if (reply == JOptionPane.YES_OPTION) {
+			newGame();
+		}
+		else {        	
+			if(game.getState() == GameState.GAME_OVER || game.getState() == GameState.GAME_WIN){
+				JOptionPane.showMessageDialog(null, "GOODBYE");
+				System.exit(0);
+			}
+			else{
+				frame.repaint();// Otherwise do nothing
+			}
+		}
+
 	}
 
 }

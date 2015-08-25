@@ -86,6 +86,7 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 
 		// Sets opening mode to welcome
 		updateCanvas(GameState.WELCOME);
+		this.setBackground(Color.BLACK);
 
 		// Adds start button to panel
 		createStartButton();
@@ -158,7 +159,7 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 	}
 	
 	public void showCards() {
-		cp.showCards();
+		cp.toggleCards();
 	}
 	
 	public void hideCards() {

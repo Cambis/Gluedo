@@ -124,9 +124,12 @@ public class CardPanel extends JPanel {
 	/**
 	 * Show cards
 	 */
-	public void showCards() {
+	public void toggleCards() {
+		
 		for (JLabel card : cardImages)
-			card.setVisible(true);
+			card.setVisible(!card.isVisible());
+		
+		cards.repaint();
 	}
 
 	public static void main(String args[]) {
