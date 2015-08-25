@@ -82,15 +82,15 @@ public class CluedoBoardPanel extends JPanel {
 	 * Set up the board
 	 */
 	private void init() {
-		height =  526;
-		width = 526; 
+		height =  700;
+		width = 700; 
 		
 		landSquares = new HashSet<Square>();
 		rooms = new HashSet<Polygon>();
 
 		// Read the title screen image
 		File img = new File("Cluedo2 (1).jpg");
-		board = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		board = new BufferedImage(526, 526, BufferedImage.TYPE_INT_ARGB);
 		try {
 			board = ImageIO.read(img);
 		} catch (IOException e) {
@@ -115,7 +115,7 @@ public class CluedoBoardPanel extends JPanel {
 
 	public void paintBoard(Graphics g){
 		// Draw the board image
-		g.drawImage(board, 0, 0, width, height, 0, 0, board.getWidth(),
+		g.drawImage(board, 0, 0, 526, 526, 0, 0, board.getWidth(),
 				board.getHeight(), null);
 	}
 	
@@ -135,6 +135,7 @@ public class CluedoBoardPanel extends JPanel {
 		// Draw the board image
 		g.drawImage(titleScreen, 0, 0, width, height, 0, 0, titleScreen.getWidth(),
 				titleScreen.getHeight(), null);	
+		this.setPreferredSize(new Dimension(526,526));
 
 	}
 

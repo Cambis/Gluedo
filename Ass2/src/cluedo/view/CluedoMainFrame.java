@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -31,9 +32,11 @@ import cluedo.model.Player;
 import cluedo.model.board.Square;
 import cluedo.model.cards.Card;
 
-public class CluedoMainFrame extends JFrame {
+public class CluedoMainFrame extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 6909931835454164833L;
+	
+	GUI g;
 
 	private CluedoCanvas canvas;
 	private CluedoBoardPanel board;
@@ -73,6 +76,8 @@ public class CluedoMainFrame extends JFrame {
 		setLayout(new BorderLayout()); // use border layour
 		this.setSize(700, 700); // sets size
 		setJMenuBar(createMenu(g)); // creates menu bar
+		
+		this.g = g;
 
 		board = new CluedoBoardPanel();
 		board.addMouseListener(g);
@@ -347,6 +352,22 @@ public class CluedoMainFrame extends JFrame {
 		boolean on = checklists.get(currentCheck).isVisible();
 		checklists.get(currentCheck).setVisible(!on);
 		repaint();
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		g.keyPressed(arg0);	
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+			
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}	
 }

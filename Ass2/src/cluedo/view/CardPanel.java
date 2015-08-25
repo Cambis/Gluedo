@@ -52,17 +52,19 @@ public class CardPanel extends JPanel {
 		// setLayout(new GridLayout(1, size + 3, 20, 20));
 		setLayout(new GridLayout(1, 1));
 
-		// JPanel info = new JPanel();
-		// info.add(new JLabel("Your roll", JLabel.CENTER));
-		// info.add(new JLabel("Your Cards"), JLabel.CENTER);
-		// add(info);
+//		info.add(new JLabel("Your roll", JLabel.CENTER));
+//		info.add(new JLabel("Your Cards"), JLabel.CENTER);
+//		add(info);
+
 
 		cards = new JPanel(new GridLayout(1, size + 3, 20, 20));
+		cards.setBackground(Color.BLACK);
 
 		// Set up dice
 		for (int i = 0; i < 2; i++) {
 			diceImages[i] = new JLabel();
 			diceImages[i].setHorizontalAlignment(JLabel.CENTER);
+			diceImages[i].setBackground(Color.BLACK);
 			cards.add(diceImages[i]);
 		}
 
@@ -73,6 +75,7 @@ public class CardPanel extends JPanel {
 		for (int i = 0; i < size; i++) {
 			cardImages[i] = new JLabel();
 			cardImages[i].setHorizontalAlignment(JLabel.CENTER);
+			cardImages[i].setBackground(Color.BLACK);
 			cards.add(cardImages[i]);
 		}
 

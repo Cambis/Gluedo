@@ -45,6 +45,7 @@ public class PlayerInfoPanel extends JPanel {
 	private String playerName;
 
 	public PlayerInfoPanel(GUI g) {
+		
 
 		playerIcon = new JLabel();
 		playerIcon.setHorizontalAlignment(JLabel.CENTER);
@@ -62,6 +63,7 @@ public class PlayerInfoPanel extends JPanel {
 	private void init(GUI g) {
 
 		setLayout(new GridLayout(6, 1));
+		this.setBackground(Color.BLACK);
 
 		add(new JLabel());
 		add(playerIcon);
@@ -72,6 +74,7 @@ public class PlayerInfoPanel extends JPanel {
 			commandButtons[i] = new JButton(commands[i]);
 			buttonGroup.add(commandButtons[i]);
 			commandButtons[i].addActionListener(g);
+			commandButtons[i].setBackground(Color.GRAY);
 			add(commandButtons[i]);
 		}
 
