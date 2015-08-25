@@ -54,8 +54,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	CluedoGame game;
 
 	// Used for setting up players
-	String name;
-	Character c;
+//	String name;
+//	Character c;
 
 	public GUI(CluedoGame game) {
 		this.game = game;
@@ -359,6 +359,12 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		BufferedImage character = new CharacterCard(new CluedoCharacter(
 				game.getCurrentPlayer().getCharacter())).getImage();
 		frame.setNextPlayer(character,game.getCurrentPlayer().getName());
+	}
+	
+	public void newGame(){
+		game = new CluedoGame();
+		frame = new CluedoMainFrame(this);
+		frame.repaint();
 	}
 
 }

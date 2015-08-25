@@ -72,6 +72,9 @@ public class CluedoGame {
 
 	// All players in the game
 	private List<Player> players;
+	
+	// All players (may have been removed)
+	private List<Player> allPlayers;
 
 	// Current player index
 	private int current;
@@ -111,6 +114,7 @@ public class CluedoGame {
 	 */
 	public void addPlayers(List<Player> players) {
 		this.players = players;
+		allPlayers = players;
 	}
 
 	/**
@@ -259,7 +263,7 @@ public class CluedoGame {
 		
 		System.out.println(suspect + " " + weapon + " " + room);
 
-		for(Player p : players){
+		for(Player p : allPlayers){
 			for(Card c : p.getHand()){
 				String card = c.getObject().getName();
 				System.out.println(card);
@@ -335,6 +339,10 @@ public class CluedoGame {
 			}
 		}
 		return true;
+	}
+	
+	public void removePlayer(){
+		players.remove(current);
 	}
 
 }
