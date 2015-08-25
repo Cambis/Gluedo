@@ -59,8 +59,6 @@ public class CluedoMainFrame extends JFrame {
 	private List<PlayerCheckList> checklists;
 	private int currentCheck = 0;
 	
-	private boolean checkListOn;
-
 	public CluedoMainFrame(GUI g) {
 
 		// Creates frame
@@ -344,19 +342,17 @@ public class CluedoMainFrame extends JFrame {
 		}
 	}
 
-	public void turnOnChecklist() {
-		checklists.get(currentCheck).setVisible(true);
-		checkListOn = true;
-		repaint();
-	}
-
+	
 	public void turnOffChecklist() {
-		checklists.get(currentCheck).setVisible(false);
-		checkListOn = false;
+		checklists.get(currentCheck).setVisible(false);	
 		repaint();
 	}	
 
-	public boolean getChecklistStatus() {
-		return checkListOn;
+	
+	public void seeChecklist() {
+		boolean on = checklists.get(currentCheck).isVisible();
+		checklists.get(currentCheck).setVisible(!on);
+		repaint();
+		
 	}	
 }
