@@ -10,9 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Pops up at the end of a players turn to signify the next player's turn. If
- * you want to test this class separately it should extend JFrame otherwise it
- * should extend JInternalFrame.
+ * Pops up at the end of a players turn to signify the next player's turn.
  *
  * @author Cameron Bryers and Hannah Craighead
  *
