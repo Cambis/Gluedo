@@ -23,6 +23,7 @@ import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -60,6 +61,8 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	public GUI(CluedoGame game) {
 		this.game = game;
 		frame = new CluedoMainFrame(this);
+		JPanel panel = new JPanel();
+		panel.addKeyListener(this);
 	}
 
 	@Override
@@ -116,6 +119,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// Checklist shortcut
+		System.out.println(arg0.getKeyChar());
 		if(arg0.isControlDown() && arg0.getKeyChar() == 'C'){
 			if(game.getState() != GameState.WELCOME && game.getState() != GameState.SETUP_INDIVIDUAL
 					&& game.getState() != GameState.START_TURN){

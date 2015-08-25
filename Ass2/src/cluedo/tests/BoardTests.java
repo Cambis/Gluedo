@@ -25,20 +25,6 @@ import cluedo.model.gameObjects.Room.RoomType;
 
 public class BoardTests {
 
-	@Test
-	public void testValidAddPlayer() {
-		Board board = new Board("cluedo.txt");
-		Player player = new Player("Jim", Suspect.COLONEL_MUSTARD, Game.COLONEL_MUSTARD_START);
-
-		List<Player> players = new ArrayList<Player>();
-		players.add(player);
-
-		try {
-			board.addPlayers(players);
-		} catch (Exception e) {
-			fail("Should be able to do this");
-		}
-	}
 
 	@Test
 	public void testValidAddPlayer_2() {

@@ -41,17 +41,5 @@ public class GameTests {
 		assertEquals(game.getCurrentPlayer(), player1);
 	}
 
-	@Test
-	public void testNextPlayer() {
-		Player player1 = new Player("David", Suspect.MISS_SCARLET, CluedoGame.MISS_SCARLET_START);
-		Player player2 = new Player("Mark", Suspect.COLONEL_MUSTARD, CluedoGame.COLONEL_MUSTARD_START);
-
-		CluedoGame game = new CluedoGame();
-		List<Player> list = new ArrayList<Player>();
-		list.add(player1);
-		list.add(player2);
-
-		game.addPlayers(list);
-		assertEquals(game.getNextPlayer(), player2);
-	}
+	
 }

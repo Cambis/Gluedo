@@ -313,7 +313,7 @@ public class CluedoBoardPanel extends JPanel {
 		public void run() {
 			// while (true) {
 			mousePos = MouseInfo.getPointerInfo().getLocation();
-			System.out.println(mousePos.toString());
+			// System.out.println(mousePos.toString());
 			// }
 		}
 	}
