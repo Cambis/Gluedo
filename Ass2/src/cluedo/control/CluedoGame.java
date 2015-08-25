@@ -343,6 +343,12 @@ public class CluedoGame {
 	
 	public void removePlayer(){
 		players.remove(current);
+		if(current > 0){
+			current--;
+		}
+		else{
+			current = players.size()-1;
+		}
 	}
 
 }
