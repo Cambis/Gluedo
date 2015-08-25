@@ -21,9 +21,18 @@ public class CardPanel extends JPanel {
 	private JLabel[] cardImages;
 	private JLabel[] diceImages;
 	private JPanel cards;
-
+	private int size;
+	
 	public CardPanel(int size) {
-
+		this.size = size;
+		init();
+	}
+	
+	public CardPanel(int size, BufferedImage[] cards) {
+		
+	}
+	
+	private void init() {
 		// setLayout(new GridLayout(1, size + 3, 20, 20));
 		setLayout(new GridLayout(1, 1));
 
@@ -32,10 +41,9 @@ public class CardPanel extends JPanel {
 //		info.add(new JLabel("Your Cards"), JLabel.CENTER);
 //		add(info);
 
-		cardImages = new JLabel[size];
-		diceImages = new JLabel[2];
-
-		cards = new JPanel(new GridLayout(1, size + 3, 20, 1));
+	
+		
+		cards = new JPanel(new GridLayout(1, size + 3, 20, 20));
 
 		// Set up dice
 		for (int i = 0; i < 2; i++) {
@@ -65,13 +73,29 @@ public class CardPanel extends JPanel {
 
 		// Set up dice
 		for (int i = 0; i < dice.length; i++)
-			diceImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(dice[i], 200, 200)));
+			diceImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(dice[i], 0.2, 0.2)));
 
 		// Set up cards
 		for (int i = 0; i < cards.length; i++)
-			cardImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(cards[i], 500, 300)));
+			cardImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(cards[i], 0.1, 0.1)));
 
 	}
+	
+	/**
+	 * Hide cards from view
+	 */
+	public void hideCards() {
+		for (JLabel card : cardImages)
+			card.setVisible(false);
+	}
+	
+	/**
+	 * Show cards
+	 */
+	public void showCards() {
+		for (JLabel card : cardImages)
+			card.setVisible(true);
+	}	
 
 	public static void main(String args[]) {
 

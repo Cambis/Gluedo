@@ -3,9 +3,12 @@ package cluedo.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +110,7 @@ public class CluedoMainFrame extends JFrame {
 	 * CluedoBoardPanel for drawing
 	 */
 
-	public void drawValidMoves(Set<Square> lands, Set<String> rooms){
+	public void drawValidMoves(Set<Square> lands, Set<String> rooms) {
 		board.setLandingSquares(lands, rooms);
 	}
 
@@ -152,9 +155,9 @@ public class CluedoMainFrame extends JFrame {
 		BufferedImage[] c = new BufferedImage[cards.size()];
 
 		// Creates dice image icons
-		 for(int i = 0; i < dice.length; i++){
-			 d[i] = (dice[i]);
-		 }
+		for (int i = 0; i < dice.length; i++) {
+			d[i] = (dice[i]);
+		}
 
 		// Creates card image icons
 		int count = 0;
@@ -184,20 +187,17 @@ public class CluedoMainFrame extends JFrame {
 	public void repaint() {
 		// System.out.println(state);
 		if (state != GameState.WELCOME) { // turns off the startButton after
-			//playerInfoPanel.setVisible(true);						// title screen
+			// playerInfoPanel.setVisible(true); // title screen
 			startButton.setVisible(false);
 		}
 
-		if(state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {
+		if (state != GameState.WELCOME && state != GameState.SETUP_INDIVIDUAL) {
 			System.out.println("Is past set up");
 			playerInfoPanel.setVisible(true);
 
 			playerInfoPanel.repaint();
-			//cp.repaint();
+			// cp.repaint();
 		}
-
-
-
 
 		// start.repaint();
 		board.repaint();
@@ -215,29 +215,59 @@ public class CluedoMainFrame extends JFrame {
 
 	/**
 	 * Resizes an image
+	 * 
 	 * @param image
 	 * @param scaleX
 	 * @param scaleY
 	 * @return
 	 */
-	public static BufferedImage resizeImage(BufferedImage image, int scaleX, int scaleY) {
-		Image img = image.getScaledInstance(scaleX, scaleY, Image.SCALE_SMOOTH);
-		BufferedImage resized = new BufferedImage(scaleX, scaleY, Image.SCALE_SMOOTH);
+	public static BufferedImage resizeImage(BufferedImage image, double scaleX, double scaleY) {
+		// Image img = image.getScaledInstance(scaleX, scaleY,
+		// Image.SCALE_SMOOTH);
+		// BufferedImage resized = new BufferedImage(scaleX, scaleY,
+		// Image.SCALE_SMOOTH);
+		//
+		// Graphics g = resized.createGraphics();
+		// g.drawImage(image, 0, 0, scaleX, scaleY, Color.BLACK, null);
 
-		Graphics g = resized.createGraphics();
-		g.drawImage(image, 0, 0, scaleX, scaleY, Color.BLACK, null);
 		// resized.getGraphics().drawImage(img, 0, 0, null);
-//		image.getGraphics().drawImage(image, 0, 0, scaleX, scaleY, 0, 0, image.getWidth(),
-//				image.getHeight(), null);
+		// image.getGraphics().drawImage(image, 0, 0, scaleX, scaleY, 0, 0,
+		// image.getWidth(),
+		// image.getHeight(), null);
+		// return resized;
+
+		// BufferedImage resized = new BufferedImage(image.getWidth(),
+		// image.getHeight(), Image.SCALE_SMOOTH);
+		//
+		// AffineTransform at = new AffineTransform();
+		// at.scale(0.5, 0.5);
+		//
+		// AffineTransformOp scaleOp = new AffineTransformOp(at,
+		// AffineTransformOp.TYPE_BILINEAR);
+		//
+		// resized = scaleOp.filter(image, resized);
+
+		// Graphics2D g = resized.createGraphics();
+		// g.drawImage(image, at, null);
+		// g.dispose();
+
+		BufferedImage resized = new BufferedImage((int) (image.getWidth(null) * scaleX),
+				(int) (image.getHeight(null) * scaleY), BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D g = (Graphics2D) resized.getGraphics();
+
+		g.scale(scaleX, scaleY);
+
+		g.drawImage(image, 0, 0, null);
+		g.dispose();
 		return resized;
 	}
-
 
 	public static void main(String args[]) {
 		new CluedoMainFrame(new GUI(new CluedoGame()));
 	}
 
-	public PlayerStartTurnBox getTurnBox(){
+	public PlayerStartTurnBox getTurnBox() {
 		return turnBox;
 	}
 
@@ -257,15 +287,15 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public void suggestionBox(GUI g) {
-		if(suggBox == null){
+		if (suggBox == null) {
 			suggBox = new SuggestionBox();
 		}
-			suggBox.setListener(g);
-			suggBox.setVisible(true);
+		suggBox.setListener(g);
+		suggBox.setVisible(true);
 	}
 
-	public void accusationBox(GUI g){
-		if(accBox == null){
+	public void accusationBox(GUI g) {
+		if (accBox == null) {
 			accBox = new AccusationBox();
 		}
 		accBox.setListener(g);
@@ -277,14 +307,14 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public void turnSuggOff() {
-		//reset for next time
+		// reset for next time
 		suggBox.changeToSuspects();
 		suggBox.setVisible(false);
 
 	}
 
 	public void turnAccOff() {
-		//reset for next time
+		// reset for next time
 		accBox.changeToSuspects();
 		accBox.setVisible(false);
 
@@ -297,28 +327,27 @@ public class CluedoMainFrame extends JFrame {
 	public void setNextPlayer(BufferedImage playerImage, String playerName) {
 		turnOffChecklist();
 		playerInfoPanel.setPlayer(playerImage, playerName);
-		if(currentCheck == checklists.size() -1){
+		if (currentCheck == checklists.size() - 1) {
 			currentCheck = 0;
-		}
-		else{
+		} else {
 			currentCheck++;
 		}
 	}
 
-	public void createCheckLists(int n, GUI gui){
+	public void createCheckLists(int n, GUI gui) {
 		checklists = new ArrayList<PlayerCheckList>();
-		for(int i = 0; i < n; i++){
+		for (int i = 0; i < n; i++) {
 			checklists.add(new PlayerCheckList());
 		}
 	}
 
-	public void turnOnChecklist(){
+	public void turnOnChecklist() {
 		checklists.get(currentCheck).setVisible(true);
 		checkListOn = true;
 		repaint();
 	}
 
-	public void turnOffChecklist(){
+	public void turnOffChecklist() {
 		checklists.get(currentCheck).setVisible(false);
 		checkListOn = false;
 		repaint();
@@ -327,6 +356,5 @@ public class CluedoMainFrame extends JFrame {
 	public boolean getChecklistStatus() {
 		return checkListOn;
 	}
-
 
 }

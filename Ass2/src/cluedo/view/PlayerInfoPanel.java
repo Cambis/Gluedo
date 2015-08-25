@@ -94,7 +94,7 @@ public class PlayerInfoPanel extends JPanel {
 
 		if(playerImage != null){
 			// Resize image
-			BufferedImage resized = CluedoMainFrame.resizeImage(playerImage, 100, 200);
+			BufferedImage resized = CluedoMainFrame.resizeImage(playerImage, 0.1, 0.1);
 
 			playerIcon.setIcon(new ImageIcon(resized));
 		}
@@ -113,11 +113,11 @@ public class PlayerInfoPanel extends JPanel {
 
 		// BufferedImage img = (BufferedImage) image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 
-//		PlayerInfoPanel panel = new PlayerInfoPanel();
-//		panel.setPlayer(image, "David");
-//		frame.add(panel);
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		frame.pack();
-//		frame.setVisible(true);
+		PlayerInfoPanel panel = new PlayerInfoPanel(null);
+		panel.setPlayer(image, "David");
+		frame.add(panel);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
 	}
 }
