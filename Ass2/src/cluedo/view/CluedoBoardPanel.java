@@ -35,57 +35,35 @@ import cluedo.model.board.Square;
  */
 public class CluedoBoardPanel extends JPanel {
 
-	private BufferedImage board, titleScreen;
-	private RoomPolygonGenerator roomOutlines;
-	private int width, height;
-	private GameState state;
-	
+	private BufferedImage board, titleScreen; // images for the board and welcome screen
+	private RoomPolygonGenerator roomOutlines; // contains room outlines
+	private int width, height; 
+	private GameState state; // state the game is in
+
 	private Set<Square> landSquares;
 	private Set<Polygon> rooms;
 	private List<Player> players;
-	
-	int x = 21;
-	int y = 21;
-	
-	public int getSquareWidth(){
-		return x;
-	}
+
+	int x = 21; // square width
+	int y = 21; // square height
+
+
 
 	public CluedoBoardPanel() {
 		init();
-	}
-
-	public CluedoBoardPanel(LayoutManager layout) {
-		super(layout);
-		init();
-	} 
-
-	public CluedoBoardPanel(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		init();
-	}
-
-	public CluedoBoardPanel(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		init();
-	}
-	/**
-	 * Updates the canvas so it knows the state of the game
-	 * @param g
-	 */
-
-	public void updateState(GameState g){
-		state = g;
-	}
+	}	
 
 	/**
-	 * Set up the board
+	 * Initialise the board panel
 	 */
 	private void init() {
+		// Set up of the panel
 		height =  700;
 		width = 700; 
+		Dimension maxSize = new Dimension(height, width);
+		setPreferredSize(maxSize);
 		this.setBackground(Color.BLACK);
-		
+
 		landSquares = new HashSet<Square>();
 		rooms = new HashSet<Polygon>();
 
@@ -106,65 +84,67 @@ public class CluedoBoardPanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		// Generates rooms
-		roomOutlines = new RoomPolygonGenerator(x);
 
-		Dimension maxSize = new Dimension(height, width);
-		setPreferredSize(maxSize);
+		// Generates room outlines
+		roomOutlines = new RoomPolygonGenerator(x);		
 	}
 
+	/**
+	 * Updates the canvas so it knows the state of the game
+	 * @param g
+	 */
+
+	public void updateState(GameState g){
+		state = g;
+	}
+
+	/**
+	 * Updates the canvas so it knows which squares on the board to 
+	 * highlight
+	 * @param ls is the set of corridor squares a player can move to
+	 * @param rooms is the set of room names a player can move to
+	 */
+
+	public void setLandingSquares(Set<Square> ls, Set<String> rooms){
+		// Clear previous entries from earlier turn
+		landSquares.clear();
+		this.rooms.clear();
+
+		// Stores room outlines and squares
+		landSquares = ls;
+		for(String s : rooms){
+			this.rooms.add(roomOutlines.getRoom(s));
+		}		
+	}
+
+	/**
+	 * Draws the board image
+	 * @param g
+	 */
 	public void paintBoard(Graphics g){
 		// Draw the board image
 		g.drawImage(board, 0, 0, 526, 526, 0, 0, board.getWidth(),
 				board.getHeight(), null);
 	}
-	
-	public void setLandingSquares(Set<Square> ls, Set<String> rooms){
-		// Clear previous entries from earlier turn
-		landSquares.clear();
-		this.rooms.clear();
-		
-		landSquares = ls;
-		for(String s : rooms){
-			this.rooms.add(roomOutlines.getRoom(s));
-		}
-		System.out.println("Panel has " + this.rooms.size() + " rooms polygons to draw");
-	}
+
+	/**
+	 * Draws the title/welcome screen
+	 * @param g
+	 */
 
 	public void paintTitleScreen(Graphics g){
 		// Draw the board image
 		g.drawImage(titleScreen, 0, 0, width, height, 0, 0, titleScreen.getWidth(),
 				titleScreen.getHeight(), null);	
+		// changes dimension to suit the board
 		this.setPreferredSize(new Dimension(526,526));
-
 	}
 
-	public void paintGrid(Graphics g){
-		// Draw the grid
-		g.setColor(Color.red);
-		for (int i = 0; i < 25; i++) {
-			for (int j = 0; j < 25; j++) {
-				g.drawRect(i * x, j * y, x, y);
-			}
-		}
-	}
-	
-	public void testRoomOutlines(Graphics g){
-		g.setColor(Color.CYAN);
-		((Graphics2D)g).setStroke(new BasicStroke(5f));
-		g.drawPolygon(roomOutlines.getKitchen());
-		g.drawPolygon(roomOutlines.getBallRoom());
-		g.drawPolygon(roomOutlines.getConservatory());
-		g.drawPolygon(roomOutlines.getStudy());
-		g.drawPolygon(roomOutlines.getLibrary());
-		g.drawPolygon(roomOutlines.getBilliardsRoom());
-		g.drawPolygon(roomOutlines.getLounge());
-		g.drawPolygon(roomOutlines.getHall());
-		g.drawPolygon(roomOutlines.getDiningRoom());
-		g.drawPolygon(roomOutlines.getSwimmingPool());
-	}
-
+	/**
+	 * Draws all of the room and square outlines 
+	 * for where a player can move to
+	 * @param g
+	 */
 	public void paintLandingSquares(Graphics g){		
 		g.setColor(Color.CYAN);
 		((Graphics2D)g).setStroke(new BasicStroke(5f));
@@ -176,51 +156,67 @@ public class CluedoBoardPanel extends JPanel {
 			g.drawPolygon(p);
 		}
 	}
-
-	@Override
-	public void paintComponent(Graphics g) {		
-		if(state.equals(GameState.WELCOME)){
-			paintTitleScreen(g);
-		}
-		
-		else if(state.equals(GameState.GENERAL)){
-			paintBoard(g);
-			drawPlayers(players,g);
-			paintLandingSquares(g);
-		}
-		else{	
-		System.out.println("Painting board");	
-		paintBoard(g);
-		if(!state.equals(GameState.SETUP_INDIVIDUAL)){
-		drawPlayers(players,g);
-		}
-		//testRoomOutlines(g);
-		//paintGrid(g);
-		}
-	}	
 	
-	public static void main(String args[]){
-		JFrame j = new JFrame();		
-		j.setSize(550, 550);
-		j.add(new CluedoBoardPanel());
-		j.setVisible(true);
-	}	
-
+	/**
+	 * Paints the players tokens on the board
+	 * @param players
+	 * @param g
+	 */
 	public void drawPlayers(List<Player> players, Graphics g) {
 		for(Player p : players){
 			p.draw(g);
 			g.drawImage(p.getImage(), p.getY() * 21, p.getX() * 20, null);
 		}
 	}
+	
+	/**
+	 * Chooses what to paint, depending on the game state
+	 * @param g
+	 */
+	
+	@Override
+	public void paintComponent(Graphics g) {		
+		if(state.equals(GameState.WELCOME)){
+			paintTitleScreen(g);
+		}
 
+		else if(state.equals(GameState.GENERAL)){
+			paintBoard(g);
+			drawPlayers(players,g);
+			paintLandingSquares(g);
+		}
+		
+		else{	
+			System.out.println("Painting board");	
+			paintBoard(g);
+			if(!state.equals(GameState.SETUP_INDIVIDUAL)){
+				drawPlayers(players,g);
+			}
+		}
+	}	
+	
+	/**
+	 * Stores the players currently on the board
+	 * @param players2 are the players on the board
+	 */
 	public void setPlayerPositions(List<Player> players2) {
 		players = players2;		
 	}
+	
+	/**
+	 * Checks to see if a given square is highlighted.
+	 * Essentially checks if a square is valid to move to
+	 * 
+	 * @param s is the square selected
+	 * @return a boolean indicating if the move is valid
+	 */
 
 	public boolean isHighlighted(Square s) {
+		// If it is a valid corridor square
 		if(landSquares.contains(s)){
 			return true;
 		}
+		// Checks if the square resides in a highlighted room
 		else{
 			Point click = new Point(s.getY()*y, s.getX()*x);
 			for(Polygon room : rooms){	
@@ -231,8 +227,24 @@ public class CluedoBoardPanel extends JPanel {
 				}
 			}
 		}		
-		
+
 		return false;
 	}
+	
+	/**
+	 * Returns square width
+	 * @return square width
+	 */
+	public int getSquareWidth(){
+		return x;
+	}
+	
+	public static void main(String args[]){
+		JFrame j = new JFrame();		
+		j.setSize(550, 550);
+		j.add(new CluedoBoardPanel());
+		j.setVisible(true);
+	}	
+
 }
 

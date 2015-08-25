@@ -24,7 +24,7 @@ public class AccusationBox extends SuggestionBox {
 	// Rooms
 	private String rooms[] = { "Study", "Hall", "Lounge", "Library",
 			"Billiard Room", "Dining Room", "Conservatory", "Ballroom",
-			"Kitchen" };
+	"Kitchen" };
 
 	// User response
 	private String roomResponse;
@@ -33,27 +33,30 @@ public class AccusationBox extends SuggestionBox {
 		super();
 		init();
 	}
+	
+	/**
+	 * Initialises accusation box
+	 */
 
 	private void init() {
-
 		roomButtons = new JRadioButton[9];
 		roomGroup = new ButtonGroup();
 
 		// Override the original weaponListener
+		// this is done because the last option for the user is now the
+		// room selection, not the weapon. It now transitions to the room option
 		weaponListener = new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				weaponResponse = ((JRadioButton) e.getSource()).getName();
 				changeToRooms();
 				repaint();
 			}
-
 		};
 	}
-	
+
 	/**
-	 * Change the panel to show rooms
+	 * Change the panel to show weapons
 	 */
 	@Override
 	protected void changeToWeapons() {
@@ -80,7 +83,7 @@ public class AccusationBox extends SuggestionBox {
 		pack();
 		panel.repaint();
 	}
-	
+
 
 	/**
 	 * Change the panel to show rooms
@@ -98,7 +101,7 @@ public class AccusationBox extends SuggestionBox {
 
 		// Setup buttons
 		for (int i = 0; i < 9; i++) {
-			
+
 			roomGroup.add(roomButtons[i]);
 			panel.add(roomButtons[i]);
 		}
@@ -108,44 +111,46 @@ public class AccusationBox extends SuggestionBox {
 		pack();
 		panel.repaint();
 	}
-	
+
+	/**
+	 * Adds the GUI class as a listener to the room options
+	 * so it knows when the accusation has been fully made
+	 */
 	@Override
 	public void setListener(GUI g){
 		for(int i = 0; i < 9; i++){
-		roomButtons[i] = new JRadioButton(rooms[i], false);
-		//roomButtons[i].addActionListener(roomListener);
-		roomButtons[i].addActionListener(g);
-		
+			roomButtons[i] = new JRadioButton(rooms[i], false);			
+			roomButtons[i].addActionListener(g);
+
 		}
 	}
 	
+	/**
+	 * Sets the room response 
+	 * @param e is the ActionEvent that occurs when a room is selected
+	 */
+
 	public void setRoom(ActionEvent e){
 		roomResponse =  ((JRadioButton) e.getSource()).getText();
 	}
+	
+	/**
+	 * Returns an array of strings which carries the accusation
+	 * inputted by the player
+	 */
 
 	@Override
 	public String[] getAnswers() {
 		return new String[] { suspectResponse, weaponResponse, roomResponse };
 	}
-	
+
 	private ActionListener weaponListener = new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		weaponResponse =  ((JRadioButton) e.getSource()).getText();
-		changeToRooms();
-		repaint();
-	}
-};
-
-	private ActionListener roomListener = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			roomResponse = ((JRadioButton) e.getSource()).getText();
-			//changeToSuspects();
-			//repaint();
+			weaponResponse =  ((JRadioButton) e.getSource()).getText();
+			changeToRooms();
+			repaint();
 		}
-
 	};
 
 	public static void main(String args[]) {
