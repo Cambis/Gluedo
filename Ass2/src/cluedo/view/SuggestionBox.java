@@ -144,21 +144,20 @@ public class SuggestionBox extends JDialog {
 	}
 	
 	/**
-	 * 
+	 * Allows the GUI to listen to this box
 	 */
 	
 	public void setListener(GUI g){
 		for(int i = 0; i < 6 ; i++){
-		weaponButtons[i] = new JRadioButton(weapons[i], false);
-		weaponButtons[i].addActionListener(weaponListener);
+		weaponButtons[i] = new JRadioButton(weapons[i], false);		
 		weaponButtons[i].addActionListener(g);
 		}
 	}
 
 	/**
-	 * Get user input
-	 *
-	 * @return
+	 * Get user input from suggestion
+	 * 	 
+	 * @return suggestion
 	 */
 	public String[] getAnswers() {
 		return new String[] { suspectResponse, weaponResponse };
@@ -176,26 +175,19 @@ public class SuggestionBox extends JDialog {
 
 	};
 
-	protected ActionListener weaponListener = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			//changeToSuspects();
-			//repaint();
-		}
-
-	};
-
+	
 	private ActionListener cancelListener = new ActionListener() {
-
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			// Should we make it close the window or hide it?
+		public void actionPerformed(ActionEvent e) {			
 			setVisible(false);
 		}
 
 	};
+	
+	/**
+	 * Sets the weapon response
+	 * @param e is the ActionEvent caused by entering a weapon response
+	 */
 	
 	public void setWeapon(ActionEvent e){
 		weaponResponse = ((JRadioButton) e.getSource()).getText();

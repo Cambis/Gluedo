@@ -2,6 +2,12 @@ package cluedo.view;
 
 import java.awt.Polygon;
 
+/**
+ * This class is repsonsible for storing all of the outlines for each room on the cluedo  board
+ * @author Cameron Bryers and Hannah Craighead
+ *
+ */
+
 public class RoomPolygonGenerator {
 	
 	Polygon diningRoom, hall, kitchen, conservatory,

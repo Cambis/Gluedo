@@ -41,17 +41,19 @@ public class PlayerCheckList extends JDialog {
 			"Billiard Room", "Dining Room", "Conservatory", "Ballroom",
 			"Kitchen" };
 
-	public PlayerCheckList() {
-		// setLayout(new GridLayout(1, 1));
-		// add(new JLabel("CheckList", JLabel.CENTER));
+	public PlayerCheckList() {		
 		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		setResizable(false);
 		init();
 		pack();		
 	}	
-
+	
+	/**
+	 * Initialises checklist
+	 */
 	private void init() {
-
+		
+		// Special images icons for the checklist
 		ImageIcon question = new ImageIcon("question.jpg");
 		ImageIcon disabledIcon = new ImageIcon("Cross.png");
 		
@@ -89,10 +91,8 @@ public class PlayerCheckList extends JDialog {
 			checkBoxes[suspects.length + weapons.length + i].setIcon(question);
 			checkBoxes[suspects.length + weapons.length + i].setSelectedIcon(disabledIcon);	
 		}
-
-		// checkPanel.add(new JLabel("Notes", JLabel.CENTER));
-		add(checkPanel);
-		// add(new JTextField());
+		
+		add(checkPanel);		
 	}
 
 	public static void main(String args[]) {
