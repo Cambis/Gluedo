@@ -87,23 +87,9 @@ public class CluedoGame {
 	private Board board;
 
 	public CluedoGame() {
-
 		state = GameState.WELCOME;
 		board = new Board("cluedo.txt");
-
-		// TODO create players
-		// state = GameState.SETUP_PLAYERS;
-
-		// GUI gui = new GUI();
-
-		// Deal cards
-		// createDeck();
-		// deal();
-	}
-
-	// game logic
-
-	// players = Gui.getPLayers();
+	}	
 
 	public Board getBoard() {
 		return board;
@@ -167,14 +153,17 @@ public class CluedoGame {
 		return dice;
 	}
 
+	/**
+	 * Gets current roll
+	 * @return roll value
+	 */
 	public int getRoll(){
 		return dice1.getValue() + dice2.getValue();
 	}
 
 	/**
-	 * Creates the game deck and envelope
-	 *
-	 * @return
+	 * Creates the game deck and envelope	 
+	 * 
 	 */
 	private void createDeck() {
 
@@ -206,22 +195,13 @@ public class CluedoGame {
 		deck.addAll(weapons);
 
 		Collections.shuffle(deck);
-
-		// List<List<Card>> cards = new ArrayList<List<Card>>();
-		// cards.add(deck);
-		// cards.add(envelope);
 	}
 
 	/**
 	 * Deal cards to players
 	 */
 	private void deal() {
-
 		// Number of cards in each player's hand
-		if(deck == null){
-			System.out.println("Deck is null");
-		}
-
 		int numOfCards = deck.size() / players.size();
 
 		Iterator<Card> iter = deck.iterator();
@@ -256,17 +236,20 @@ public class CluedoGame {
 		state = g;
 	}
 
+	/**
+	 * Checks which players can refute a suggestion
+	 * @param sugg is the suggestion
+	 * @param room is the room it was made from
+	 * @return a list of players who can refute the suggestion
+	 */
 	public List<String> suggestion(String[] sugg, String room){
 		List<String> names = new ArrayList<String>();
 		String suspect = sugg[0];
-		String weapon = sugg[1];
-		
-		System.out.println(suspect + " " + weapon + " " + room);
-
+		String weapon = sugg[1];		
+	
 		for(Player p : allPlayers){
 			for(Card c : p.getHand()){
-				String card = c.getObject().getName();
-				System.out.println(card);
+				String card = c.getObject().getName();				
 				if(card.equals(room) || card.equals(suspect) || card.equals(weapon)){
 					names.add(p.getName());
 				}
@@ -288,20 +271,6 @@ public class CluedoGame {
 		return new Random().nextInt((max - min) + 1) + min;
 	}
 
-	/**
-	 * Helper method for loading image icons.
-	 *
-	 * @param filename
-	 * @return
-	 */
-	public static ImageIcon makeImageIcon(Card c) {
-		ImageIcon icon = null;
-		if (c != null) {
-			// icon = new ImageIcon(c.getImageIcon());
-		}
-		return icon;
-	}
-
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -314,27 +283,35 @@ public class CluedoGame {
 		return envelope;
 	}
 
+	/**
+	 * Moves a player to a given square
+	 * @param end is the given sqaure
+	 */
 	public void moveTo(Square end) {
 		Player currentP = players.get(current);
 		InhabitableSquare start = ((InhabitableSquare)board.squareAt(currentP.getX(), currentP.getY()));
-		start.removePlayer();
+		start.removePlayer(); // removes from current
 
 		if(end instanceof DoorSquare){
-			((DoorSquare)end).getRoom().addPlayer(currentP);
+			((DoorSquare)end).getRoom().addPlayer(currentP); // randomly allocates a square in the room
 		}
 		else{
-			((InhabitableSquare)end).addPlayer(currentP);
+			((InhabitableSquare)end).addPlayer(currentP); // adds to the square
 			currentP.move(end.getX(), end.getY());
 		}
 	}
 
+	/**
+	 * Indicates whether an accusation is true or not
+	 * @param answers is the accusation
+	 * @return boolean indicating correctness
+	 */
 	public boolean accusation(String[] answers) {
 		String suspect = answers[0];
 		String weapon = answers[1];
 		String room = answers[2];
-		if(envelope == null){
-			System.out.println("Envelope is null");
-		}
+		
+		// Checks if the envelope contains all cards
 		for(Card c : envelope){
 			String card = c.getObject().toString();
 			if(!card.equals(suspect) && !card.equals(weapon) && !card.equals(room)){
@@ -344,6 +321,9 @@ public class CluedoGame {
 		return true;
 	}
 	
+	/**
+	 * Removes a player from the game
+	 */
 	public void removePlayer(){
 		players.remove(current);
 		if(current > 0){
