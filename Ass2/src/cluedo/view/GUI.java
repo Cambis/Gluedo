@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -239,7 +240,16 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				// players roll
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know
 				// of state change
+				
+				// Create card panels
 				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
+//				Map<String, Set<Card>> cards = new HashMap<String, Set<Card>>();
+				for (Player p : newPlayers)
+					frame.addPlayerToCardPanel(p.getName(), p.getHand());
+				
+//				frame.setUpCardPanels((int) Math.ceil(18 / newPlayers.size()), cards);
+				
+				// Create checklists
 				frame.createCheckLists(players.size(), this);
 				//frame.repaint();
 
@@ -368,11 +378,14 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		BufferedImage[] dice = game.getDiceRoll();
 		Set<Card> cards = p.getHand();
 
-		frame.setCardPanel(cards, dice);
+		// frame.setCardPanel(cards, dice);
+		frame.setCardPanel(p.getName(), dice);
+		frame.showCards();
 		// then pass information to interaction panel
 	}
 
-	public void nextTurn(){
+	public void nextTurn() {
+		frame.hideCards();
 		game.nextPlayer(); // moves to next players turn
 		frame.updateCanvas(GameState.START_TURN);
 		frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box

@@ -11,7 +11,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -57,6 +59,11 @@ public class CluedoMainFrame extends JFrame {
 	private AccusationBox accBox;
 
 	private List<PlayerCheckList> checklists;
+	
+	// Player names to their respective card panels
+	private Map<String, CardPanel> cardPanels = new HashMap<String, CardPanel>();
+	private String currentPanel;
+	
 	private int currentCheck = 0;
 	
 	public CluedoMainFrame(GUI g) {
@@ -92,7 +99,7 @@ public class CluedoMainFrame extends JFrame {
 		setResizable(false); // prevent us from being resizeable
 		setVisible(true); // make sure we are visible!
 		repaint();
-
+		
 		// Sets up player frame and links to gui
 		// start = new NewGameFrame(g);
 		// start.setVisible(false);
@@ -137,6 +144,21 @@ public class CluedoMainFrame extends JFrame {
 		// pack();
 	}
 
+	public void addPlayerToCardPanel(String name, Set<Card> cards) {
+		cp.addCards(name, cards);
+	}
+	
+	public void setCardPanel(String name, BufferedImage[] dice) {
+		cp.setPlayer(name, dice);
+	}
+	
+	public void showCards() {
+		cp.showCards();
+	}
+	
+	public void hideCards() {
+		cp.hideCards();
+	}
 	/**
 	 * This updates the panel to hold a given set of cards and dice rolls
 	 *
@@ -163,7 +185,7 @@ public class CluedoMainFrame extends JFrame {
 			c[count++] = card.getImage();
 		}
 
-		cp.setCards(d, c);
+		// cp.setCardsAndDice(d, c);
 	}
 
 	private JMenuBar createMenu(GUI g) {
@@ -221,34 +243,6 @@ public class CluedoMainFrame extends JFrame {
 	 * @return
 	 */
 	public static BufferedImage resizeImage(BufferedImage image, double scaleX, double scaleY) {
-		// Image img = image.getScaledInstance(scaleX, scaleY,
-		// Image.SCALE_SMOOTH);
-		// BufferedImage resized = new BufferedImage(scaleX, scaleY,
-		// Image.SCALE_SMOOTH);
-		//
-		// Graphics g = resized.createGraphics();
-		// g.drawImage(image, 0, 0, scaleX, scaleY, Color.BLACK, null);
-
-		// resized.getGraphics().drawImage(img, 0, 0, null);
-		// image.getGraphics().drawImage(image, 0, 0, scaleX, scaleY, 0, 0,
-		// image.getWidth(),
-		// image.getHeight(), null);
-		// return resized;
-
-		// BufferedImage resized = new BufferedImage(image.getWidth(),
-		// image.getHeight(), Image.SCALE_SMOOTH);
-		//
-		// AffineTransform at = new AffineTransform();
-		// at.scale(0.5, 0.5);
-		//
-		// AffineTransformOp scaleOp = new AffineTransformOp(at,
-		// AffineTransformOp.TYPE_BILINEAR);
-		//
-		// resized = scaleOp.filter(image, resized);
-
-		// Graphics2D g = resized.createGraphics();
-		// g.drawImage(image, at, null);
-		// g.dispose();
 
 		BufferedImage resized = new BufferedImage((int) (image.getWidth(null) * scaleX),
 				(int) (image.getHeight(null) * scaleY), BufferedImage.TYPE_INT_ARGB);
