@@ -37,7 +37,7 @@ public class Board {
 		A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y;
 	}
 
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = false;
 
 	private Square[][] board;
 
@@ -51,8 +51,7 @@ public class Board {
 		try {
 			Scanner s = new Scanner(new File(fileName));
 			x_size = s.nextInt();
-			y_size = s.nextInt();
-			System.out.println("X " + x_size + " Y " + y_size);
+			y_size = s.nextInt();			
 			board = new Square[x_size][y_size];
 			s.useDelimiter("");
 			setUpMap();
@@ -344,8 +343,7 @@ public class Board {
 		 * Djikstra's algorithm for path finding
 		 */
 
-		public Set<Square> djikstraAlgo(Square start, int roll) {
-			System.out.println("Djikstra");
+		public Set<Square> djikstraAlgo(Square start, int roll) {			
 			Set<Square> squares = new HashSet<Square>();
 			// Sets all squares to unvisited
 			for (int i = 0; i < board.length; i++) {
@@ -369,22 +367,18 @@ public class Board {
 
 			Queue<dStore> fringe = new PriorityQueue<dStore>(comparator);
 			DoorSquare door = null;
-			if(start instanceof InhabitableSquare){
-				System.out.println("Starting outside room");
-				System.out.println("Start is a " + start.getClass());
+			if(start instanceof InhabitableSquare){				
 				dStore first = new dStore(0, start);
 				fringe.offer(first);
 			}
 			else{ // starts from a door square
-				door = ((DoorSquare)start);
-				System.out.println("In a room");
+				door = ((DoorSquare)start);				
 
 				// Gets passageway square if a secret tunnel exists
 				RoomType room = door.getRoom();
 				if(passages.containsKey(room)){
 					PassageWaySquare tunnel = passages.get(room).getPassage();
-					squares.add(tunnel);
-					System.out.println("PassageWay found");
+					squares.add(tunnel);					
 				}
 
 				// Add square above to priority queue
@@ -441,19 +435,14 @@ public class Board {
 			// continue until all possible landing squares found
 
 			while (!fringe.isEmpty()) {
-				dStore current = fringe.poll(); // removes shortest path so far
-				System.out.println("");			
+				dStore current = fringe.poll(); // removes shortest path so far						
 				InhabitableSquare currentSquare = (InhabitableSquare) current
-						.getSquare();
-				System.out.println("At Square " + currentSquare.getX() + " " + currentSquare.getY());
+						.getSquare();				
 
-				if (!currentSquare.visited()) {
-					System.out.println("Not visited");
+				if (!currentSquare.visited()) {					
 					currentSquare.setVisited(true);
 
-					if (current.getMoves() == roll) { // add as final destination
-						// square
-						System.out.println("Adding " + currentSquare.getX() + " " + currentSquare.getY());
+					if (current.getMoves() == roll) { // add as final destination square						
 						squares.add((Square) currentSquare);
 					}
 
@@ -462,23 +451,19 @@ public class Board {
 
 						// add square above
 						if (currentSquare.getY() != 0) {
-							System.out.println("Is able to go left");
 							Square left = squareAt(currentSquare.getX(),
-									currentSquare.getY() - 1);
-							System.out.println("Left is a " + left.getClass().toString());
+									currentSquare.getY() - 1);							
 							if (left instanceof InhabitableSquare && !(left instanceof RoomSquare)) {
 								InhabitableSquare a = (InhabitableSquare) left;
 
 								// Only visit a square if it hasn't already has been
 								// visited occupied
 
-								if (!a.visited() && !a.isOccupied()) {
-									System.out.println("Added left");
+								if (!a.visited() && !a.isOccupied()) {									
 									fringe.offer(new dStore(current.getMoves() + 1,
 											left));
 								}
-							} else if (left instanceof DoorSquare && !(left instanceof PassageWaySquare) ){
-								System.out.println("Adding DoorSquare " + ((DoorSquare)left).toString());
+							} else if (left instanceof DoorSquare && !(left instanceof PassageWaySquare) ){								
 								squares.add(left);
 							}
 						}
@@ -492,36 +477,28 @@ public class Board {
 
 								// Only visit a square if it hasn't already has been
 								// visited occupied
-								if (!b.visited() && !b.isOccupied()) {
-									System.out.println("Added right");
-									fringe.offer(new dStore(current.getMoves() + 1,
-											right));
+								if (!b.visited() && !b.isOccupied()) {									
+									fringe.offer(new dStore(current.getMoves() + 1,	right));
 								}
-							} else if (right instanceof DoorSquare && !(right instanceof PassageWaySquare)) {
-								System.out.println("Adding DoorSquare " + ((DoorSquare)right).toString());
+							} else if (right instanceof DoorSquare && !(right instanceof PassageWaySquare)) {								
 								squares.add(right);
 							}
 						}
 
 						// add square left
-						if (currentSquare.getX() != 0) {
-							System.out.println("Is able to go above");
+						if (currentSquare.getX() != 0) {							
 							Square above = squareAt(currentSquare.getX() - 1,
-									currentSquare.getY());
-							System.out.println("Left is a " + above.getClass().toString()); 
-							if (above instanceof InhabitableSquare && !(above instanceof RoomSquare)) {
-								System.out.println("Above can be moved to");
+									currentSquare.getY());							
+							if (above instanceof InhabitableSquare && !(above instanceof RoomSquare)) {								
 								InhabitableSquare l = (InhabitableSquare) above;
 
 								// Only visit a square if it hasn't already has been
 								// visited occupied
-								if (!l.visited() && !l.isOccupied()) {
-									System.out.println("Added above");
+								if (!l.visited() && !l.isOccupied()) {									
 									fringe.offer(new dStore(current.getMoves() + 1,
 											above));
 								}
-							} else if (above instanceof DoorSquare && !(above instanceof PassageWaySquare)) {
-								System.out.println("Adding DoorSquare " + ((DoorSquare)above).toString());
+							} else if (above instanceof DoorSquare && !(above instanceof PassageWaySquare)) {							
 								squares.add(above);
 							}
 						}
@@ -535,13 +512,11 @@ public class Board {
 
 								// Only visit a square if it hasn't already has been
 								// visited occupied
-								if (!r.visited() && !r.isOccupied()) {
-									System.out.println("Added below");
+								if (!r.visited() && !r.isOccupied()) {									
 									fringe.offer(new dStore(current.getMoves() + 1,
 											below));
 								}
-							} else if (below instanceof DoorSquare && !(below instanceof PassageWaySquare)) {
-								System.out.println("Adding DoorSquare " + ((DoorSquare)below).toString());
+							} else if (below instanceof DoorSquare && !(below instanceof PassageWaySquare)) {								
 								squares.add(below);
 							}
 						}
@@ -573,12 +548,10 @@ public class Board {
 
 			Set<Square> tiles = new HashSet<Square>();
 			Square current = squareAt(player.getX(), player.getY());
-			if(! (current instanceof RoomSquare)){
-				System.out.println("Not in a room square " + player.getX() + " " + player.getY());
+			if(! (current instanceof RoomSquare)){				
 				tiles = djikstra(current, roll);
 			}
-			else{ // include possible destination tiles from all doors
-				System.out.println("In a room");
+			else{ // include possible destination tiles from all doors				
 				RoomType currentRoom = ((RoomSquare)current).getRoom();
 				Set<DoorSquare> doors = currentRoom.getDoors();
 				for(DoorSquare door: doors){
@@ -588,8 +561,7 @@ public class Board {
 				}
 				if(currentRoom.hasPassage()){				
 					PassageWaySquare pws = (passages.get(currentRoom).getPassage());
-					tiles.add(pws);
-					System.out.println("Added passage  " + pws.getX() + " " + pws.getY() + " " + pws.getRoom());
+					tiles.add(pws);					
 				}
 			}
 

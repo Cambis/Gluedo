@@ -139,6 +139,11 @@ public class Player {
 	public final Set<Card> getHand() {
 		return hand;
 	}
+	
+	/**
+	 * Gets the correct character image
+	 * @return character image
+	 */
 
 	public BufferedImage getImage() {
 
@@ -179,6 +184,11 @@ public class Player {
 		
 		return image;
 	}
+	
+	/**
+	 * Draws the player
+	 * @param g
+	 */
 
 	public void draw(Graphics g) {
 		switch (m_character) {
