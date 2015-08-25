@@ -39,27 +39,25 @@ import cluedo.model.board.Square;
  */
 public class CluedoBoardPanel extends JPanel {
 
-	private BufferedImage board, titleScreen;
-	private RoomPolygonGenerator roomOutlines;
-	private int width, height;
-	private GameState state;
-
 	private JLabel[] playerIcons;
+
+	private BufferedImage board, titleScreen; // images for the board and welcome screen
+	private RoomPolygonGenerator roomOutlines; // contains room outlines
+	private int width, height; 
+	private GameState state; // state the game is in
 
 	private Set<Square> landSquares;
 	private Set<Polygon> rooms;
 	private List<Player> players;
 
-	int x = 21;
-	int y = 21;
+
+	int x = 21; // square width
+	int y = 21; // square height
 
 	public int getSquareWidth() {
 		return x;
 	}
 
-	public CluedoBoardPanel() {
-		init();
-	}
 
 	public CluedoBoardPanel(LayoutManager layout) {
 		super(layout);
@@ -129,6 +127,13 @@ public class CluedoBoardPanel extends JPanel {
 		g.drawImage(board, 0, 0, 526, 526, 0, 0, board.getWidth(), board.getHeight(), null);
 	}
 
+	
+	/**
+	 * Updates the canvas so it knows which squares on the board to 
+	 * highlight
+	 * @param ls is the set of corridor squares a player can move to
+	 * @param rooms is the set of room names a player can move to
+	 */
 	public void setLandingSquares(Set<Square> ls, Set<String> rooms) {
 		// Clear previous entries from earlier turn
 		landSquares.clear();
@@ -185,6 +190,11 @@ public class CluedoBoardPanel extends JPanel {
 		}
 	}
 
+
+	/**
+	 * Chooses what to paint, depending on the game state
+	 * @param g
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		if (state.equals(GameState.WELCOME)) {
@@ -224,6 +234,10 @@ public class CluedoBoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Stores the players currently on the board
+	 * @param players2 are the players on the board
+	 */
 	public void setPlayerPositions(List<Player> players2) {
 		players = players2;
 		playerIcons = new JLabel[players2.size()];
@@ -235,6 +249,14 @@ public class CluedoBoardPanel extends JPanel {
 			// playerIcons[i].addMouseListener(new MouseHandler());
 		}
 	}
+
+/**
+	 * Checks to see if a given square is highlighted.
+	 * Essentially checks if a square is valid to move to
+	 * 
+	 * @param s is the square selected
+	 * @return a boolean indicating if the move is valid
+	 */
 
 	public boolean isHighlighted(Square s) {
 		if (landSquares.contains(s)) {

@@ -21,10 +21,17 @@ import cluedo.model.gameObjects.Dice;
 
 public class CardPanel extends JPanel {
 
+	// Stores all players hands
 	private Map<String, BufferedImage[]> cardMap;
+	
+	// Stores currently used images
 	private JLabel[] cardImages;
 	private JLabel[] diceImages;
+	
+	// Panel for displaying images
 	private JPanel cards;
+	
+	// Number of cards a player has
 	private int size;
 
 	public CardPanel(int size) {
@@ -35,27 +42,12 @@ public class CardPanel extends JPanel {
 		init();
 	}
 
-	public void addCards(String name, Set<Card> playerCards) {
+	/**
+	 * Initialises Card Panel
+	 */
 
-		BufferedImage[] imagesCard = new BufferedImage[playerCards.size()];
-
-		int count = 0;
-
-		for (Card c : playerCards)
-			imagesCard[count++] = c.getImage();
-
-		cardMap.put(name, imagesCard);
-		setUpCards(name);
-	}
-
-	private void init() {
-		// setLayout(new GridLayout(1, size + 3, 20, 20));
+	private void init() {		
 		setLayout(new GridLayout(1, 1));
-
-//		info.add(new JLabel("Your roll", JLabel.CENTER));
-//		info.add(new JLabel("Your Cards"), JLabel.CENTER);
-//		add(info);
-
 
 		cards = new JPanel(new GridLayout(1, size + 3, 20, 20));
 		cards.setBackground(Color.BLACK);
@@ -86,36 +78,72 @@ public class CardPanel extends JPanel {
 		this.setBackground(Color.black);
 		this.setVisible(false);
 	}
+	
+	/**
+	 * Used to associate a hand of cards with a given player
+	 * 
+	 * @param name is the name of a player
+	 * @param playerCards is the hand of cards belonging to them
+	 */
+	
+	public void addCards(String name, Set<Card> playerCards) {
+
+		BufferedImage[] imagesCard = new BufferedImage[playerCards.size()];
+
+		int count = 0;
+		for (Card c : playerCards)
+			imagesCard[count++] = c.getImage();
+		cardMap.put(name, imagesCard);
+		setUpCards(name);
+	}
+	
+	/**
+	 * Allocates the hand for a player
+	 * @param name is the name of the player's cards to display
+	 */
+	private void setUpCards(String name) {
+		// Set up cards
+		for (int i = 0; i < cardMap.get(name).length; i++)
+			cardMap.get(name)[i] = CluedoMainFrame.resizeImage(cardMap.get(name)[i], 0.1, 0.1);
+	}
+	
+	/**
+	 * Sets the card panel to reflect the current player
+	 * 
+	 * @param name is the name of the current player
+	 * @param dice is the images correlating to their roll
+	 */
 
 	public void setPlayer(String name, BufferedImage[] dice) {
 		setDice(dice);
 		setCards(name);
 	}
+	
+	/**
+	 * Displays dice for a player
+	 * @param dice is the images of a roll
+	 */
 
 	private void setDice(BufferedImage[] dice) {
 		// Set up dice
 		for (int i = 0; i < dice.length; i++)
 			diceImages[i].setIcon(new ImageIcon(CluedoMainFrame.resizeImage(dice[i], 0.2, 0.2)));
 
-	}
+	}	
 
-	private void setUpCards(String name) {
-
-		// Set up cards
-		for (int i = 0; i < cardMap.get(name).length; i++)
-			cardMap.get(name)[i] = CluedoMainFrame.resizeImage(cardMap.get(name)[i], 0.1, 0.1);
-
-		// cardImages[i].setIcon(new
-		// ImageIcon(CluedoMainFrame.resizeImage(cards[i], 0.1, 0.1)));
-	}
-
+	/**
+	 * Displays the cards of a player
+	 * @param name is the name of the player 
+	 */
 	private void setCards(String name) {
 		for (int i = 0; i < cardMap.get(name).length; i++)
 			cardImages[i].setIcon(new ImageIcon(cardMap.get(name)[i]));
 	}
+	
 	/**
 	 * Hide cards from view
 	 */
+	
 	public void hideCards() {
 		for (JLabel card : cardImages)
 			card.setVisible(false);
@@ -124,8 +152,8 @@ public class CardPanel extends JPanel {
 	/**
 	 * Show cards
 	 */
-	public void toggleCards() {
-		
+	
+	public void toggleCards() {		
 		for (JLabel card : cardImages)
 			card.setVisible(!card.isVisible());
 		
@@ -138,11 +166,7 @@ public class CardPanel extends JPanel {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		BufferedImage[] testCards = new BufferedImage[2];
-
-		// for (int i = 0; i < 6; i++)
-		// testCards[i] = new CharacterCard(new
-		// CluedoCharacter(Suspect.values()[i])).getImage();
+		BufferedImage[] testCards = new BufferedImage[2];		
 
 		Card mrsScar = new CharacterCard(new CluedoCharacter(Suspect.MISS_SCARLET));
 		Card colMust = new CharacterCard(new CluedoCharacter(Suspect.COLONEL_MUSTARD));
@@ -153,16 +177,13 @@ public class CardPanel extends JPanel {
 		Dice die1, die2;
 		die1 = die2 = new Dice();
 		die1.roll();
-		die2.roll();
+		die2.roll();		
 
-		BufferedImage[] dice = new BufferedImage[] { die1.getRollImage(), die2.getRollImage() };
-
-		CardPanel panel = new CardPanel(2);
-		// panel.setCardsAndDice(dice, testCards);
+		CardPanel panel = new CardPanel(2);	
 
 		frame.add(panel);
 		frame.pack();
 		frame.repaint();
-		// panel.setCards(dice, testCards.toArray());
+		
 	}
 }
