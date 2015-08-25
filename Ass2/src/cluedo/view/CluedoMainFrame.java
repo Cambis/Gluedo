@@ -159,7 +159,7 @@ public class CluedoMainFrame extends JFrame implements KeyListener{
 	}
 	
 	public void showCards() {
-		cp.showCards();
+		cp.toggleCards();
 	}
 	
 	public void hideCards() {
