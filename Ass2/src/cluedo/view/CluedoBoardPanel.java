@@ -58,6 +58,9 @@ public class CluedoBoardPanel extends JPanel {
 		return x;
 	}
 
+	public CluedoBoardPanel() {
+		init();
+	}
 
 	public CluedoBoardPanel(LayoutManager layout) {
 		super(layout);
@@ -214,13 +217,6 @@ public class CluedoBoardPanel extends JPanel {
 			// testRoomOutlines(g);
 			// paintGrid(g);
 		}
-	}
-
-	public static void main(String args[]) {
-		JFrame j = new JFrame();
-		j.setSize(550, 550);
-		j.add(new CluedoBoardPanel());
-		j.setVisible(true);
 	}
 
 	public void drawPlayers(List<Player> players, Graphics g) {
