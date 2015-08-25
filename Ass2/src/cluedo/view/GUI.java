@@ -382,6 +382,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 	public void newGame(){
 		game = new CluedoGame();
+		frame.setVisible(false);
 		frame = new CluedoMainFrame(this);
 		frame.repaint();
 	}
