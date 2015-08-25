@@ -24,9 +24,13 @@ import javax.swing.JRadioButton;
  */
 public class SuggestionBox extends JDialog {
 
-	private JRadioButton[] suspectButtons, weaponButtons;
+	private JRadioButton[] suspectButtons;
 
-	private ButtonGroup suspectGroup, weaponGroup;
+	protected JRadioButton[] weaponButtons;
+
+	private ButtonGroup suspectGroup;
+
+	protected ButtonGroup weaponGroup;
 
 	// Displays rooms, suspects.
 	protected final JPanel panel;
@@ -45,7 +49,7 @@ public class SuggestionBox extends JDialog {
 			"Mrs. Peacock", "The Reverend Green", "Colonel Mustard",
 			"Mrs. White" };
 
-	private String weapons[] = { "Dagger", "Lead Pipe", "Revolver", "Rope",
+	protected String weapons[] = { "Dagger", "Lead Pipe", "Revolver", "Rope",
 			"Spanner", "Candlestick" };
 
 	public SuggestionBox() throws HeadlessException {
@@ -123,7 +127,12 @@ public class SuggestionBox extends JDialog {
 		panel.add(prompt);
 
 		// Setup buttons
-		for (int i = 0; i < 6; i++) {			
+		for (int i = 0; i < 6; i++) {
+			if(weaponButtons[i] == null){
+				weaponButtons[i] = new JRadioButton(weapons[i], false);
+				//weaponButtons[i].addActionListener(weaponListener);
+			}
+			
 			weaponGroup.add(weaponButtons[i]);
 			panel.add(weaponButtons[i]);
 		}
@@ -141,6 +150,7 @@ public class SuggestionBox extends JDialog {
 	public void setListener(GUI g){
 		for(int i = 0; i < 6 ; i++){
 		weaponButtons[i] = new JRadioButton(weapons[i], false);
+		weaponButtons[i].addActionListener(weaponListener);
 		weaponButtons[i].addActionListener(g);
 		}
 	}
@@ -158,7 +168,8 @@ public class SuggestionBox extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			suspectResponse = ((JRadioButton) e.getSource()).getName();
+			suspectResponse = ((JRadioButton) e.getSource()).getText();
+			System.out.println(suspectResponse);
 			changeToWeapons();
 			repaint();
 		}
@@ -169,7 +180,7 @@ public class SuggestionBox extends JDialog {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			weaponResponse = ((JRadioButton) e.getSource()).getName();
+			
 			//changeToSuspects();
 			//repaint();
 		}
@@ -185,6 +196,10 @@ public class SuggestionBox extends JDialog {
 		}
 
 	};
+	
+	public void setWeapon(ActionEvent e){
+		weaponResponse = ((JRadioButton) e.getSource()).getText();
+	}
 
 	public static void main(String args[]) {
 		SuggestionBox frame = new SuggestionBox();

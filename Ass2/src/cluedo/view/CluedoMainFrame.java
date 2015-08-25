@@ -277,8 +277,9 @@ public class CluedoMainFrame extends JFrame {
 		return suggBox.getAnswers();
 	}
 
-	public void turnSuggOff() {
+	public void turnSuggOff(ActionEvent e) {
 		//reset for next time
+		suggBox.setWeapon(e);
 		suggBox.changeToSuspects();
 		suggBox.setVisible(false);
 

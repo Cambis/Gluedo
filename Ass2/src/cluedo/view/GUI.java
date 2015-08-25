@@ -269,7 +269,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		else if(game.getState() == GameState.SUGGESTION){
 			System.out.println("Heard suggestion");
-			frame.turnSuggOff();
+			frame.turnSuggOff(e);
 			frame.repaint();
 			String[] answers = frame.getSuggestion();
 			String room = ((RoomSquare)game.getBoard().squareAt
@@ -397,9 +397,11 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
            JOptionPane.showMessageDialog(null, "GOODBYE");
            System.exit(0);
         	}
-        	// Otherwise do nothing
+        	else{
+        		frame.repaint();// Otherwise do nothing
+        	}
         }
-        frame.repaint();
+        
 	}
 
 }
