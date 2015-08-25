@@ -44,7 +44,7 @@ public class PlayerInfoPanel extends JPanel {
 	private BufferedImage playerImage;
 	private String playerName;
 
-	public PlayerInfoPanel() {
+	public PlayerInfoPanel(GUI g) {
 
 		playerIcon = new JLabel();
 		playerIcon.setHorizontalAlignment(JLabel.CENTER);
@@ -56,10 +56,10 @@ public class PlayerInfoPanel extends JPanel {
 //		this.setSize(new Dimension(20,526));
 		this.setMaximumSize(new Dimension(100, 526));
 
-		init();
+		init(g);
 	}
 
-	private void init() {
+	private void init(GUI g) {
 
 		setLayout(new GridLayout(6, 1));
 
@@ -71,6 +71,7 @@ public class PlayerInfoPanel extends JPanel {
 		for (int i = 0; i < commandButtons.length; i++) {
 			commandButtons[i] = new JButton(commands[i]);
 			buttonGroup.add(commandButtons[i]);
+			commandButtons[i].addActionListener(g);
 			add(commandButtons[i]);
 		}
 
@@ -112,11 +113,11 @@ public class PlayerInfoPanel extends JPanel {
 
 		// BufferedImage img = (BufferedImage) image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 
-		PlayerInfoPanel panel = new PlayerInfoPanel();
-		panel.setPlayer(image, "David");
-		frame.add(panel);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.pack();
-		frame.setVisible(true);
+//		PlayerInfoPanel panel = new PlayerInfoPanel();
+//		panel.setPlayer(image, "David");
+//		frame.add(panel);
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		frame.pack();
+//		frame.setVisible(true);
 	}
 }

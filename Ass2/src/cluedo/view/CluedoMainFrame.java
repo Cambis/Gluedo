@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +50,11 @@ public class CluedoMainFrame extends JFrame {
 	private GameState state;
 
 	private AccusationBox accBox;
+	
+	private List<PlayerCheckList> checklists;
+	private int currentCheck = 0;
+
+	private boolean checkListOn;
 
 	public CluedoMainFrame(GUI g) {
 
@@ -73,7 +79,7 @@ public class CluedoMainFrame extends JFrame {
 		// startButton.setVisible(true);
 
 		// Add info panel
-		playerInfoPanel = new PlayerInfoPanel();
+		playerInfoPanel = new PlayerInfoPanel(g);
 		playerInfoPanel.setVisible(false);
 		add(playerInfoPanel, BorderLayout.EAST);
 
@@ -281,7 +287,38 @@ public class CluedoMainFrame extends JFrame {
 	}
 
 	public void setNextPlayer(BufferedImage playerImage, String playerName) {
+		turnOffChecklist();
 		playerInfoPanel.setPlayer(playerImage, playerName);
+		if(currentCheck == checklists.size() -1){
+			currentCheck = 0;
+		}
+		else{
+			currentCheck++;
+		}
+	}
+	
+	public void createCheckLists(int n, GUI gui){
+		checklists = new ArrayList<PlayerCheckList>();
+		for(int i = 0; i < n; i++){
+			checklists.add(new PlayerCheckList());
+		}
+	}
+	
+	public void turnOnChecklist(){
+		checklists.get(currentCheck).setVisible(true);
+		checkListOn = true;
+		repaint();
+	}
+	
+	public void turnOffChecklist(){
+		checklists.get(currentCheck).setVisible(false);
+		checkListOn = false;
+		repaint();
 	}
 
+	public boolean getChecklistStatus() {
+		return checkListOn;
+	}
+	
+	
 }

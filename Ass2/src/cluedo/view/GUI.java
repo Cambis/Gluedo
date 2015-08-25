@@ -149,6 +149,16 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 		// In the welcome state:
 		// The start new game button has been pressed
+		
+		if(e.getActionCommand().equals("Show Checklist")){			
+			boolean on = frame.getChecklistStatus();
+			if(on){
+				frame.turnOffChecklist();
+			}
+			else{
+				frame.turnOnChecklist();
+			}
+		}
 
 		if (game.getState() == GameState.WELCOME) {
 			game.setState(GameState.SETUP_INDIVIDUAL); // changes state to
@@ -218,6 +228,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 				frame.updateCanvas(GameState.START_TURN); // lets the frame know
 				// of state change
 				frame.createCardPanel((int) Math.ceil(18 / newPlayers.size()));
+				frame.createCheckLists(players.size(), this);
 				//frame.repaint();
 
 				System.out.println("Turnbox being created");
@@ -341,6 +352,7 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 		frame.getTurnBox().changePlayer(game.getCurrentPlayer().getName()); // updates turn box
 		game.setState(GameState.START_TURN);
 		frame.getTurnBox().setVisible(true);
+		frame.turnOffChecklist();
 
 		//frame.repaint();
 
