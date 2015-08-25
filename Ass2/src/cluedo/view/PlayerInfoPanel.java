@@ -38,8 +38,7 @@ public class PlayerInfoPanel extends JPanel {
 	private JButton[] commandButtons;
 	private ButtonGroup buttonGroup;
 
-	private final String commands[] = new String[] { "Move", "Make A Suggestion",
-			"Make An Accusation", "Show Cards", "Show Checklist" };
+	private final String commands[] = new String[] { "Show Cards", "Show Checklist" };
 
 	// Current player info
 	private BufferedImage playerImage;
@@ -54,15 +53,17 @@ public class PlayerInfoPanel extends JPanel {
 		commandButtons = new JButton[commands.length];
 		buttonGroup = new ButtonGroup();
 
-		this.setSize(new Dimension(100,526));
+//		this.setSize(new Dimension(20,526));
+		this.setMaximumSize(new Dimension(100, 526));
 
 		init();
 	}
 
 	private void init() {
 
-		setLayout(new GridLayout(10, 1));
+		setLayout(new GridLayout(6, 1));
 
+		add(new JLabel());
 		add(playerIcon);
 		add(playerLabel);
 
@@ -75,7 +76,7 @@ public class PlayerInfoPanel extends JPanel {
 
 		// TODO setup button listeners
 
-
+		add(new JLabel("<html>Cameron Bryers and<br>Hannah Craighead MMXV</html>", JLabel.CENTER));
 		setVisible(true);
 	}
 
@@ -102,7 +103,7 @@ public class PlayerInfoPanel extends JPanel {
 	/**
 	 * Testing
 	 * @param args
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void main(String args[]) throws IOException {
 		JFrame frame = new JFrame();
