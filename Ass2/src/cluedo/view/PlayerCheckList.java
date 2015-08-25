@@ -7,6 +7,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.Window;
 
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -46,11 +47,14 @@ public class PlayerCheckList extends JDialog {
 		setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		setResizable(false);
 		init();
-		pack();
-	}
+		pack();		
+	}	
 
 	private void init() {
 
+		ImageIcon question = new ImageIcon("question.jpg");
+		ImageIcon disabledIcon = new ImageIcon("Cross.png");
+		
 		checkBoxes = new JCheckBox[suspects.length + weapons.length
 				+ rooms.length];
 		JPanel checkPanel = new JPanel(new GridLayout(26, 2));
@@ -62,6 +66,8 @@ public class PlayerCheckList extends JDialog {
 		checkPanel.add(new JLabel("Possible Suspects", JLabel.CENTER));
 		for (int i = 0; i < suspects.length; i++) {
 			checkBoxes[i] = new JCheckBox(suspects[i], false);
+			checkBoxes[i].setIcon(question);
+			checkBoxes[i].setSelectedIcon(disabledIcon);			
 			checkPanel.add(checkBoxes[i]);
 		}
 
@@ -69,6 +75,8 @@ public class PlayerCheckList extends JDialog {
 		checkPanel.add(new JLabel("Possible Murder Weapons", JLabel.CENTER));
 		for (int i = 0; i < weapons.length; i++) {
 			checkBoxes[suspects.length + i] = new JCheckBox(weapons[i], false);
+			checkBoxes[suspects.length + i].setIcon(question);
+			checkBoxes[suspects.length + i].setSelectedIcon(disabledIcon);	
 			checkPanel.add(checkBoxes[suspects.length + i]);
 		}
 
@@ -78,6 +86,8 @@ public class PlayerCheckList extends JDialog {
 			checkBoxes[suspects.length + weapons.length + i] = new JCheckBox(
 					rooms[i], false);
 			checkPanel.add(checkBoxes[suspects.length + weapons.length + i]);
+			checkBoxes[suspects.length + weapons.length + i].setIcon(question);
+			checkBoxes[suspects.length + weapons.length + i].setSelectedIcon(disabledIcon);	
 		}
 
 		// checkPanel.add(new JLabel("Notes", JLabel.CENTER));
