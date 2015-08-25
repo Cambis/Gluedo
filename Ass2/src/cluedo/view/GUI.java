@@ -215,9 +215,9 @@ public class GUI implements KeyListener, MouseListener, ActionListener {
 
 				@Override
 				public int compare(Player o1, Player o2) {
-					if (o1.getCharacter().ordinal() < o2.getCharacter().ordinal())
+					if (o1.getCharacter().getValue() < o2.getCharacter().getValue())
 						return 1;
-					else if (o1.getCharacter().ordinal() > o2.getCharacter().ordinal())
+					else if (o1.getCharacter().getValue() > o2.getCharacter().getValue())
 						return -1;
 					return 0;
 				}

@@ -208,6 +208,7 @@ public class CluedoBoardPanel extends JPanel {
 	public void drawPlayers(List<Player> players, Graphics g) {
 		for(Player p : players){
 			p.draw(g);
+			g.drawImage(p.getImage(), p.getY() * 21, p.getX() * 20, null);
 		}
 	}
 

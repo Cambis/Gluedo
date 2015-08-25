@@ -15,6 +15,7 @@ import cluedo.control.CluedoGame;
 import cluedo.model.cards.Card;
 import cluedo.model.gameObjects.CluedoCharacter;
 import cluedo.model.gameObjects.CluedoCharacter.Suspect;
+import cluedo.view.CluedoMainFrame;
 
 /**
  * Class that represents the player
@@ -174,6 +175,8 @@ public class Player {
 
 		}
 
+		image = CluedoMainFrame.resizeImage(image, 0.025, 0.025);
+		
 		return image;
 	}
 
